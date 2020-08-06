@@ -1,0 +1,110 @@
+<template>
+  <div class='contain'>
+  <div class='content'>
+    <div class='title'>
+        
+        <div>
+            <img  class="icon1" :src="img" />
+            <span class='font15'>小懵科技</span>
+        </div>
+        <div >
+            <img  class="icon2" :src="img" />
+            <span class='font12'>16525698746</span>
+        </div>
+    </div>
+     <div class='post'>
+      
+         <img class="QRcode" src="../assets/logo1.jpg" />
+      
+    </div>
+    <div class='footer'>
+     长按识别二维码联系我们 
+    </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'post',
+  data(){
+      return{
+            name:'name',
+             img:'../assets/logo1.jpg',
+      }
+  },
+  methods:{
+      goHome(){
+          
+      }
+  }
+}
+</script>
+
+<style scoped>
+.icon1{
+    width:33px;
+height:29px;
+vertical-align:middle;
+}
+.icon2{
+    width:16px;
+height:16px;
+background:rgba(91,178,242,1);
+vertical-align:middle;
+}
+.footer{
+    font-size:14px;
+    text-align:center;
+   color:rgba(160,162,166,1);
+    margin:0 40px;
+}
+
+.QRcode{
+    width:123px;
+    height:124px;
+    
+
+}
+.content{
+     height:316px;
+    width:344px;
+     margin:0 auto;
+}
+.contain{
+    height:100%;
+    width:100%;
+   
+  
+}
+.font15{
+    font-size:15px;
+
+}
+.font12{
+    font-size:12px;
+    color:rgba(91,178,242,1);
+
+}
+.title{
+    margin:10px 30px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+    height:50px;
+}
+
+.voice{
+    vertical-align: middle;
+  width:50px;
+    height:40px;
+}
+
+.post{
+    margin:0 auto;
+    width:223px;
+    height:224px;
+}
+
+</style>

@@ -16,7 +16,7 @@
             <img   src="../assets/logo1.jpg" alt=""/>
             <span style='color:white'>{{name}}</span>
         </div>
-         <img class="QRcode" src="../assets/logo1.jpg" alt=""/>
+         <img class="QRcode" src="../assets/img/bg1.png" alt=""/>
         <div class="home">
         <img   src="../assets/logo1.jpg" alt="">
         <div @click='goHome' style='background-color:white;'>进入活动主页</div>
