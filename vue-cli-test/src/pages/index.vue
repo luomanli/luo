@@ -245,6 +245,7 @@ export default {
   position:absolute;
 
   -webkit-transform: translate(-10%);
+  background: url('../assets/img/more.svg') no-repeat;
 }
 .custSer{
   
