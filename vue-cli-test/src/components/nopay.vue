@@ -1,21 +1,18 @@
 <template>
     <div
-    class='dialog__wrapper '
-  
-    v-if='flag'
-    
-      >
-      <div class="contain">
-      <img class="icon" src="../assets/logo1.jpg" />
-      <div class="font17">您未完成支付</div>
-        <div class="font12">已有21人与你一起参加了活动</div>
-      
-      </div>
-      <span class="footer" >
-    <el-button plain class="btn" type="danger" @click="dialogVisible = false">忍痛放弃</el-button>
-    <el-button plain class="btn"  type="danger" @click="dialogVisible = false">继续支付</el-button>
-  </span>
-    </div>
+        class="dialog__wrapper flex_center" v-if="flag"   
+        >
+        <div class="contain">
+                <img class="icon" src="../assets/logo1.jpg" />
+                <div class="font17">您未完成支付</div>
+                    <div class="font12">已有21人与你一起参加了活动</div>
+               
+                <span class="footer flex" >
+                    <div plain class="btn"  @click="flag = false">忍痛放弃</div>
+                    <div plain class="btn" @click="flag = false">继续支付</div>
+                </span>
+         </div>
+        </div>
 </template>
 
 <script>
@@ -44,21 +41,28 @@ export default {
 
 <style scoped>
 
-.dialog__wrapper {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+.dialog__wrapper{
+    position:fixed;
+    top:0px;
+    right:0px;
+    left:0px;
+    bottom:0px;
+    right:0px;
+    z-index:2001;
+    background-color:rgba(0,0,0,.3);
+  
     overflow: auto;
     margin: 0;
+
+    
 }
 .footer{
     border:1px solid rgba(253,82,79,1);
-   
+   position:absolute;
     display:flex;
     flex-direction:row;
     height:37px;
+    bottom:0px;
 
 }
 .el-button--danger{
@@ -66,9 +70,10 @@ export default {
         background: white;
 }
 .btn{
+    line-height:37px;
     flex:1;
     border:none;
-    
+    font-size:12px;
    padding:0px;
     display:inline-block;
 }
@@ -91,7 +96,7 @@ vertical-align:middle;
     font-size:14px;
     text-align:center;
    color:rgba(160,162,166,1);
-    margin:0 40px;
+    width:100%;
 }
 
 .QRcode{
@@ -107,13 +112,18 @@ vertical-align:middle;
 }
 .contain{
   text-align:center;
- 
+  width:236px;
+height:146px;
+background:rgba(255,255,255,1);
+box-shadow:3px 4px 9px 0px rgba(7,7,7,0.5);
+ position:relative;
    
   
 }
 .font17{
     font-size:17px;
-
+    margin-top:44px;
+  margin-bottom:9px;
 }
 .font12{
     font-size:12px;

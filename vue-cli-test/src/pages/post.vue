@@ -43,8 +43,25 @@ export default {
   },
   methods:{
       goHome(){
-          
+          window.open('http://baidu.com')
+      },
+      getUserInfo(){
+          let url='http://m.dian7.net/mobile-split/index.html#/post'
+          let obj={
+              "appId":"wx2421b1c4370ec43b", 
+              "redirect_uri":encodeURI(url),
+              "response_type":"code",
+              "scope":"SCOPE",
+              "state":"#wechat_redirec",
+
+    
+
+          }
+          https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2421b1c4370ec43b&redirect_uri=https://m.dian7.net/index.html&response_type=code&scope=ssnsapi_userinfo&state=STATE#wechat_redirec
+          window.open('url', '_blank')
       }
+
+
   }
 }
 </script>

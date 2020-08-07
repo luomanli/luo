@@ -1,5 +1,5 @@
 <template>
-  <div class='contain'>
+  <div class="dialog__wrapper flex_center" v-if="false">
   <div class='content'>
     <div class='title'>
         
@@ -42,6 +42,21 @@ export default {
 </script>
 
 <style scoped>
+.dialog__wrapper{
+    position:fixed;
+    top:0px;
+    right:0px;
+    left:0px;
+    bottom:0px;
+    right:0px;
+    z-index:2001;
+    background-color:rgba(0,0,0,.3);
+  
+    overflow: auto;
+    margin: 0;
+
+    
+}
 .icon1{
     width:33px;
 height:29px;
@@ -69,6 +84,7 @@ vertical-align:middle;
 .content{
      height:316px;
     width:344px;
+    background-color:white;
      margin:0 auto;
 }
 .contain{
@@ -105,6 +121,7 @@ vertical-align:middle;
     margin:0 auto;
     width:223px;
     height:224px;
+    text-align:center;
 }
 
 </style>

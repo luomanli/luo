@@ -30,7 +30,7 @@
         <div class='more'>
            
                <span class='color' >显示更多</span>
-                <img class='goIcon color' src='../assets/logo1.jpg'/>
+                <img class='goIcon color' src='../assets/img/down.svg'/>
 
         </div>
   </div>

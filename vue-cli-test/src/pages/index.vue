@@ -1,7 +1,7 @@
   <template>
   <div class="body">
-  <div>
-    <img src='../assets/logo1.jpg'/>
+    <div class="img">
+    <img class="img" src='../assets/logo1.jpg'/>
     </div>
     <div class="price">
         <div class="old_price">原价:1788{{activityMsg.originalPrice}}</div>
@@ -15,9 +15,11 @@
             </div>
         </div>
 
-        <div class="right flex_column">
-          <div style='font-size:10px;line-height:14px;'>距离活动结束</div>
-          <div class='time'>time</div>
+        <div class="right">
+          <div class="flex_column">
+              <div style='font-size:10px;line-height:14px;height:14px'>距离活动结束</div>
+              <div class='time'>time</div>
+          </div>
         </div>
     </div>
     <div class="content">
@@ -38,26 +40,30 @@
     </div>
 
     <div class="peoNum"> 
-     <img class="peo" src="../assets/logo1.jpg" alt="">
-     <img class="peo" src="../assets/logo1.jpg" alt="">
-     <img class="peo" src="../assets/logo1.jpg" alt="">
+     <div class="peoNum_left flex_around">
+     <div class="peoNum_item" v-for='i in n'>
+        <img class="icon_crown" src="../assets/logo1.jpg" alt="">
+        <img class="peo" src="../assets/logo1.jpg" alt="">
+     </div>
+      
+    
+     </div>
+      <div class="peoNum_right flex_around">
      <div class="more">
-        <div class='one'>1</div>
-            <div class='one buyer'>1</div>
-            <div class='one buyer1'>1</div>    
-            <div class='one buyer2'>1
-            <span class='status-point'></span>
-            <span class='status-point'></span>
-            <span class='status-point'></span>
+        <div class='one'></div>
+            <div class='one buyer'></div>
+            <div class='one buyer1'></div>    
+            <div class='one buyer2 '>
+           
             </div>
 
       </div>
       <div class="back">
        {{activityMsg.virtualQuantity}}12人已购买
+        <img style='width:6px;height:10.8px' src="../assets/img/forward-black.svg" alt="">
       </div>
-      <div class="">
-        <img style='width:6px;height:10.8px' src="../assets/logo1.jpg" alt="">
-      </div>
+       </div >
+      
     </div>
     <div class="shop">       
         <div class="name">
@@ -69,7 +75,7 @@
         </div>
         <div class="concate">
           联系商家
-        <img style='width:6px;height:10.8px' src="../assets/logo1.jpg" alt="">
+        <img style='width:6px;height:10.8px' src="../assets/img/forward-orange.svg" alt="">
 
         </div>
     </div>
@@ -117,25 +123,21 @@
           </div>
           
         </div>
-        <div class="goFound">
+        <div class="goFound" @click="goFound">
                   马上创建
         </div>
     </div>  
     </div>
      <div class='moneyReward'>
-            <img  class="money_img" src="../assets/logo1.jpg" alt="">
-              <div>￥1.5</div>
+            <img  class="money_img" src="../assets/img/money.png" alt="">
+              <div style='text-align:center'>￥1.5</div>
       </div>
 
-    <el-dialog
   
-    :visible.sync='flag'
-    width="60%"
-      >
       <company  ></company>
-    </el-dialog>
 
-   <nopay :flag="false"></nopay>
+
+   <nopay :flag="true"></nopay>
   <div class='bottom'>
     <div>原价
     <span style='text-decoration:line-through;'>:1788</span>
@@ -158,6 +160,7 @@ export default {
   data () {
     return {
       flag:false,
+      n:[1,2,3],
       msg: 'Welcome to Your Vue.js App',
       v1:'',
       v2:'wewr',
@@ -177,9 +180,14 @@ export default {
   methods:{
     getdata(){
       console.log('123333'+this.axios)
-      this.$axios.get('/activity/selectById?id=58').then(
+      this.$get('/activity/mobile/58').then(
       
-        response => (console.log('123:'+response))
+        response => 
+        {
+          console.log('123:',response)
+          this.activityMsg=response.data.activityMsg
+          
+        }
 
       )
     },
@@ -194,17 +202,9 @@ export default {
       this.$store.commit('edit')
       console.log('1234',this.$store.getters.todo,this.v1)
     },
-     toggleSelection(rows) {
-        if (rows) {
-          rows.forEach(row => {
-            this.$refs.multipleTable.toggleRowSelection(row);
-          });
-        } else {
-          this.$refs.multipleTable.clearSelection();
-        }
-      },
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
+
+      goFound(){
+          this.$router.push({name:'activity'})
       }
 
   },
@@ -216,6 +216,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.peoNum_item{
+  position:relative;
+}
+.icon_crown{
+  position:absolute;
+  top:-5px;
+  width:15px;
+  height:15px;
+}
+.peoNum_right{
+  flex:1.2;
+}
+.peoNum_left{
+  
+  flex:1;
+}
 .more{
   display:inline-block;
   position:relative;
@@ -225,10 +241,11 @@ export default {
 .one{
   border-radius:50%;
    display:inline-block;
-   background-color:black;
+    background:black  url('../assets/logo1.jpg')  ;
    width:27px;
    height:27px;
-   border:3px white solid;
+   border:3px grey solid;
+   background-size:27px 27px;
    
 }
 .buyer{
@@ -245,7 +262,17 @@ export default {
   position:absolute;
 
   -webkit-transform: translate(-10%);
-  background: url('../assets/img/more.svg') no-repeat;
+  background:white  url('../assets/img/more.svg')  ;
+  background-size:27px 27px;
+ 
+}
+.buyer2_more{
+  width:27px;
+  height:27px;
+   position:absolute;
+
+  /*  background:  url('../assets/img/more.svg')  ;*/
+ 
 }
 .custSer{
   
@@ -256,6 +283,7 @@ export default {
 .money_img{
   width:100px;
   height:100px;
+
 }
 .moneyReward{
   position:fixed;
@@ -263,8 +291,8 @@ export default {
   right:0px;
 }
 .bottom{
-  border:3px green solid;
-  background-color:white;
+  
+  background-color:#e4dcdc;
   width: 100%;
   position:fixed;
 
@@ -451,6 +479,11 @@ color:rgba(228,52,53,1);
   align-items:center;
   
 }
+.flex_around{
+ display:flex;
+ align-items:center;
+  justify-content:space-around;
+}
 .sub_title{
  display:flex;
  flex-direction:row;
@@ -473,6 +506,8 @@ height:109px;
   font-size:29px;
   color:rgba(255,255,255,1);
   text-shadow:1px 1px 1px rgba(65,0,153,1);
+  height:30px;
+  line-height:30px;
 }
 .curentP{
 top:11px;
@@ -486,6 +521,7 @@ margin-left:15px;
 
 }
 .flex_column{
+  padding-top:3px;
    display: flex;
   flex-direction: column;
  justify-content: space-around;
@@ -527,8 +563,8 @@ color:#E40000;
 
 }
 
-img{
-  width: 375px;
+.img{
+  width: 100%;
   height: 375px;
 }
 .font10{
