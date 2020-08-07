@@ -12,7 +12,13 @@
              <img class="icon" src="../../../assets/logo1.jpg" />
             <div >客服 </div>   
         </div> 
-        <div class="right flex-around font15">        
+        <div class="right flex-around font15" v-if="!flag">        
+                    
+                <div  class="btn_more">
+                  点我赚更多奖金
+                </div>   
+        </div>  
+        <div class="right flex-around font15" v-if="flag">        
                 <div  class="btn_color ">
                     收益排行榜
                 </div>      
@@ -36,7 +42,7 @@ export default {
   propos:{
       flag:{
           type:Boolean,
-          default:false
+          default:true
 
       }
   },
@@ -49,6 +55,7 @@ export default {
 </script>
 
 <style scoped>
+
 .contain{
     width:100%
 }
@@ -86,5 +93,7 @@ flex:2
   
     border-image:linear-gradient(270deg, rgba(253,145,82,1), rgba(247,67,61,1)) 1 1;
 }
-
+.more{
+   width:235px;
+}
 </style>
