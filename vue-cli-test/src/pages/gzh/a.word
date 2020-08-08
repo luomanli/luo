@@ -1,0 +1,163 @@
+<template>
+  <div class="page">
+    <div class="head">
+      <div class="search">
+          <img src="" alt="">
+          <input type="text" placeholder="搜索活动">
+      </div>
+      <div class="head_content flex">
+          <div  class="half">线下核销</div>
+          <div class="half">全部状态</div>
+      </div>
+    </div>
+      <div class="cards" v-for="i in data">
+        <div class="intro flex-around">
+          <img   src="" alt="" class="card"/>
+          <div class="">
+              <span class="font15">活动主题XXCXXXXX</span>
+              <span class="font10">已结束</span>
+              <div class="font10_grey">这是一个活动简介这是一个活动简介这是…</div>
+              <span class="price font13">价格:¥10.00</span>
+              <span class="font10">线下核销</span>
+                <span class="font10">分销</span>
+          </div>
+        </div>
+          <div class="data flex-around">
+              <div v-for='i in num'>
+                  <span>10</span>
+                  <div class="font12">浏览量</div>
+              </div>
+          </div>
+          <div class="footer">
+              <div class="btn font10_grey" >查看订单</div>
+              <div class="btn font10_grey">查看</div>
+          </div>
+      </div>
+      <div class="out_footer flex">
+          <div class="out1 half">
+              <img src="" alt="" class="icon">
+              <span>分销活动</span>
+
+          </div>
+          <div class="out2 half">
+              <img src="" alt="" class="icon">
+              <span>商家中心</span>
+
+          </div>
+      </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data(){
+      return{
+          data:[
+              1,2,3,4
+          ],
+          num:[
+              {
+              num:10,
+              name:'dgsyh'
+          },
+            {
+              num:10,
+              name:'dgsyh'
+          },
+            {
+              num:10,
+              name:'dgsyh'
+          },
+          ],
+      }
+  }
+}
+</script>
+
+<style>
+input{
+    color: rgba(246,246,246,1);
+    padding:0px;
+    border-size:1px;
+    display:inline-block;
+    width:308px;
+height:30px;
+background:rgba(246,246,246,1);
+border-radius:15px;
+}
+.search{
+   text-align:center;
+    margin:0 auto;
+     
+      margin-top:10px;
+      margin-bottom:28px;
+}
+.head{
+    height:97px; 
+}
+.head_content{
+     background:white;
+    height:21px;
+    text-align:center;
+    padding-bottom:11px;
+}
+.intro{
+margin-bottom:20px;
+}
+.cards{
+    padding-top:11px;
+    background:white;
+    width:343px;
+    height:190px;
+    margin:12px auto;
+}
+.out_footer{
+    position:fixed;
+    text-align:center;
+    width:100%;
+   
+    bottom: 30px;
+    background:white;
+    height:30px;
+   
+
+}
+.card{
+   width:62px;
+    height:62px;
+    border-radius:6px;
+    
+}
+.btn{
+    display:inline-block;
+    width:66px;
+    height:22px;
+    border-radius:11px;
+    border:1px solid rgba(253,82,79,1);
+    text-align:center;
+    font-size:10px;
+    line-height:22px;
+    margin-top:20px;
+    margin-right:12px;
+}
+   .btn:hover{
+            color: #fff;
+            background: #0a90f5;
+        }
+        .btn:focus{
+            color: #fff;
+            background: rgba(253,82,79,1);
+            outline: none;
+        }
+.page{
+    position:absolute;
+    background:rgba(247,247,247,1);
+    width:100%;
+    height:100%;
+}
+.footer{
+    float: right;
+}
+</style>
+
+

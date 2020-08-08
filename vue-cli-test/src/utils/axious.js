@@ -57,6 +57,7 @@ export function get(url, params = {}) {
                 resolve(response.data);
             })
             .catch(err => {
+                alert("errro" + err)
                 reject(err)
             })
     })

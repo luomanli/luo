@@ -3,12 +3,24 @@ img {
     height: 40px;
 }
 
+.flex-col-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 .grey {
     color: rgba(160, 162, 166, 1);
 }
 
 .color {
     color: rgba(13, 147, 241, 1);
+}
+
+.white {
+    color: white;
 }
 
 .flex_center {

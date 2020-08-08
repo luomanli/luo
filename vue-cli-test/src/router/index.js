@@ -8,6 +8,7 @@ import activity from '@/pages/gzh/activity'
 import activityOrder from '@/pages/gzh/activityOrder'
 import businessCenter from '@/pages/gzh/businessCenter'
 import verifiCode from '@/pages/paySuccess/verifiCode'
+import myOrder from '@/pages/gzh/myOrder'
 
 
 
@@ -16,12 +17,12 @@ Vue.use(Router)
 
 export default new Router({
     routes: [{
-            path: '/',
+            path: '/index',
             name: 'index',
             component: index
         },
         {
-            path: '/post',
+            path: '/',
             name: 'post',
             component: post
         },
@@ -55,6 +56,11 @@ export default new Router({
             path: '/verifiCode',
             name: 'verifiCode',
             component: verifiCode
+        },
+        {
+            path: '/myOrder',
+            name: 'myOrder',
+            component: myOrder
         }
 
     ]

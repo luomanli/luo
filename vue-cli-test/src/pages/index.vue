@@ -582,9 +582,7 @@ color:#E40000;
   font-size:10px;
 }
 
-.color{
-    color:rgba(13,147,241,1);
-}
+
 a {
   color: #42b983;
 }

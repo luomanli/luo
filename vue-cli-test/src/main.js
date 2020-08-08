@@ -6,7 +6,16 @@ import router from './router'
 import axios from 'axios'
 import { post, get, patch, put } from './utils/axious.js'
 import './assets/style/common.css';
-//定义全局变量
+
+import VueJsonp from 'vue-jsonp'
+
+
+/*使用VueResource插件*/
+
+Vue.use(VueJsonp)
+    //定义全局变量
+
+
 Vue.prototype.$post = post;
 Vue.prototype.$get = get;
 Vue.prototype.$patch = patch;

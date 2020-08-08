@@ -7,8 +7,16 @@
         <div class="content font15">恭喜您,购买成功</div>
         <div class="flex-center font15">
                 <div  class="btn">返回首页</div>
-                  <div class="btn color">查看订单</div>
+                <div class="btn color">查看订单</div>
+                
         </div>
+        <div class="flex-between font12 bot">
+                <div  class="">兑换码:AKWZ123</div>
+                <div class="color">复制</div>
+                
+        </div>
+                
+
     </div>
     <bindPhone>
     </bindPhone>
@@ -37,7 +45,9 @@ export default {
 </script>
 
 <style scoped>
-
+.bot{
+  height:38px;
+  }
 .img{
     width:168px;
 height:111px;
