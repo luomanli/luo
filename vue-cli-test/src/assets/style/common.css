@@ -61,6 +61,9 @@ img {
 .font12 {
     font-size: 12px;
 }
+.font14 {
+    font-size: 14px;
+}
 
 .font13 {
     font-size: 13px;
@@ -68,4 +71,15 @@ img {
 
 .font15 {
     font-size: 15px;
+}
+.font17 {
+    font-size: 17px;
+}
+.font20{
+    font-size: 20px;
+
+}
+.font28{
+    font-size: 28px;
+
 }

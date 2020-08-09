@@ -1,5 +1,5 @@
 <template>
-  <div class="con">
+  <div class="con" v-if="true">
       <div class="top">
           <img src="" alt="">
           <span>昵称</span>
@@ -13,14 +13,18 @@
           </div>
             <span class="font12">可提现金额:25元</span>
       </div>
-              <div class="bot">提现</div>
+              <div class="bot" @click="flag=false">提现</div>
 
   </div>
 </template>
 
 <script>
 export default {
-
+    data(){
+        return {
+            falg:true,
+        }
+    }
 }
 </script>
 

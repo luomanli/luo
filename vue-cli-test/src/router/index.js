@@ -10,6 +10,7 @@ import businessCenter from '@/pages/gzh/businessCenter'
 import verifiCode from '@/pages/paySuccess/verifiCode'
 import myOrder from '@/pages/gzh/myOrder'
 
+import moneyRank from '@/pages/moneyRank/index.vue'
 
 
 
@@ -61,6 +62,11 @@ export default new Router({
             path: '/myOrder',
             name: 'myOrder',
             component: myOrder
+        },
+        {
+            path: '/moneyRank',
+            name: 'moneyRank',
+            component: moneyRank
         }
 
     ]

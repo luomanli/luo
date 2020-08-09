@@ -19,7 +19,7 @@
     </div>  
     <div class="found">
         <div class="company">
-          <img style='width:30px;height:30px;vertical-align: middle;' src="../assets/logo1.jpg" alt="">
+          <img style='width:30px;height:30px;vertical-align: middle;' src="" alt="">
           <div >
             <span style='font-size:12px'>小懵裂变</span>
           

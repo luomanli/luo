@@ -6,7 +6,6 @@ import router from './router'
 import axios from 'axios'
 import { post, get, patch, put } from './utils/axious.js'
 import './assets/style/common.css';
-
 import VueJsonp from 'vue-jsonp'
 
 

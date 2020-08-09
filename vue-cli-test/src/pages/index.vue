@@ -564,7 +564,7 @@ color:#E40000;
 }
 
 .img{
-  width: 100%;
+  width: 375px;
   height: 375px;
 }
 .font10{
