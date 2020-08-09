@@ -1,4 +1,4 @@
-const baseSize=32
+const baseSize=64
 
 
 function setRem(pwidth,prem){
@@ -9,3 +9,4 @@ setRem()
 window.onresize = function(){
     setRem()
 };
+

@@ -130,7 +130,7 @@
     </div>
      <div class='moneyReward'>
             <img  class="money_img" src="../assets/img/money.png" alt="">
-              <div style='text-align:center'>￥1.5</div>
+              <!-- <div style='text-align:center'>￥1.5</div> -->
       </div>
 
   
@@ -139,9 +139,9 @@
 
    <nopay :flag="true"></nopay>
   <div class='bottom'>
-    <div>原价
-    <span style='text-decoration:line-through;'>:1788</span>
-    <div>限时特价  ￥12.88</div>
+    <div class='flex-col-center' style="align-items: baseline;">
+    <span class="font12" style='text-decoration:line-through;color:rgba(255,127,128,1);'>原价:1788</span>
+    <div class="font15" style="color:rgba(228,51,52,1);">限时特价  ￥12.88</div>
     </div>
     
       <div class='buy'>立即购买</div>
@@ -299,16 +299,20 @@ export default {
 bottom:0px;
   display:flex;
 flex-direction:row;
-
+height:49px;
 justify-content:space-around;
 align-items:center;
 }
 .buy{
+   font-size: 13px;
   width:120px;
   text-align:center;
   background-color:orange;
   height:32px;
-  border-radius:8%;
+ width:103px;
+height:32px;
+background:linear-gradient(270deg,rgba(254,148,83,1) 0%,rgba(247,67,61,1) 100%);
+border-radius:2px;
   line-height:32px;
 }
 .rank{
@@ -454,6 +458,7 @@ font-size:12px;
 background:rgba(253,246,242,1);
 border-radius:12px;
 color:rgba(228,52,53,1);
+margin-right:16px;
 }
 .peoNum>span{
   margin:0;

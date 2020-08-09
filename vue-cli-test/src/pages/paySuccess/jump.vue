@@ -2,7 +2,7 @@
   <div >
 
      <div>
-     <img class="img" src=""></img>
+     <img class="img" src=""/>
         <div class="content ">即将跳转至http://www.xia</div>
         </div>
   </div>

@@ -2,11 +2,19 @@
   <div class="page">
       <div class="two">
       <div class="head flex-between">
-          <div class="left">
-
-      <img  class="user"  alt=""/>
-      <span class="font15">name</span>
-      <div class="phone font10">12344</div>
+          <div class="left flex">
+       
+                    <img  class="user" src="./../../assets/logo1.jpg" alt=""/>
+                    <div class="flex-col-center">
+                      
+                                <span class="font15 white">name</span>
+                        <div class="phone font10">12344</div>
+                        
+                        
+                    </div>
+             
+      
+      
           </div>
           <div class="right">
               <img src="" alt="" class="vip">
@@ -22,7 +30,7 @@
                <div class="money2 font12 white">
                   <span class="font10">已到账</span> 
               <span class="font17">￥56.20</span>
-                <span class="font10">可提现</span> 
+                <span class="money3 font10">可提现</span> 
 
               <span class="font17">￥56.20</span>
                 </div>
@@ -34,18 +42,32 @@
 
       </div>
       </div>
-      <div class="record">
-          <span class="font15">提现记录</span>
-          <div class="table" >
-               <el-table :data="tableData" >
-                   <el-table-column align="center"  prop="time" label="时间"  width="100" ></el-table-column>
-                    <el-table-column  align="center" prop="user"  label="用户"  width="200"></el-table-column>
-                    <el-table-column align="center"  prop="money" label="金额"  width="100"></el-table-column>
+      <div class="">
+          <span class="record font15">提现记录</span>
+            <div class="record_out">
+            <div  class="out flex" v-for="i in tableData">
+                    <span>{{i.time}}</span>
+                    <span>
+                        <img class="record_user" src="./../../assets/logo1.jpg" v-if="i.user_img" alt="" />
+                        {{i.user}}
+                        </span>
+                    <span>{{i.money}}</span>
+            </div>
+            </div>
+
+
+          <!-- <div class="table" >
+               <el-table :data="tableData"  >
+                   <el-table-column align="center"  prop="time" width='100'  label="时间"  ></el-table-column>
+                    <el-table-column  align="center" prop="user" width='400'   label="用户"  ></el-table-column>
+                    <el-table-column align="center"  prop="money" width='500'  label="金额"  ></el-table-column>
         
                </el-table>
-          </div>
-          <span class="more color font10">显示更多</span>
+          </div> -->
+          <div class="more color font10">显示更多</div>
       </div>
+          <div class="bot"></div>
+
   </div>
 </template>
 
@@ -56,15 +78,24 @@ export default {
         return{
             tableData:[
                {
-                "time":'123',
-                user:'dfs',
+                time:'时间',
+                user:'用户',
+                money:'收益',
+               } ,
+                {
+                time:'2020.06.30',
+                user:'小捣蛋',
+                user_img:"123",
                 money:1.56,
                } ,
                 {
                 time:'123',
-                user:'dfs',
+                user:'猪猪笑',
+                user_img:"123",
+
                 money:1.56,
                } 
+
 
             ]
         }
@@ -72,12 +103,120 @@ export default {
 }
 </script>
 
-<style>
-.more{
+<style  scoped>
+
+
+.record{
+    margin-left: 18px;
+    margin-bottom: 9px;
+}
+.money3{
+    margin-left:26px;
+}
+.phone{
     text-align: center;
+    width:80px;
+height:16px;
+background:rgba(255,255,255,0.16);
+border-radius:9px;
+border:1px solid rgba(255,255,255,0.72);
+line-height: 16px;
+}
+.record_user{
+    width:20px;
+    height:20px;
+    vertical-align: middle;
+    border-radius:50%;
+    line-height:29px;
+
+}
+.record_out{
+    background-color: #fff;
+    border-radius:30px 30px 6px 6px;
+}
+.record_out div:nth-of-type(1){
+    font-family:PingFangSC-Medium,PingFang SC;
+font-weight:500;
+color:rgba(58,59,60,1);
+    font-size:15px;
+    line-height:61px ;
+    }
+.record_out div:nth-of-type(n+2){
+    font-size:13px;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(160,162,166,1);
+    line-height:29px ;
+    
+
+    }
+.out{
+    text-align: center;
+    
+}
+span:nth-child(1){
+ width: 136.5px;
+}
+span:nth-child(2){
+ width: 129px;
+}
+span:nth-child(3){
+ width: 109.5px;
+}
+
+
+
+.el-table td,.el-table th{
+    padding: 0px;
+  
+
+}
+.el-table tr td:nth-child(1){
+    width: 10px;
+    height: 100px;
+}
+.el-table tr td:nth-child(2){
+    width: 100px;
+    height: 10px;
+}
+.el-table tr td:nth-child(2){
+    width: 300px;
+    height: 10px;
+}
+.el-table .cell{
+    padding: 0px;
+   
+    font-size:13px;
+font-family:PingFangSC-Regular,PingFang SC;
+font-weight:400;
+color:rgba(160,162,166,1);
+}
+
+.el-table th>.cell{
+     padding: 0px;
+    font-size: 15px;
+    font-family:PingFangSC-Medium,PingFang SC;
+font-weight:500;
+color:rgba(58,59,60,1);
+}
+
+
+
+.more{
+    
+    padding-top:30px;
+    text-align: center;
+    background:rgba(255,255,255,1);
+padding-bottom: 15px;
 }
 .page{
+    position: absolute;
     background:rgba(247,247,247,1);
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    bottom: 0;
 }
 .table{
     width:375px;
@@ -90,6 +229,8 @@ el-table-column{
 .user{
     width: 54px;
     height: 54px;
+    vertical-align: middle;
+    border-radius:4px;
 }
 .cash{
     text-align: center;
@@ -108,6 +249,8 @@ background:linear-gradient(180deg,rgba(253,136,79,1) 0%,rgba(247,68,62,1) 100%);
 }
 .head{
     height: 83px;
+    padding:0px 24px 0px 18px;
+   
    
 }
 .money{

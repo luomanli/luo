@@ -72,10 +72,17 @@ export default {
 .btn{
     line-height:37px;
     flex:1;
-    border:none;
+  width:120px;
+height:37px;
+background:rgba(253,82,79,1);
     font-size:12px;
    padding:0px;
     display:inline-block;
+    font-size:12px;
+font-family:PingFangSC-Medium,PingFang SC;
+font-weight:500;
+color:rgba(255,255,255,1);
+
 }
 .icon{
     position:absolute;

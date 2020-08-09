@@ -48,8 +48,14 @@ export default {
   },
   mounted(){
       this.getUserInfo();
+      window['getCallBack'] = (data) => {
+        this.getCallBack(data)
+      }
   },
   methods:{
+      getCallBack(data){
+           alert("q12getCallBack"+data)
+      },
       goHome(){
           this.$router.push({name:'index'})
       },
@@ -84,8 +90,7 @@ export default {
              let url= `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${AppId}&secret=${secret}&code=${code}&grant_type=authorization_code`; 
                alert('二级url'+url); 
                 //  window.location.href = url;
-
-                this.$jsonp(url,null).then(res=>{
+                this.$jsonp(url,{jsonp: 'callBackParam',callbackName: "getCallBack"}).then(res=>{
                                   alert('成功'+res); 
 
                 }).catch(err=>{
@@ -190,7 +195,8 @@ background-color:white;
     width:330px;
     height:641px;
     border-radius:2.5%;
-    background-image:url('../assets/img/bg/post.png')
+    background-image:url('../assets/img/bg/post.png');
+    background-size:330px 641px;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

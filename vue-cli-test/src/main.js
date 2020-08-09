@@ -7,6 +7,7 @@ import axios from 'axios'
 import { post, get, patch, put } from './utils/axious.js'
 import './assets/style/common.css';
 import VueJsonp from 'vue-jsonp'
+import './assets/js/rem.js'
 
 
 /*使用VueResource插件*/
