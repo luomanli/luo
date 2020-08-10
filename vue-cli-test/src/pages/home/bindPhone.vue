@@ -1,29 +1,31 @@
 <template>
     <div class="page">
+        <div class="font17 order_title" v-if="flag">订单信息</div>
         <div class="birthday" v-for='(i,index) in data'>
             <span class='title'> {{i.key}}</span> 
              <span class="write" v-if="index===3" >
                 <span class="write1">
                 {{i.pre}}
-                <img src='i.img'/>
+                <img class="right" src='i.img'/>
                 </span>
             </span> 
             <span class="write" v-else>
                 {{i.pre}}
-                <img src='i.img'/>
+                <img class="right" src='i.img'/>
             </span>
            
         </div>
-
-        <el-button class="btn" type='danger'>完成提交</el-button>
+        <el-button class="btn2 flex_center" type='danger' v-if="flag">重新提交</el-button>
+    
+        <el-button class="btn" type='danger'  v-if="flag!=true">完成提交</el-button>
        
-       <newdialog>
-        <div class="content">
+       <newdialog v-if="fasle">
+        <div class="content" >
             <img  class="phoneNum" src=""></img>
             <div class="title">手机号验证</div>
             <div class="sub_title">请绑定手机号、查询订单</div>
             <div class="phone_input">请输入手机号</div>
-            <div class="phone_btn" >立即验证</div>
+            <div class="phone_btn font15" >立即验证</div>
         </div>
        </newdialog>
     </div>
@@ -72,6 +74,12 @@ data(){
         ],
     }
 },
+propos:{
+    flag:{
+        type:Boolean,
+         default:false
+    }
+},
  components: { newdialog},
 
 methods:{},
@@ -79,6 +87,28 @@ methods:{},
 </script>
 
 <style  scoped>
+.btn2{
+
+    padding:0px;
+   width:89px;
+height:26px;
+font-size:12px;
+background:rgba(253,135,79,1);
+border-radius:3px; 
+line-height:26px;
+text-align:center;
+}
+.order_title{
+    padding-top:9px;
+
+    text-align:center;
+    background-color:white;
+    padding-bottom:19px
+}
+.right{
+    float:right;
+    
+}
 .sub_title{
      margin-top:6px;
     margin-bottom:22px;
@@ -148,6 +178,7 @@ methods:{},
     flex: 1;
 }
 .write{
+    
     flex:2;
     font-size:12px;
     color:rgba(209,209,209,1);

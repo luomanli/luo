@@ -8,6 +8,9 @@ import activity from '@/pages/gzh/activity'
 import activityOrder from '@/pages/gzh/activityOrder'
 import businessCenter from '@/pages/gzh/businessCenter'
 import verifiCode from '@/pages/paySuccess/verifiCode'
+import jump from '@/pages/paySuccess/jump'
+import custom from '@/pages/paySuccess/custom'
+
 import myOrder from '@/pages/gzh/myOrder'
 
 import moneyRank from '@/pages/moneyRank/index.vue'
@@ -67,6 +70,16 @@ export default new Router({
             path: '/moneyRank',
             name: 'moneyRank',
             component: moneyRank
+        },
+        {
+            path: '/jump',
+            name: 'jump',
+            component: jump
+        },
+        {
+            path: '/custom',
+            name: 'custom',
+            component: custom
         }
 
     ]

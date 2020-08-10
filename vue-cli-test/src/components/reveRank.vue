@@ -17,7 +17,7 @@
             </thead>
   <tr v-for='(i,index) in data'>
     <th class='tr1'>{{index+1}}</th>
-    <th>
+    <th class='tr2'>
       <img class='user color' src='../assets/logo1.jpg'/>
      {{i.user}}</th>
     <th></th>
@@ -73,8 +73,13 @@ export default {
 </script>
 
 <style scoped> 
+.tr2{
+    font-size:12px;
+    color:#A0A2A6;
+}
 thead{
     margin-bottom:30px;
+    color:rgba(58,59,60,1);
 }
 .thead{
     text-align:center;
@@ -84,12 +89,14 @@ thead{
     width:30%;
 }
 .tr1{
+   color:rgba(58,59,60,1);
     width:10%;
     height:24px;
     
 }
 .tr3{
     font-size:12px;
+
     color:rgba(228,52,53,1);
 }
 .table{

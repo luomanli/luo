@@ -24,7 +24,7 @@
         </div>
            <div  class="center" >
             
-              <img class="qr" src=""/>
+              <img class="qr" src="http://m.dian7.net/mobile-split/static/img/bg/qr.png"/>
                <div class="font12 grey tip" > 
                到店向工作人员出示“二维码”,此码一次有
             </div>

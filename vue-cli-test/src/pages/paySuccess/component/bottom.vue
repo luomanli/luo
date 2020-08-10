@@ -4,12 +4,12 @@
            
            
         <div  class="home font10">
-             <img class="icon" src="../../../assets/logo1.jpg" />
+             <img class="icon" :src="home" />
          
             <div >首页 </div>   
         </div>     
         <div  class="service font10">
-             <img class="icon" src="../../../assets/logo1.jpg" />
+             <img class="icon" :src="custom" />
             <div >客服 </div>   
         </div> 
         <div class="right flex-around font15" v-if="!flag">        
@@ -31,11 +31,15 @@
 </template>
 
 <script>
+import {home,custom} from  '../../../utils/imgUrl.js';
+
 export default {
   name: 'post',
   data(){
       return{
             name:'name',
+            home,
+            custom,
             
       }
   },
@@ -55,7 +59,26 @@ export default {
 </script>
 
 <style scoped>
+.btn_more{
+    width:235px;
+height:32px;
+background:linear-gradient(270deg,rgba(254,148,83,1) 0%,rgba(247,67,61,1) 100%);
+border-radius:2px;
 
+font-size:15px;
+font-family:PingFangSC-Medium,PingFang SC;
+font-weight:500;
+color:rgba(255,255,255,1);
+    line-height:32px;
+    text-align:center;
+    margin-right:17px;
+
+}
+.icon
+{
+    width:24px;
+    height:24px;
+}
 .contain{
     width:100%
 }

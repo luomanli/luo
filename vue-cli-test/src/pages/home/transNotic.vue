@@ -15,8 +15,8 @@
         
      
     </div>
-    <div class='footer'>
-       <p>小懵信息科技有限公司</p>
+    <div class='footer font15'>
+       <p >小懵信息科技有限公司</p>
         <p> 2020-07-2</p>  
     </div>
     

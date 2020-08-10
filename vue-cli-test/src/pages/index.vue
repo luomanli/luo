@@ -80,18 +80,7 @@
         </div>
     </div>
     <div class="img_text">
-      <div class="body1">        
-        <img class="icon" src="../assets/logo1.jpg" alt="">
-        <span class="center">
-                图文详情
-        </span>    
-      </div>
-      <div class="shop_title">        
-        <img class="icon" src="../assets/logo1.jpg" alt="">
-        <span class="center">
-                小米自营单
-        </span>    
-      </div>
+    
       <div class="qualificat">     
         <div class="ql-editor" v-html="ContentData"></div>
   
@@ -100,8 +89,8 @@
    
       <reveRank class='rank'></reveRank>
         <div class="footer">
-              <span class='color' @click='goNotic'>交易须知</span>
-              <span  class='color'>投诉建议</span>
+              <span class='color font12' @click='goNotic'>交易须知</span>
+              <span  class='color font12'>投诉建议</span>
                <div class="top13">
                   <span class='grey'>此页面的产品或服务由</span>
                   <span class='color'  @click='goComp'>XXXX有限公司</span>
@@ -115,8 +104,8 @@
     </div>  
     <div class="found">
         <div class="company">
-          <img style='width:30px;height:30px;vertical-align: middle;' src="../assets/logo1.jpg" alt="">
-          <div >
+          <img style='width:30px;height:30px;vertical-align: middle;' class="margin3" src="../assets/logo1.jpg" alt="">
+          <div class="flex-col-center" style="align-items:baseline;color:rgba(58,59,60,1);">
             <span style='font-size:12px'>小懵裂变</span>
           
             <p  class='grey font10'>你也可以免费参与这样的活动</p>
@@ -216,6 +205,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+p{
+  margin:0px;
+
+}
 .peoNum_item{
   position:relative;
 }

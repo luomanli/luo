@@ -3,23 +3,27 @@
         class="dialog__wrapper flex_center" v-if="flag"   
         >
         <div class="contain">
-                <img class="icon" src="../assets/logo1.jpg" />
+                <img class="icon" :src="nopay" />
                 <div class="font17">您未完成支付</div>
-                    <div class="font12">已有21人与你一起参加了活动</div>
+                    <div class="font12">已有<span style="color:#FD524F">21</span>人与你一起参加了活动</div>
                
                 <span class="footer flex" >
-                    <div plain class="btn"  @click="flag = false">忍痛放弃</div>
-                    <div plain class="btn" @click="flag = false">继续支付</div>
+                    <div plain class="btn"   @click="active = false">忍痛放弃</div>
+                    <div plain class="btn btn2"      @click="flag = false">继续支付</div>
+                    
                 </span>
          </div>
         </div>
 </template>
 
 <script>
+import { nopay } from "../utils/imgUrl.js";
 export default {
   name: 'post',
   data(){
       return{
+         active:true,
+          nopay,
             name:'name',
              img:'../assets/logo1.jpg',
       }
@@ -40,7 +44,15 @@ export default {
 </script>
 
 <style scoped>
+ .btn:hover{
+           color:rgba(255,255,255,1);
+           background:rgba(253,82,79,1);
+        }
 
+.btn_active{
+   color:rgba(255,255,255,1);
+           background:rgba(253,82,79,1);
+}
 .dialog__wrapper{
     position:fixed;
     top:0px;
@@ -57,7 +69,7 @@ export default {
     
 }
 .footer{
-    border:1px solid rgba(253,82,79,1);
+    border-top:1px solid rgba(253,82,79,1);
    position:absolute;
     display:flex;
     flex-direction:row;
@@ -72,22 +84,27 @@ export default {
 .btn{
     line-height:37px;
     flex:1;
-  width:120px;
-height:37px;
-background:rgba(253,82,79,1);
+    height:37px;
     font-size:12px;
    padding:0px;
     display:inline-block;
     font-size:12px;
 font-family:PingFangSC-Medium,PingFang SC;
 font-weight:500;
-color:rgba(255,255,255,1);
+border-bottom-left-radius:13px;
 
+
+ color:rgba(253,82,79,1);
+    background:rgba(255,255,255,1);
+
+}
+.btn2{
+border-bottom-right-radius:13px;
 }
 .icon{
     position:absolute;
-    width:33px;
-height:29px;
+    width:135px;
+height:100px;
 top:0px;
 left:50%;
 transform:translate(-50%,-50%);
@@ -102,7 +119,7 @@ vertical-align:middle;
 .footer{
     font-size:14px;
     text-align:center;
-   color:rgba(160,162,166,1);
+  
     width:100%;
 }
 
@@ -124,6 +141,7 @@ height:146px;
 background:rgba(255,255,255,1);
 box-shadow:3px 4px 9px 0px rgba(7,7,7,0.5);
  position:relative;
+ border-radius:13px;
    
   
 }
