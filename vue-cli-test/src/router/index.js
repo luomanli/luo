@@ -14,6 +14,7 @@ import custom from '@/pages/paySuccess/custom'
 import myOrder from '@/pages/gzh/myOrder'
 
 import moneyRank from '@/pages/moneyRank/index.vue'
+import activityUser from '@/pages/gzh/activityUser'
 
 
 
@@ -80,6 +81,12 @@ export default new Router({
             path: '/custom',
             name: 'custom',
             component: custom
+        },
+        {
+            path: '/activityUser',
+            name: 'activityUser',
+            component: activityUser
+
         }
 
     ]

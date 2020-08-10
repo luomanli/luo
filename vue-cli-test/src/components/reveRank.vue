@@ -2,7 +2,7 @@
   <div >
         <div class='title' >
             <img class='icon' src='../assets/logo1.jpg'/>
-               <span> 收益排行榜</span>
+               <span class='font14'> 收益排行榜</span>
         </div>
         <div  class='colum'> 
             

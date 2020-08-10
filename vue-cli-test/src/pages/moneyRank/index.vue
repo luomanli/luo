@@ -173,9 +173,9 @@ border-radius:10px;
 
 }
 .head_cash{
-    height:63px ;
+ 
 
-    margin: 0px 25px;
+    margin: 0px ;
 height:63px;
 background-color:rgba(255,255,255,0.6031);
 border-radius:11px 11px 0px 0px;

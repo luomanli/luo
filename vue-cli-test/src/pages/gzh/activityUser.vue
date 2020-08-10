@@ -8,10 +8,10 @@
               <div class="head_right">切换活动</div>
         </div>
         <div class="money">
-                <div class="money_bot flex-around" >
+                <div class="money_bot flex-between" >
                     <div class="font13 height  flex-col-center" >
-                            <span class="fact">实收金额(元)</span>
-                        <div class="font28" >2.4</div>
+                            <span class="fact">总用户数</span>
+                        <div class="font28" >13</div>
                     </div>
                 
 
@@ -34,8 +34,7 @@
       </div>
     <div class="order flex">
         <div src="" alt="" class="l"></div>
-       
-        <span class="font15">订单详情</span>
+        <span class="font15">活动详情</span>
     </div>
       <div class="cards" v-for="i in data">
          
@@ -46,26 +45,41 @@
                         <div class="flex-col-center" style="align-items: baseline;">
                             
                             <span class="font15">大熊今天很酷</span>
-                                <div class="time font10">2020.06.23</div>
+                                <div class="time font10">受邀人数:25</div>
                                 
                                 
                             </div>
                   
             </div>
-            <div class="right flex-col-center">
-                <span  class="margin4 font15">¥1元</span>
-                <div  class="font13">未支付</div>
-            </div>
+            
           </div>
           <div class="bottom flex-around">
               <div class="flex-col-center">
-                  <span  class="margin3 font13">直接上级</span>
-                  <div  class="font10" style="color:rgba(160,162,166,1);">2</div>
+                  <span  class="margin3 font13 bottom_top">分销订单数:25单</span>
+                  <div  class="font10 flex-between all" style="color:rgba(160,162,166,1);">
+                            <div  class="margin8">一级</div>
+                            <div>10</div>
+
+                  </div>
+                  <div  class="font10 flex-between all" style="color:rgba(160,162,166,1);">
+                            <div class="margin8">二级</div>
+                            <div>10</div>
+
+                  </div>
               </div>
-              <span style="width:1px;height:37px;background-color:#CBCCCF"></span>
+              <span style="width:2px;height:44px;background-color:#CBCCCF"></span>
                 <div class="flex-col-center">
-                 <span  class="margin3 font13">直接上级</span>
-                  <div  class="font10" style="color:rgba(160,162,166,1);">2</div>
+                  <span  class="margin3 font13 bottom_top">累计返现:22元</span>
+
+                    <div  class="font10 flex-between all" style="color:rgba(160,162,166,1);">
+                            <div class="margin8">已到账</div>
+                            <div>10.22元</div>
+
+                  </div>
+                    <div  class="font10 flex-between all" style="color:rgba(160,162,166,1);">
+                            <div class="margin8">待提现</div>
+                            <div>0元</div>
+                  </div>
               </div>
           </div>
           
@@ -84,16 +98,20 @@ export default {
           num:[
               {
               num:10,
-              name:'dgsyh'
+              name:'参与分销人数'
           },
             {
               num:10,
-              name:'dgsyh'
+              name:'受邀总人数'
           },
             {
               num:10,
-              name:'dgsyh'
+              name:'分销出单人数'
           },
+            {
+              num:10,
+              name:'分销订单总数'
+          }
           ],
       }
   }
@@ -101,8 +119,19 @@ export default {
 </script>
 
 <style>
-.margin4{
-    margin-bottom: 4px;
+.l{
+    width:5px;
+    height:19px;
+    background:rgba(247,74,63,1);
+    border-radius:3px;
+    margin-right:8px;
+
+}
+.bottom_top{
+    margin-bottom:18px;
+}
+.margin8{
+    margin-bottom: 8px;
 }
 .margin3{
     margin-bottom: 3px;
@@ -120,27 +149,25 @@ export default {
     text-align: left;
 }
 .l{
-    width:5px;
-    height:19px;
-    background:rgba(247,74,63,1);
-    border-radius:3px;
-    margin-right:8px;
-      margin-left:18px ;
-
+    margin-left:18px ;
 }
 .order{
     margin-top: 70px;
     margin-bottom:14px ;
     margin-left: 1px;
     height: 21px;
-    
 }
 .money_list{
     height: 51.5px;
     text-align: center;
 }
 .money_bot{
+    margin-top:4px; ;
     border-bottom:1px #E6E9EF  solid;
+    padding-left:29px;
+    padding-right:12px;
+    align-items: baseline;
+
  
 }
 .money_item{
@@ -176,7 +203,7 @@ height:59px;
 }
 .bottom{
   width:343px;
-height:51px;
+height:79px;
 background:rgba(245,246,249,1);
 }
 .user{

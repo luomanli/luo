@@ -178,7 +178,7 @@ background-color:white;
      width:80px;
     height:25px;
    background-color:rgba(13, 147, 241, 1);
-    border-radius:10%;
+    border-radius:5%;
     line-height:25px;
     text-align:center;
     font-size:13px;
