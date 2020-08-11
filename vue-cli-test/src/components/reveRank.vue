@@ -1,7 +1,7 @@
 <template>
   <div >
         <div class='title' >
-            <img class='icon margin6' src='../assets/logo1.jpg'/>
+            <img class='icon margin6' :src='top'/>
                <span class='font14'> 收益排行榜</span>
         </div>
         <div  class='colum'> 
@@ -16,7 +16,18 @@
                 </tr>
             </thead>
   <tr v-for='(i,index) in data'>
-    <th class='tr1'>{{index+1}}</th>
+    <th class='tr1' v-if="index===0">
+            <img class='icon' :src='top1'/>
+            
+
+    </th>
+    <th class='tr1' v-if="index===1" >
+           <img class='icon' :src='top2'/>
+    </th>
+    <th class='tr1' v-if="index===2">
+    <img class='icon' :src='top3'/></th>
+    
+    <th class='tr1'  v-if="index>2">{{index+1}}</th>
     <th class='tr2'>
       <img class='user color' src='../assets/logo1.jpg'/>
      {{i.user}}</th>
@@ -29,7 +40,7 @@
         </div>
         <div class='more'>
            
-               <span class='color' >显示更多</span>
+               <span class='color' @click="getMore" >显示更多</span>
                 <img class='goIcon color' src='../assets/img/down.svg'/>
 
         </div>
@@ -37,10 +48,13 @@
 </template>
 
 <script scoped>
+import {top,top1,top2,top3} from  '../utils/imgUrl.js';
+
 export default {
   name: 'App',
   data(){
       return{
+          top,top1,top2,top3,
           c:[1
           
           
@@ -63,10 +77,15 @@ export default {
   },
   mounted(){
       
-        this.data.push
   },
   methods:{
-
+        getMore(){
+            this.data.push({
+            'rank':'1',
+            'user':'we',
+            'money':'收益'
+          })
+        }
   }
 
 }
@@ -111,7 +130,7 @@ thead{
 }
 .icon{
       width:20px;
-height:18px;
+height:20px;
 
 }
 .title{

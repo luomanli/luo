@@ -63,8 +63,6 @@
                <bottom></bottom>
                <newdialog v-if="true">
                     <div class="con" >
-                        
-                        <img src="" alt=""/>
                         <div class="cash_center">
                         <input type="text">
                         <div class="flex-between cash">
@@ -88,7 +86,7 @@ import companytwo from  '../../components/companytwo.vue';
 
 import reveRank from  '../../components/reveRank.vue';
 import newdialog from  '../../components/newdialog.vue';
-import {come,order,rank} from  '../../utils/imgUrl.js';
+import {come,order,rank,outcash} from  '../../utils/imgUrl.js';
 
 import bottom from  '../paySuccess/component/bottom.vue';
 import bottomSet from  '../paySuccess/component/bottomSet.vue';
@@ -114,7 +112,8 @@ export default {
         return{
             come,
             order,
-            rank
+            rank,
+            outcash
         }
     },
   methods:{
@@ -126,6 +125,12 @@ export default {
 </script>
 
 <style scoped>
+/*.bg1{
+    top:0px;
+    position:absolute;
+    width:400px;
+    height:400px;
+}*/
 input{
    width:225px;
 height:34px;
@@ -270,10 +275,13 @@ vertical-align:middle;
 
 .con{
      width:291px;
-height:245px;
+height:270px;
 background:rgba(255,255,255,1);
+background: url('http://m.dian7.net/mobile-split/static/img/bg/outcash.png');
+background-size:291px,270px;
 border-radius:16px;
 text-align: center;
+
 }
 
 

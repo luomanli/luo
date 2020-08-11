@@ -4,6 +4,12 @@
     <img class="img" src='../assets/logo1.jpg'/>
     </div>
     <div class="price">
+        <div class="right">
+          <div class="flex_column">
+              <div style='font-size:10px;line-height:14px;height:14px'>距离活动结束</div>
+              <div class='time'>{{atime}}</div>
+          </div>
+        </div>
         <div class="old_price">原价:1788{{activityMsg.originalPrice}}</div>
         <div class='curentP'>
             <div style="font-size:12px;color:#E40000;width:48px;
@@ -11,16 +17,11 @@
             <span  style="color:red;font-size:21px;">￥</span>
             <div class='out' style="font-size:39px;width:100px;
             height:54px;">
-            1288{{activityMsg.activityPrice}}
+            12{{activityMsg.activityPrice}}
             </div>
         </div>
 
-        <div class="right">
-          <div class="flex_column">
-              <div style='font-size:10px;line-height:14px;height:14px'>距离活动结束</div>
-              <div class='time'>time</div>
-          </div>
-        </div>
+       
     </div>
     <div class="content">
       <div class="title">
@@ -30,7 +31,7 @@
       </div>
       <div class="sub_title">
         <span>演示活动:活动副标题{{activityMsg.activityTitle}}</span>
-       <img class="custSer" src="../assets/logo1.jpg" alt="" v-if='activityMsg.selectCs'>
+      
 
       </div>
     <div>
@@ -39,8 +40,8 @@
   
     </div>
 
-    <div class="peoNum"> 
-     <div class="peoNum_left flex_around">
+    <div class="peoNum" v-if="activityMsg.virtualQuantity" > 
+     <div class="peoNum_left flex-between">
      <div class="peoNum_item" v-for='i in n'>
         <img class="icon_crown" src="../assets/logo1.jpg" alt="">
         <img class="peo" src="../assets/logo1.jpg" alt="">
@@ -48,7 +49,7 @@
       
     
      </div>
-      <div class="peoNum_right flex_around">
+      <div class="peoNum_right flex-between">
      <div class="more">
         <div class='one'></div>
             <div class='one buyer'></div>
@@ -67,7 +68,7 @@
     </div>
     <div class="shop">       
         <div class="name">
-          <img class="icon" src="../assets/logo1.jpg" alt="">
+          <img class="icon margin10" src="../assets/logo1.jpg" alt="">
           <div class="center">
             <div style="font-size:14px;" >小米自营旗舰店{{activityMsg.uname}}</div>
             <div style="font-size:10px;">该商家很懒,还没有完成基础设置</div>
@@ -117,7 +118,7 @@
         </div>
     </div>  
     </div>
-     <div class='moneyReward'>
+     <div class='moneyReward' @click="goPost">
             <img  class="money_img" src="../assets/img/money.png" alt="">
               <!-- <div style='text-align:center'>￥1.5</div> -->
       </div>
@@ -141,13 +142,22 @@
 </template>
 
 <script>
+// import countTime from  '../utils/time.js';
+import {custom} from  '../utils/imgUrl.js';
+
 import reveRank from  '../components/reveRank.vue';
 import company from  '../components/company.vue';
 import nopay from  '../components/nopay.vue';
+// let atime=countTime();
+// setTimeout(countTime, 1000);
 export default {
   name: 'H3',
   data () {
+
+   
     return {
+      // atime,
+      custom,
       flag:false,
       n:[1,2,3],
       msg: 'Welcome to Your Vue.js App',
@@ -164,6 +174,7 @@ export default {
   },
   mounted(){
    this.getdata();
+
   },
  components: { reveRank ,company,nopay},
   methods:{
@@ -179,6 +190,9 @@ export default {
         }
 
       )
+    },
+    goPost(){
+        this.$router.push({name:'post'})
     },
     goComp(){
       this.flag=true
@@ -215,11 +229,13 @@ p{
 .icon_crown{
   position:absolute;
   top:-5px;
+  left:-5px;
   width:15px;
   height:15px;
 }
 .peoNum_right{
   flex:1.2;
+  margin-left:24px;
 }
 .peoNum_left{
   
@@ -280,7 +296,7 @@ p{
 }
 .moneyReward{
   position:fixed;
-  bottom:100px;
+  bottom:200px;
   right:0px;
 }
 .bottom{
@@ -544,7 +560,7 @@ margin-left:15px;
   padding-top:13px;
   margin-left:16px;
 height:13px;
-width:59px;
+
 text-decoration:line-through;
 line-height:13px;
  font-size:9px;

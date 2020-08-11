@@ -1,20 +1,20 @@
 <template>
-  <div class="dialog__wrapper flex_center" v-if="false">
+  <div class="dialog__wrapper flex_center" v-if="true">
   <div class='content'>
     <div class='title'>
         
-        <div>
+        <div class='flex'>
             <img  class="icon1" :src="img" />
-            <span class='font15'>小懵科技</span>
+            <span class='font15'>客服小宝</span>
         </div>
-        <div >
+        <div class='flex'>
             <img  class="icon2" :src="img" />
             <span class='font12'>16525698746</span>
         </div>
     </div>
      <div class='post'>
       
-         <img class="QRcode" src="../assets/logo1.jpg" />
+         <img class="QRcode" src="../../assets/logo1.jpg" />
       
     </div>
     <div class='footer'>
@@ -67,12 +67,12 @@ export default {
     
 }
 .icon1{
-    width:33px;
-height:29px;
+    width:29px;
+height:26px;
 vertical-align:middle;
 }
 .icon2{
-    width:16px;
+width:16px;
 height:16px;
 background:rgba(91,178,242,1);
 vertical-align:middle;
@@ -80,19 +80,20 @@ vertical-align:middle;
 .footer{
     font-size:14px;
     text-align:center;
-   color:rgba(160,162,166,1);
+    color:rgba(160,162,166,1);
     margin:0 40px;
+    margin-bottom:14px;
 }
 
 .QRcode{
-    width:180px;
-    height:181px;
+    width:223px;
+    height:224px;
     
 
 }
 .content{
-     height:316px;
-    width:344px;
+     height:344px;
+    width:316px;
     background-color:white;
      margin:0 auto;
 }
@@ -129,8 +130,8 @@ vertical-align:middle;
 .post{
     margin:0 auto;
     width:223px;
-    height:181px;
-    margin-bottom:22px;
+    height:224px;
+    margin-bottom:12px;
     text-align:center;
 }
 

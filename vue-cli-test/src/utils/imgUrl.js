@@ -1,4 +1,4 @@
-let imgUrl = "http://m.dian7.net/mobile-split/static/img"
+let imgUrl = "http://m.dian7.net/mobile-split/img"
 
 function random() {　　
     var arr = [];　　
@@ -32,3 +32,29 @@ export let come = imgUrl + '/icon/come.png'
 export let order = imgUrl + '/icon/order.png'
 
 export let rank = imgUrl + '/icon/rank.png'
+export let top = imgUrl + '/icon/top.png'
+
+export let top1 = imgUrl + '/icon/top1.png'
+
+export let top2 = imgUrl + '/icon/top2.png'
+
+export let top3 = imgUrl + '/icon/top3.png'
+
+
+export let info1 = imgUrl + '/icon/info1.png'
+
+export let info2 = imgUrl + '/icon/info2.png'
+
+export let info3 = imgUrl + '/icon/info3.png'
+export let outcash = imgUrl + '/bg/outcash.png'
+export let phone = imgUrl + '/bg/phone.png'
+
+export let king1 = imgUrl + '/icon/king1.png'
+export let king2 = imgUrl + '/icon/king2.png'
+
+export let king3 = imgUrl + '/icon/king3.png'
+
+export let vip = imgUrl + '/icon/vip.png'
+export let cir2 = imgUrl + '/icon/cir2.png'
+
+export let cir1 = imgUrl + '/icon/cir1.png'

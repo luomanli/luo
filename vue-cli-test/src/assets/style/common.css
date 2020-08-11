@@ -82,6 +82,10 @@ img {
     font-size: 20px;
 }
 
+.font22 {
+    font-size: 22px;
+}
+
 .font28 {
     font-size: 28px;
 }
@@ -89,15 +93,23 @@ img {
 .margin3 {
     margin-right: 3px;
 }
+
+.margin10 {
+    margin-right: 10px;
+}
+
 .margin4 {
     margin-right: 4px;
 }
+
 .marginl8 {
     margin-left: 8px;
 }
+
 .margin6 {
     margin-right: 6px;
 }
-.all{
-    width:100%
+
+.all {
+    width: 100%
 }

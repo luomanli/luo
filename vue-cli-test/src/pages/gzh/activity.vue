@@ -93,7 +93,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 input,el-input{
     outline: none;
     border: none;

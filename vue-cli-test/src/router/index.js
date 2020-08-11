@@ -10,10 +10,14 @@ import businessCenter from '@/pages/gzh/businessCenter'
 import verifiCode from '@/pages/paySuccess/verifiCode'
 import jump from '@/pages/paySuccess/jump'
 import custom from '@/pages/paySuccess/custom'
+import concatService from '@/pages/paySuccess/concatService'
 
 import myOrder from '@/pages/gzh/myOrder'
 
 import moneyRank from '@/pages/moneyRank/index.vue'
+import recordPeo from '@/pages/moneyRank/recordPeo.vue'
+import cash from '@/pages/moneyRank/cash.vue'
+
 import activityUser from '@/pages/gzh/activityUser'
 
 
@@ -21,6 +25,7 @@ import activityUser from '@/pages/gzh/activityUser'
 Vue.use(Router)
 
 export default new Router({
+    mode: 'hash',
     routes: [{
             path: '/index',
             name: 'index',
@@ -86,6 +91,24 @@ export default new Router({
             path: '/activityUser',
             name: 'activityUser',
             component: activityUser
+
+        },
+        {
+            path: '/concatService',
+            name: 'concatService',
+            component: concatService
+
+        },
+        {
+            path: '/recordPeo',
+            name: 'recordPeo',
+            component: recordPeo
+
+        },
+        {
+            path: '/cash',
+            name: 'cash',
+            component: cash
 
         }
 
