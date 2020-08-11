@@ -7,11 +7,11 @@
                
                     <span>
                          <img class="user" src="" />name
-                        <img class="icon" src="" />
+                        <img class="icon marginl8" :src="rank" />
                         <span class="bg font10">第五名</span>
                     </span>
                     <span>
-                        <img class="icon" src="" />
+                        <img  src="" />
                         <span class="bg font10">收益提醒</span>
 
                         
@@ -40,49 +40,55 @@
           <div class="center">
                    <div class="flex-between center_con">
                         <span class="font15" >邀请明细</span>
-                        <img src="" alt="">
+                        <img class="icon" src="" alt="" >
                    </div>
-                   <div class="flex-around ">
-                       <div class="num flex-between">
+                   <div class="flex-between center_bot">
+                       <div class="num flex-around">
                         <span class="font13">邀请人数
-                            <div class="font10">您已邀请5个人</div>
+                            <div class="font10 color" >您已邀请5个人</div>
                         </span>
 
-                        <img src="" alt=""/>
+                        <img class="icon2" :src="come" alt=""/>
                        </div>
-                        <div class="num flex-between">
+                        <div class="num flex-around">
                         <span class="font13">分销订单
-                          <div class="font10">您已邀请5个人</div>
+                          <div class="font10 color">您已邀请5个人</div>
                         </span>
-                        <img src="" alt=""/>
+                        <img class="icon3"  :src="order" alt=""/>
                        </div>
                    </div>
                </div>
                <reve-rank></reve-rank>
                <bottomSet></bottomSet>
                <bottom></bottom>
-               <newdialog v-if="flag">
+               <newdialog v-if="true">
                     <div class="con" >
+                        
                         <img src="" alt=""/>
+                        <div class="cash_center">
                         <input type="text">
                         <div class="flex-between cash">
-                            <span class="font13">可提现金额:<span>20.57元</span></span>
-                            <span class="color">全部提现</span>
+                            <span class="font13">可提现金额:<span >20.57元</span></span>
+                            <span class="color font12" >全部提现</span>
                        </div>
                        <div class="tip">*您输入的金额大于可提现的金额</div>
                         <div class="btn" @click="flag=false">提现</div>
+                        </div>
                     </div>
                     <img src="" alt="" class="bottom">
 
                </newdialog>
-
+                 <companytwo flag="true" ></companytwo>
 
         </div>
 </template>
 
 <script>
+import companytwo from  '../../components/companytwo.vue';
+
 import reveRank from  '../../components/reveRank.vue';
 import newdialog from  '../../components/newdialog.vue';
+import {come,order,rank} from  '../../utils/imgUrl.js';
 
 import bottom from  '../paySuccess/component/bottom.vue';
 import bottomSet from  '../paySuccess/component/bottomSet.vue';
@@ -103,8 +109,14 @@ export default {
 
       }
   },
- components: { reveRank,bottomSet,bottom,newdialog },
-
+ components: { reveRank,bottomSet,bottom,newdialog,companytwo },
+    data(){
+        return{
+            come,
+            order,
+            rank
+        }
+    },
   methods:{
       goHome(){
           
@@ -114,6 +126,30 @@ export default {
 </script>
 
 <style scoped>
+input{
+   width:225px;
+height:34px;
+border-radius:5px;
+border:1px solid rgba(151,151,151,1);
+}
+.cash_center{
+    padding-left: 34px;
+    padding-right:32px;
+}
+.center_bot{
+    margin-right: 37px;
+}
+.color{
+    color:rgba(210,34,24,1);
+}
+.icon2{
+    width: 35px;
+    height:30px;
+}
+.icon3{
+    width: 30px;
+    height:29px;
+}
 .num{
 width:154px;
 height:64px;
@@ -135,13 +171,14 @@ border-radius:10px;
 
     height:118px ;
     padding-top:15px; ;
-    padding-left:24px ;
+   
+    padding-left:16px ;
 
 }
 .center_con{
     margin-top:12px ;
     margin-bottom: 6px;
-
+    margin-right: 16px;
 }
 .user{
     margin-top: 14px;
@@ -182,6 +219,7 @@ border-radius:11px 11px 0px 0px;
 
 }
 .tip{
+    text-align: left;
     font-size:10px;
     color:rgba(228,52,53,1);
 }
@@ -191,10 +229,14 @@ border-radius:11px 11px 0px 0px;
 }
 input{
     margin-top:34px;
+    
 
 }
 .cash{
+    margin: 0 auto;
     margin-top:12px;
+    width: 225px;
+
 }
 .btn{
     line-height:32px;
@@ -207,12 +249,13 @@ margin: 0 auto;
 margin-top:32px;
 margin-bottom: 19px;
 color:rgba(255,255,255,1);
+background:linear-gradient(90deg,rgba(247,70,62,1) 0%,rgba(252,134,78,1) 100%);
 }
 .btn_cash{
     
     color:rgba(255,255,255,1);
     text-align: center;
-font-size:14px;
+    font-size:14px;
     line-height:24px;
     width:59px;
 height:24px;
@@ -230,6 +273,7 @@ vertical-align:middle;
 height:245px;
 background:rgba(255,255,255,1);
 border-radius:16px;
+text-align: center;
 }
 
 

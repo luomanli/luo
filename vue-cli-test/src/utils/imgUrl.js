@@ -30,3 +30,5 @@ export let home = imgUrl + '/icon/home.png'
 export let come = imgUrl + '/icon/come.png'
 
 export let order = imgUrl + '/icon/order.png'
+
+export let rank = imgUrl + '/icon/rank.png'

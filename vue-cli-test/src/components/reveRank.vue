@@ -1,7 +1,7 @@
 <template>
   <div >
         <div class='title' >
-            <img class='icon' src='../assets/logo1.jpg'/>
+            <img class='icon margin6' src='../assets/logo1.jpg'/>
                <span class='font14'> 收益排行榜</span>
         </div>
         <div  class='colum'> 
@@ -92,6 +92,7 @@ thead{
    color:rgba(58,59,60,1);
     width:10%;
     height:24px;
+    font-size: 10px;;
     
 }
 .tr3{

@@ -1,18 +1,15 @@
 <template>
-  <div class="dialog__wrapper flex_center" v-if="true">
+  <div class="dialog__wrapper flex_center" v-if="false">
   <div class='content'>
     <div class='title'>
         
-        <div>
-            <img  class="icon1" :src="img" />
-            <span class='font15'>小懵科技</span>
-        </div>
-        <div >
-            <img  class="icon2" :src="img" />
-            <span class='font12'>16525698746</span>
-        </div>
+      
+            <img  class="icon1 margin4" :src="img" />
+            <span class='font15'>小懵分销裂变平台</span>
+      
+ 
     </div>
-     <div class='post'>
+    <div class='post'>
       
          <img class="QRcode" src="../assets/logo1.jpg" />
       
@@ -91,10 +88,12 @@ vertical-align:middle;
 
 }
 .content{
-     height:316px;
-    width:344px;
+     height:322px;
+    width:310px;
     background-color:white;
      margin:0 auto;
+     border-radius:7px;
+
 }
 .contain{
     height:100%;
@@ -112,10 +111,11 @@ vertical-align:middle;
 
 }
 .title{
+
     margin:10px 30px;
     display:flex;
     flex-direction:row;
-    justify-content:space-between;
+    justify-content:center;
     align-items:center;
     height:50px;
 }

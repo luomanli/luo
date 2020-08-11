@@ -89,7 +89,15 @@ img {
 .margin3 {
     margin-right: 3px;
 }
-
+.margin4 {
+    margin-right: 4px;
+}
+.marginl8 {
+    margin-left: 8px;
+}
+.margin6 {
+    margin-right: 6px;
+}
 .all{
     width:100%
 }

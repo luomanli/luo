@@ -19,8 +19,10 @@
     </div>  
     <div class="found">
         <div class="company">
-          <img style='width:30px;height:30px;vertical-align: middle;' src="" alt="">
-          <div >
+                   <img style='width:30px;height:30px;vertical-align: middle;' class="margin3" src="../../../assets/logo1.jpg" alt="">
+
+        <div class="flex-col-center" style="align-items:baseline;color:rgba(58,59,60,1);">
+
             <span style='font-size:12px'>小懵裂变</span>
           
             <p  class='grey font10'>你也可以免费参与这样的活动</p>
@@ -91,6 +93,7 @@ margin-bottom:93px;
 height:26px;
 background:rgba(253,135,79,1);
 border-radius:3px;
+font-size: 12px;
 }
 .footer{
   width:100%;
