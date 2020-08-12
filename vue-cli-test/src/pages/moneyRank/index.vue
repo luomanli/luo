@@ -63,6 +63,7 @@
                <bottom></bottom>
                <newdialog v-if="true">
                     <div class="con" >
+                    <img :src="outcash" class="outcash"/>
                         <div class="cash_center">
                         <input type="text">
                         <div class="flex-between cash">
@@ -125,6 +126,11 @@ export default {
 </script>
 
 <style scoped>
+.outcash{
+    position:absolute;
+    width:300px;
+    height:300px;
+}
 /*.bg1{
     top:0px;
     position:absolute;
