@@ -23,14 +23,17 @@ color:rgba(255,255,255,1);
 line-height:52px;
     width:294px;
     height:46px;
-    background-image:url('http://m.dian7.net/mobile-split/static/img/bg/nopay.png')
+    background-image: url('http://m.dian7.net/mobile-split/img/bg/jump.png');
+    background-size:cover;
+
 }
 .content{
   padding-top:134px;
   text-align:center;
-    width:100%;
-    height:68px;
+    width:371px;
+    height:175px;
     font-size:14px;
     line-height:68px;
+    
 }
 </style>

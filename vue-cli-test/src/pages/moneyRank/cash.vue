@@ -2,7 +2,7 @@
 <div class="page">
   <div class="con">
       <div class="top flex">
-          <img class="icon margin13" src=""  alt=""/>
+          <img class="icon margin13" :src="wx"  alt=""/>
             <div class="flex-col-center" style="align-items: baseline;">
                 <span class="font15">昵称</span>
                 <div class="font13 color">赵家玲 6224***********2256</div>
@@ -14,7 +14,7 @@
           <div class="font12">提现金额:</div>
           <div class="input flex-between">
               <span class="font22">￥</span>
-              <span class="font13 color1">请输入提现金额</span>
+              <input type="text" placeholder="请输入提现金额" v-model="value" class="font13 color1">
               <div class="btn">全部提现</div>
           </div>
             <div class="font12 color">可提现金额:25元</div>
@@ -26,16 +26,25 @@
 </template>
 
 <script>
+import {wx} from  '../../utils/imgUrl.js';
+
 export default {
     data(){
         return {
+            wx,
             falg:true,
+            value:'',
         }
     }
 }
 </script>
 
+    
 <style scope>
+input{
+    border:none;
+
+}
 .top{
     margin-bottom:29px;
 
@@ -60,13 +69,13 @@ background:rgba(239,239,239,1);
 .icon{
    width:51px;
 height:51px;
-background:rgba(13,209,2,1);
+
 
 }
 .con{
     padding-top:23px;
     padding-left: 23px;
-    width:352px;
+   
     height:251px;
     background:rgba(255,255,255,1);
     border-radius:7px;
@@ -87,6 +96,7 @@ height:18px;
 background:rgba(253,82,79,1);
 border-radius:11px;
     text-align: center;
+    line-height: 18px;;
 }
 .bot{
     text-align: center;

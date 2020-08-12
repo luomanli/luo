@@ -40,6 +40,7 @@ export let top2 = imgUrl + '/icon/top2.png'
 
 export let top3 = imgUrl + '/icon/top3.png'
 
+export let wx = imgUrl + '/icon/wx.png'
 
 export let bd = imgUrl + '/icon/bd.png'
 

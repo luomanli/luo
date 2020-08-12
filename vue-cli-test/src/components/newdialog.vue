@@ -38,21 +38,12 @@ export default {
 .dialog__wrapper{
     position:fixed;
     top:0px;
-    right:0px;
+  
     left:0px;
     bottom:0px;
     right:0px;
-    z-index:2001;
     background-color:rgba(0,0,0,.3);
-  
-    overflow: auto;
-    margin: 0;
 
     
-}
-.dialog_body{
-   
-    background-color:white;
-    box-shadow: 0 1px 3px rgba(0,0,0,.3);
 }
 </style>

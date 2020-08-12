@@ -63,7 +63,7 @@
                <bottom></bottom>
                <newdialog v-if="true">
                     <div class="con" >
-                    <img :src="outcash" class="outcash"/>
+                    <!-- <img  :src="outcash" class="outcash"/> -->
                         <div class="cash_center">
                         <input type="text">
                         <div class="flex-between cash">
@@ -74,7 +74,7 @@
                         <div class="btn" @click="flag=false">提现</div>
                         </div>
                     </div>
-                    <img src="" alt="" class="bottom">
+                   
 
                </newdialog>
                  <companytwo flag="true" ></companytwo>
@@ -144,8 +144,9 @@ border-radius:5px;
 border:1px solid rgba(151,151,151,1);
 }
 .cash_center{
-    padding-left: 34px;
+    padding-left: 24px;
     padding-right:32px;
+    padding-top:98px;
 }
 .center_bot{
     margin-right: 37px;
@@ -230,16 +231,17 @@ border-radius:11px 11px 0px 0px;
 
 }
 .tip{
+    margin-top: 8px;
     text-align: left;
     font-size:10px;
     color:rgba(228,52,53,1);
 }
 .bottom{
-    margin-top:23px;
+    margin-top:10px;
     
 }
 input{
-    margin-top:34px;
+font-size:16px;
     
 
 }
@@ -257,7 +259,7 @@ background:rgba(205,205,205,1);
 border-radius:5px;
 font-size:16px;
 margin: 0 auto;
-margin-top:32px;
+margin-top:10px;
 margin-bottom: 19px;
 color:rgba(255,255,255,1);
 background:linear-gradient(90deg,rgba(247,70,62,1) 0%,rgba(252,134,78,1) 100%);
@@ -281,7 +283,7 @@ vertical-align:middle;
 
 .con{
      width:291px;
-height:270px;
+height:260px;
 background:rgba(255,255,255,1);
 background: url('http://m.dian7.net/mobile-split/img/bg/outcash.png');
 background-size:291px,270px;

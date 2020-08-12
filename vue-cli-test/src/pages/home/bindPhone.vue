@@ -26,7 +26,8 @@
                       <div v-if="index==3">123</div>
                      <div class="myborder flex-around">
                         <el-select class="my" v-model="value" placeholder="123" v-if="index==3" size="small">d
-                        <el-option :label="item.label"  v-for="item in option" :value="item.value"></el-option>
+                
+                        <el-option :label="item.label"  v-for="item in option" :key="item.value" :value="item.value"></el-option>
                         </el-select>
                     </div>
                 </div>
@@ -42,12 +43,20 @@
     
         <el-button class="btn" type='danger'  v-if="flag!=true" click="submit">完成提交</el-button>
        
-       <newdialog v-if="fasle">
+       <newdialog v-if="true">
         <div class="content" >
-            <img  class="phoneNum" src=""></img>
+            <img  class="phoneNum" :src="phone"/>
             <div class="title">手机号验证</div>
             <div class="sub_title">请绑定手机号、查询订单</div>
-            <div class="phone_input">请输入手机号</div>
+            <div>
+            <input type="text" class="phone_input" placeholder="请输入手机号"/>
+            </div>
+            <div class="flex">
+                     <input type="text" class="phone_input2" placeholder="请输入手机号"/>
+            <el-button class="elBtn">获取验证码 </el-button>
+            </div>
+           
+
             <div class="phone_btn font15" >立即验证</div>
         </div>
        </newdialog>
@@ -55,7 +64,7 @@
 </template>
 
 <script>
-import {bd,iconPhone,card} from  '../../utils/imgUrl.js';
+import {bd,iconPhone,card,phone} from  '../../utils/imgUrl.js';
 
 
 import wx from 'weixin-js-sdk'
@@ -65,6 +74,7 @@ name:'bindPhone',
 
 data(){
     return{
+        phone,
         bd:require('./../../assets/img/icon/bd.png')
         ,
         iconPhone:require('./../../assets/img/icon/phone.png'),
@@ -206,6 +216,18 @@ propos:{
         font-size: 12px;
         line-height: 24px;
 }
+.elBtn{
+    padding: 0px;
+width:80px;
+height:30px;
+background:rgba(253,82,79,1);
+border-radius:5px;
+font-size:14px;
+font-family:PingFangSC-Medium,PingFang SC;
+font-weight:500;
+color:rgba(255,255,255,1);
+line-height:20px;
+}
 .btn2{
 
     padding:0px;
@@ -234,13 +256,34 @@ text-align:center;
     font-size:12px;
     color:rgba(160,162,166,1);
 }
-.phone_input{
+.phone_input2{
+           border: none;
+
     width:222px;
     height:31px;
     background:rgba(238,238,239,1);
     border-radius:7px;
     margin:0 auto;
      margin-bottom:22px;
+      line-height:31px;
+      font-size:12px;
+        color:rgba(160,162,166,1);
+        text-align:left;
+        padding-left:7px;
+    width:133px;
+height:30px;
+background:rgba(238,238,239,1);
+border-radius:7px;
+}
+.phone_input{
+        border: none;
+
+    width:222px;
+    height:31px;
+    background:rgba(238,238,239,1);
+    border-radius:7px;
+    margin:0 auto;
+     margin-bottom:7px;
       line-height:31px;
       font-size:12px;
         color:rgba(160,162,166,1);
@@ -295,7 +338,7 @@ text-align:center;
     background-color: white;
 }
 .title{
-    
+    font-size:17px;
     flex: 1;
 }
 .write{

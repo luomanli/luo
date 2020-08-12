@@ -10,7 +10,7 @@
         </div>
 
         <el-steps :active="1" >
-            <el-step title="购买成功" class="font13" :icon="newIncnd"></el-step>
+            <el-step title="购买成功" class="font13" icon="el-icon-my-export"></el-step>
             <el-step title="扫码核销" class="font10 grey" icon="el-icon-upload"> </el-step>
             <el-step title="步骤 3" class="font10 grey" icon="el-icon-picture">兑换成功</el-step>
         </el-steps>
@@ -133,5 +133,14 @@ line-height:36px;
   height: 2px;
     width: 113px;
     background: #EEEFF1;
+}
+.el-icon-my-export{
+    background: url('../../assets/img/icon/custom.png') center no-repeat;
+    background-size: cover;
+}
+.el-icon-my-export:before{
+    content: "替";
+    font-size: 16px;
+    visibility: hidden;
 }
 </style>
