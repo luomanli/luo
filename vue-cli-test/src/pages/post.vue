@@ -48,12 +48,16 @@ export default {
   },
   mounted(){
       this.getUserInfo();
-      window['getCallBack'] = (data) => {
-        this.getCallBack(data)
+      window['displayData'] = (data) => {
+        this.displayData(data)
       }
   },
   methods:{
+   displayData(data) {
+  alert( JSON.stringify(data));
+},
       getCallBack(data){
+          console.log("211",data)
            alert("q12getCallBack"+data)
       },
       goHome(){
@@ -87,27 +91,25 @@ export default {
                 alert('获取微信code：'+this.weixinCode); 
               }
 
-               console.log('成功',res); 
-              
+             
              let url= `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${AppId}&secret=${secret}&code=${code}&grant_type=authorization_code`; 
                alert('二级url'+url); 
                 //  window.location.href = url;
+                
+
+                url=`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${AppId}&secret=${secret}`
+
+
+
+
                     this.$get(url).then(res=>{
                          console.log('成功2',res); 
-                          console.log('成功2',res); 
-                           console.log('成功',res); 
-                                  alert('成功'+res); 
+                         
 
                 }).catch(err=>{
                      alert('get=err'+err); 
                 });
-                //     this.$jsonp(url,{jsonp: 'callBackParam',callbackName: "getCallBack"}).then(res=>{
-                //                   alert('成功'+res); 
-
-                // }).catch(err=>{
-                //      alert('err'+err); 
-                // });
-                 console.log('成功',res); 
+            
                 this.$jsonp(url,{jsonp: 'callBackParam',callbackName: "getCallBack"}).then(res=>{
                     console.log('成功1',res); 
                      console.log('成功1',res); 
@@ -118,7 +120,7 @@ export default {
                 }).catch(err=>{
                      alert('err'+err); 
                 });
-              console.log('成功',res); 
+              console.log('成功'); 
 
 
               

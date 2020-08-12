@@ -8,8 +8,8 @@
                     <div class="font12">已有<span style="color:#FD524F">21</span>人与你一起参加了活动</div>
                
                 <span class="footer flex" >
-                    <div plain class="btn"   @click="active = false">忍痛放弃</div>
-                    <div plain class="btn btn2"      @click="flag = false">继续支付</div>
+                    <div plain class="btn" :class="[active?'noactive':'active']"  @click="active = false">忍痛放弃</div>
+                    <div plain :class="[active?'active':'noactive']" class="btn btn2"     @click="flag = false">继续支付</div>
                     
                 </span>
          </div>
@@ -44,15 +44,16 @@ export default {
 </script>
 
 <style scoped>
- .btn:hover{
-           color:rgba(255,255,255,1);
-           background:rgba(253,82,79,1);
-        }
+.active{
+    color:rgba(255,255,255,1);
+     background:rgba(253,82,79,1);
 
-.btn_active{
-   color:rgba(255,255,255,1);
-           background:rgba(253,82,79,1);
 }
+.noactive{
+     color:rgba(253,82,79,1);
+    background:rgba(255,255,255,1);
+}
+
 .dialog__wrapper{
     position:fixed;
     top:0px;
@@ -94,12 +95,13 @@ font-weight:500;
 border-bottom-left-radius:13px;
 
 
- color:rgba(253,82,79,1);
-    background:rgba(255,255,255,1);
+
 
 }
 .btn2{
+    border-bottom-left-radius:0px;
 border-bottom-right-radius:13px;
+
 }
 .icon{
     position:absolute;

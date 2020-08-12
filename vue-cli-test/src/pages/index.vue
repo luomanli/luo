@@ -143,7 +143,7 @@
 
 <script>
 // import countTime from  '../utils/time.js';
-import {custom} from  '../utils/imgUrl.js';
+import {custom,indexbg} from  '../utils/imgUrl.js';
 
 import reveRank from  '../components/reveRank.vue';
 import company from  '../components/company.vue';
@@ -157,6 +157,7 @@ export default {
    
     return {
       // atime,
+      indexbg,
       custom,
       flag:false,
       n:[1,2,3],
@@ -549,8 +550,6 @@ margin-left:15px;
  right: 0px;
   width: 225px;
   height: 50.9px;
- 
-  background-image:url('../assets/img/bg1.png');
       background-size: 225px 51px;
     background-repeat:repeat-x;
 
@@ -567,13 +566,16 @@ line-height:13px;
 font-weight:600;
 color:#E40000;
 
+
    margin-bottom:6px;
 }
 .price{
   position:relative;
   width: 100%;
   height: 65px;
-  background:linear-gradient(270deg,rgba(234,219,51,1) 0%,rgba(255,233,61,1) 100%);
+  
+background-size:375px 65px;
+  background:url("http://m.dian7.net/mobile-split/img/bg/indexbg.png");
 
 }
 

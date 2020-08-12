@@ -1,20 +1,10 @@
 <template>
   <div class="page">
     <div class="head">
-      <div class="search">
-          
-           <el-input class="search_input"
-    placeholder="请输入内容"
-    prefix-icon="el-icon-search"
-    v-model="input2">
-  </el-input>
-                <input class="search_input" type="text" placeholder="搜索活动">
-                   
-                    <img src="" alt="">
-                </input>
-             
-        
-          
+      <div class="search">       
+         <van-search class="search_input" shape="round" v-model="value" placeholder="搜索活动" 
+         input-align="left"
+          />
       </div>
       <div class="head_content flex">
           <div class="half font15" :class="[active?'active':'noactive']">线下核销<div></div></div>
@@ -44,8 +34,8 @@
               </div>
           </div>
           <div class="footer">
-              <div class="btn font10_grey" :class="[btnActive?'btn_active':'btn_noactive']" >查看订单</div>
-              <div class="btn font10_grey">查看</div>
+              <div class="btn font10_grey" :class="[btnActive?'btn_active':'btn_noactive']" @click="order" >查看订单</div>
+              <div class="btn font10_grey" @click="user" >查看用户</div>
              
           </div>
       </div>
@@ -65,9 +55,11 @@
 </template>
 
 <script>
+
 export default {
   data(){
       return{
+          value:'',
           input2:'',
           active:true,
           btnActive:true,
@@ -89,12 +81,23 @@ export default {
           },
           ],
       }
+
+  },
+  methods:{
+      order(){
+            this.$router.push({name:'activityOrder'})
+      },
+      user(){
+            this.$router.push({name:'activityUser'})
+
+      }
   }
+
 }
 </script>
 
 <style scoped>
-input,el-input{
+/* input,el-input{
     outline: none;
     border: none;
     padding:0
@@ -122,7 +125,7 @@ outline: none;
 -webkit-appearance: button; 
 -webkit-appearance: none; 
 border-radius: 0; 
-}
+} */
 .tip{
     margin-top:7px;
 }
@@ -150,6 +153,7 @@ color:rgba(253,82,79,1);
     padding:0px;
   margin:0 auto;
   border-size:0px;
+  font-size:10px;
     width:308px;
     height:30px;
     background:rgba(246,246,246,1);
@@ -210,15 +214,7 @@ margin-bottom:20px;
     margin-top:20px;
     margin-right:12px;
 }
-   .btn:hover{
-            color: #fff;
-            background: yellow;
-        }
-        .btn:focus{
-            color: #fff;
-            background: red;
-            outline: none;
-        }
+
 .page{
     position:absolute;
     background:rgba(247,247,247,1);

@@ -8,7 +8,9 @@ import { post, get, patch, put } from './utils/axious.js'
 import './assets/style/common.css';
 import VueJsonp from 'vue-jsonp'
 import './assets/js/rem.js'
+import { Search } from 'vant';
 
+Vue.use(Search);
 
 /*使用VueResource插件*/
 

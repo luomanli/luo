@@ -48,6 +48,8 @@ export let info2 = imgUrl + '/icon/info2.png'
 export let info3 = imgUrl + '/icon/info3.png'
 export let outcash = imgUrl + '/bg/outcash.png'
 export let phone = imgUrl + '/bg/phone.png'
+export let indexbg = imgUrl + '/bg/indexbg.png'
+
 
 export let king1 = imgUrl + '/icon/king1.png'
 export let king2 = imgUrl + '/icon/king2.png'
