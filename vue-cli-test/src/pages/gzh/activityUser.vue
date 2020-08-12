@@ -5,7 +5,7 @@
 
         <div class="head flex-between font12">
             <div  class="white" style="width:5.56rem">演示活动:在电脑端点击推广按钮,在手机上</div>
-              <div class="head_right">切换活动</div>
+              <div class="head_right" @click="back">切换活动</div>
         </div>
         <div class="money">
                 <div class="money_bot flex-between" >
@@ -114,11 +114,16 @@ export default {
           }
           ],
       }
+  },
+  methods:{
+      back(){
+            this.$router.push({name:'activity'})
+      },
   }
 }
 </script>
 
-<style>
+<style scoped>
 .l{
     width:5px;
     height:19px;

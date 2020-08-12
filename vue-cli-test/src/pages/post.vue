@@ -32,7 +32,7 @@
 </template>
 
 <script>
-
+import wx from 'weixin-js-sdk'
 import qs from'qs'
 export default {
   name: 'post',
@@ -46,8 +46,56 @@ export default {
 
       }
   },
+   created() {
+    let param = {
+      debug: true,
+      url: 'http://localhost:8081/productgroups',
+      jsApiList: [
+        'chooseWXPay',
+        'checkJsApi'
+      ]
+
+    };
+    param = {
+      debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: 'wx3aee30a8da24ba55', // 必填，公众号的唯一标识
+        timestamp:"1597212515", // 必填，生成签名的时间戳
+        nonceStr: "5rXnd1d76BFvDs9I", // 必填，生成签名的随机串
+        signature: 'bde63dcb34b1c9aedf3ed4b784198267930888a8',// 必填，签名，见附录1
+        jsApiList: [
+            'getLocation'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+
+    };
+    wx.config(param);
+  
+      wx.ready(() => {
+        console.log('wx.ready');
+      });
+
+      wx.error(function (res) {
+
+        console.log('wx err', res);
+
+        //可以更新签名
+      });
+      wx.getLocation({
+    type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+    success: function (res) {
+          alert("12" + JSON.stringify(res))
+        var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+        var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+        var speed = res.speed; // 速度，以米/每秒计
+        var accuracy = res.accuracy; // 位置精度
+        console.log("rews===",res,accuracy)
+        alert("rews==="+res+accuracy)
+
+    }
+});
+ 
+  },
   mounted(){
-      this.getUserInfo();
+    //   this.getUserInfo();
       window['displayData'] = (data) => {
         this.displayData(data)
       }
@@ -71,7 +119,7 @@ export default {
 
          // 获取当前页面地址中的code参数的值 
           const local = 'http://m.dian7.net/mobile-split'; // 对当前地址用encodeURIComponent进行编码 // 如果code是''，说明还没有授权，访问下面连接，用户同意授权，获取code 
-           alert('window.location.href'+window.location.href); 
+         
           
            
          
@@ -83,7 +131,7 @@ export default {
                let herf0=`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${AppId}&redirect_uri=${local}&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`; 
              alert('herf=='+herf0); 
               window.location.href = herf0
-                   alert('window.location.href'+window.location.href); 
+                
           
           } else { 
               this.weixinCode = code; // 能拿到code，说明用户已同意授权，拿到coed 
@@ -120,8 +168,7 @@ export default {
                 }).catch(err=>{
                      alert('err'+err); 
                 });
-              console.log('成功'); 
-
+             
 
               
       }

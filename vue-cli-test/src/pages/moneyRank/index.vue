@@ -277,7 +277,7 @@ vertical-align:middle;
      width:291px;
 height:270px;
 background:rgba(255,255,255,1);
-background: url('http://m.dian7.net/mobile-split/static/img/bg/outcash.png');
+background: url('http://m.dian7.net/mobile-split/img/bg/outcash.png');
 background-size:291px,270px;
 border-radius:16px;
 text-align: center;

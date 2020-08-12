@@ -6,20 +6,26 @@
          input-align="left"
           />
       </div>
-      <div class="head_content flex">
+        <van-dropdown-menu >
+            <van-dropdown-item :title="title1"   @change="getChange1" v-model="value1" :options="option1" />
+            <van-dropdown-item  :title="title2"   @change="getChange2"  v-model="value2" :options="option2" />
+        </van-dropdown-menu>
+
+      <!--<div class="head_content flex">
+            
           <div class="half font15" :class="[active?'active':'noactive']">线下核销<div></div></div>
           <div class="half font15" :class="[active?'noactive':'active']">全部状态</div>
-      </div>
+      </div>-->
     </div>
       <div class="cards" v-for="i in data">
         <div class="intro flex-around">
           <img   src="" alt="" class="card"/>
           <div class="">
-              <span class="font15">活动主题XXCXXXXX</span>
-              <span class="font10">已结束</span>
-              <div class="font10_grey">这是一个活动简介这是一个活动简介这是…</div>
+              <span class="font15">活动主题:{{activityMsg.activityTitle}}</span>
+              <span class="font10">已结束{{activityMsg.activityStatus}}</span>
+              <div class="font10_grey">这是一个活动简介{{activityMsg.activitySubheading}}</div>
               <div class="font13 tip">
-                <span class="price font13">价格:¥10.00</span>
+                <span class="price font13">价格:¥10.00 {{activityMsg.activityPrice}}</span>
                 <span class="font10">线下核销</span>
                 <span class="font10">分销</span>
                 </div>
@@ -29,13 +35,15 @@
         </div>
           <div class="data flex-around">
               <div v-for='i in num' class="flex-col-center">
-                  <span class="font12">10</span>
+                  <span class="font12">10{{num.num}}</span>
                   <div class="font12">浏览量</div>
               </div>
           </div>
           <div class="footer">
+          
               <div class="btn font10_grey" :class="[btnActive?'btn_active':'btn_noactive']" @click="order" >查看订单</div>
               <div class="btn font10_grey" @click="user" >查看用户</div>
+               <div class="btn font10_grey" @click="close" >关闭活动</div>
              
           </div>
       </div>
@@ -79,18 +87,106 @@ export default {
               num:10,
               name:'dgsyh'
           },
+          {
+              num:10,
+              name:'dgsyh'
+          }
           ],
+          option1:[
+               { text: '自定义', value: 0 },
+        { text: '线下核销', value: 1 },
+        { text: '跳转连接', value: 2 },
+        { text: '兑换码', value: 3 },
+
+          ],
+        title1:'线下核销',
+        title2:'全局',
+          value1:'1',
+              option2:[
+               { text: '自定义', value: 0 },
+        { text: '核销码', value: 1 },
+       
+
+          ],
+          value2:'2',
+          activityMsg:{},
+
       }
 
   },
+  mounted(){
+      this.getData();
+  },
   methods:{
+
+    getData(){
+        let data={
+            pageSize:3,
+            activityName:'',
+            type:'',
+            status:'',
+
+        }
+      console.log('123333'+this.axios)
+      this.$post('/WeChat/searchByCategory',
+      data
+      
+      ).then(
+      
+        response => 
+        {
+          console.log('123:',response)
+          this.activityMsg=response.data.activityMsg
+          
+        }
+
+      )
+    },
+
+    close(){
+ 
+        
+      console.log('123333')
+      this.$get('/Wechat/close').then(
+      
+        response => 
+        {
+          console.log('123:',response)
+         
+          
+        }
+
+      )
+    },
+
+
+
+
       order(){
             this.$router.push({name:'activityOrder'})
       },
       user(){
             this.$router.push({name:'activityUser'})
 
+      },
+      getChange1(){
+            this.option1.map(item=>{
+             if(item.value==this.value1){
+                  this.title1=this.option1.text
+             }
+            })
+           
+
+      },
+      getChange2(){
+              this.option2.map(item=>{
+             if(item.value==this.value2){
+                  this.title2=this.option2.text
+             }
+            })
+            this.title2=this.value2
       }
+
   }
 
 }

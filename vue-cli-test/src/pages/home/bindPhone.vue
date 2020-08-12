@@ -1,8 +1,9 @@
 <template>
     <div class="page">
         <div class="font17 order_title" v-if="flag">订单信息</div>
+        <van-form @submit="onSubmit">
         <div class="birthday" v-for='(i,index) in data'>
-            <span class='title'> {{i.key}}</span> 
+            <!-- <span class='title'> {{i.key}}</span> 
              <span class="write" v-if="index===3" >
                 <span class="write1">
                 {{i.pre}}
@@ -12,12 +13,34 @@
             <span class="write" v-else>
                 {{i.pre}}
                 <img class="right" src='i.img'/>
-            </span>
-           
+            </span> -->
+
+
+           <van-field  class="myvant" label-align="right" v-model="value" v-if="index==0" label-class="font15" label="生日" border=true :right-icon="bd" placeholder="请输入用户名" />
+           <van-field v-model="value" class="myvant" label-align="right" v-if="index==2" label-class="font15" label="身份证" border=true :right-icon="card" placeholder="请输入用户名" 
+            :rules="[{ required: true, message: '请填写密码' }]"
+           />
+
+           <van-field v-model="value" class="myvant" label-align="right" v-if="index==1" label-class="font15" label="手机号码" border=true :right-icon="iconPhone" placeholder="请输入用户名" />
+                <div class="flex_center">
+                      <div v-if="index==3">123</div>
+                     <div class="myborder flex-around">
+                        <el-select class="my" v-model="value" placeholder="123" v-if="index==3" size="small">d
+                        <el-option :label="item.label"  v-for="item in option" :value="item.value"></el-option>
+                        </el-select>
+                    </div>
+                </div>
+           <van-field v-model="value" class="myvant" label-align="right" v-if="index==4" label-class="font15" label="微信地址" border=true :right-icon="bd" placeholder="请输入用户名" />
+
         </div>
+</van-form>
+
+
+        <div class="flex_center">
         <el-button class="btn2 flex_center" type='danger' v-if="flag">重新提交</el-button>
+        </div>
     
-        <el-button class="btn" type='danger'  v-if="flag!=true">完成提交</el-button>
+        <el-button class="btn" type='danger'  v-if="flag!=true" click="submit">完成提交</el-button>
        
        <newdialog v-if="fasle">
         <div class="content" >
@@ -32,12 +55,20 @@
 </template>
 
 <script>
+import {bd,iconPhone,card} from  '../../utils/imgUrl.js';
+
+
+import wx from 'weixin-js-sdk'
 import newdialog from'../../components/newdialog.vue'
 export default {
 name:'bindPhone',
 
 data(){
     return{
+        bd:require('./../../assets/img/icon/bd.png')
+        ,
+        iconPhone:require('./../../assets/img/icon/phone.png'),
+        card:require('./../../assets/img/icon/card.png'),
         flag:'true',
         data:[
            { 
@@ -72,6 +103,18 @@ data(){
                img:''
             }
         ],
+        option:[
+            {
+                value:'12',
+                label:"123",
+            },
+              {
+                value:'124',
+                label:"1233",
+            }
+        ],
+          columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+        value:''
     }
 },
 propos:{
@@ -81,12 +124,88 @@ propos:{
     }
 },
  components: { newdialog},
+  created() {
+    let param = {
+      debug: true,
+      url: 'http://localhost:8081/productgroups',
+      jsApiList: [
+        'chooseWXPay',
+        'checkJsApi'
+      ]
 
-methods:{},
+    };
+    param = {
+      debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: 'wx3aee30a8da24ba55', // 必填，公众号的唯一标识
+        timestamp:"1597212515", // 必填，生成签名的时间戳
+        nonceStr: "5rXnd1d76BFvDs9I", // 必填，生成签名的随机串
+        signature: 'bde63dcb34b1c9aedf3ed4b784198267930888a8',// 必填，签名，见附录1
+        jsApiList: [
+            'getLocation'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+
+    };
+    wx.config(param);
+  
+      wx.ready(() => {
+        console.log('wx.ready');
+      });
+
+      wx.error(function (res) {
+
+        console.log('wx err', res);
+
+        //可以更新签名
+      });
+      wx.getLocation({
+    type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+    success: function (res) {
+          alert("12" + JSON.stringify(res))
+        var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+        var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+        var speed = res.speed; // 速度，以米/每秒计
+        var accuracy = res.accuracy; // 位置精度
+        console.log("rews===",res,accuracy)
+        alert("rews==="+res+accuracy)
+
+    }
+});
+ 
+  },
+  methods:{
+      submit(){
+
+      }
+  },
+
+
 }
 </script>
 
 <style  scoped>
+.myvant>>>.van-field__value {
+        border-bottom: 1px #D1D1D1 solid;
+}
+.myborder{
+    height:41px;
+ margin-left: 20px;
+   
+    border-bottom:1px red solid;
+
+
+}
+.my>>>input{
+        width: 190px;
+    height: 24px;
+     border-radius: 4px;
+     border:none;
+  background:rgba(238,238,239,1);
+  display:block;
+}
+.my>>>i{
+        font-size: 12px;
+        line-height: 24px;
+}
 .btn2{
 
     padding:0px;
@@ -156,19 +275,21 @@ text-align:center;
 
 
 }
-
+.van-field__value{
+    border-bottom:1px red solid;
+}
 .page{
     background:rgba(247,247,247,1);
     padding-top:3px ;
 }
 .birthday{
-    height: 48px;
+    height: 42px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
     text-align: center;
-    padding:0px 30px ;
+    padding-right:10px ;
     font-size:15px;
     font-weight:500;
     background-color: white;

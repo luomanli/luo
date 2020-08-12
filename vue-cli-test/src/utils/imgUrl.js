@@ -41,11 +41,11 @@ export let top2 = imgUrl + '/icon/top2.png'
 export let top3 = imgUrl + '/icon/top3.png'
 
 
-export let info1 = imgUrl + '/icon/info1.png'
+export let bd = imgUrl + '/icon/bd.png'
 
-export let info2 = imgUrl + '/icon/info2.png'
+export let iconPhone = imgUrl + '/icon/phone.png'
 
-export let info3 = imgUrl + '/icon/info3.png'
+export let card = imgUrl + '/icon/card.png'
 export let outcash = imgUrl + '/bg/outcash.png'
 export let phone = imgUrl + '/bg/phone.png'
 export let indexbg = imgUrl + '/bg/indexbg.png'

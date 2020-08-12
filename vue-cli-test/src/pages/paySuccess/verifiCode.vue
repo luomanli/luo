@@ -1,24 +1,34 @@
 <template>
 
      <div  class="con">
-        <el-steps :active="1">
-            <el-step title="购买成功" class="font13" icon="el-icon-edit"></el-step>
+        <div  class="top" >
+
+           <van-steps class="vantStep" :active="active" :active-icon="newIncn" active-color="#38f"  >
+              <van-step>买家下单</van-step>
+              <van-step class="vantStep" >商家接单</van-step>
+            </van-steps>
+        </div>
+
+        <el-steps :active="1" >
+            <el-step title="购买成功" class="font13" :icon="newIncnd"></el-step>
             <el-step title="扫码核销" class="font10 grey" icon="el-icon-upload"> </el-step>
             <el-step title="步骤 3" class="font10 grey" icon="el-icon-picture">兑换成功</el-step>
         </el-steps>
+  
         <div  class="flex-around top" >
 
             <div>
-              <img src=""/>
-               <div class="font13" >   </div>
+              <img  class="icon" src=""/>
+              
             </div>
+             <div class="step" >   </div>
              <div>
-              <img src=""/>
-               <div >  </div>
+              <img class="icon2" src=""/>
             </div>
+             <div class="step" >   </div>
+
              <div>
-              <img src=""/>
-               <div >   </div>
+              <img class="icon2" src=""/>
             </div>    
 
         </div>
@@ -53,6 +63,7 @@ export default {
   data(){
       return{
             name:'name',
+            newIncn:require('../../assets/img/money.png')
             
       }
   },
@@ -67,13 +78,33 @@ export default {
 </script>
 
 <style scoped>
+.vantStep{
+  padding-top:30px;
+}
+.vantStep>>>.van-step__line{
+
+top:-10px;
+}
+.vantStep>>>.van-step__circle-container{
+
+top:-10px;
+}
+
+.icon{
+  width:20px;
+  height:20px;
+}
+.icon2{
+  width:6px;
+  height:6px;
+}
 
 .qr{
     width:140px;
 height:140px;
 }
 .top{
-  margin-top:8px ;
+  margin-top:20px ;
   margin-bottom:4px;
 height:80px;
 }
@@ -95,5 +126,12 @@ line-height:26px;
 margin:0 auto;
 margin-top:26px;
 margin-bottom:17px;
+font-size:15px;
+line-height:36px;
+}
+.step{
+  height: 2px;
+    width: 113px;
+    background: #EEEFF1;
 }
 </style>

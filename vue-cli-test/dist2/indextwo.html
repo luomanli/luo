@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <title>fenxiao</img>
+
+    </title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <form name="we-chat-param">
+        appId: <input type="text" name="appId" value="wx3aee30a8da24ba55" /><br/> timeStamp: <input type="text" name="timeStamp" value="1597110114491" /><br/> nonceStr: <input type="text" name="nonceStr" value="7beYQK46rzKv6scL" /><br/> prepayId: <input
+            type="text" name="prepayId" value="wx11094007717164fa488be17d580dd60000" /><br/> signType: <input type="text" name="signType" value="HMACSHA256" /><br/> paySign: <input type="text" name="paySign" value="66604568E2CCA371A1A83849D3DF714A67EDD267748F1C5B292C32AE1B6AF"
+        /><br/>
+    </form>
+    <button onclick="created()">pay</button>
+    <!-- built files will be auto injected -->
+</body>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    function created() {
+        let wechaturl = window.location.href.split('#')[0];
+        console.log("12", wechaturl)
+        param = {
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: 'wx3aee30a8da24ba55', // 必填，公众号的唯一标识
+            timestamp: "1597230132", // 必填，生成签名的时间戳
+            nonceStr: "skNkIwAt36K6n6Nl", // 必填，生成签名的随机串
+            signature: '9a64509c2bb9d82e35038e16bb673ab9bfcf1f52', // 必填，签名，见附录1
+            jsApiList: [
+                    'getLocation'
+                ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+
+        };
+        wx.config(param);
+        alert("12" + JSON.stringify(param))
+        wx.ready((data) => {
+            console.log('wx.ready', data);
+        });
+
+        wx.error(function(res) {
+
+            console.log('wx err', res);
+
+            //可以更新签名
+        });
+        wx.getLocation({
+            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function(res) {
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                var speed = res.speed; // 速度，以米/每秒计
+                var accuracy = res.accuracy; // 位置精度
+                console.log("rews===", res, accuracy)
+
+
+            }
+        });
+
+    }
+</script>
+
+</html>

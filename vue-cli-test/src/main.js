@@ -10,8 +10,23 @@ import VueJsonp from 'vue-jsonp'
 import './assets/js/rem.js'
 import { Search } from 'vant';
 
-Vue.use(Search);
 
+
+import { Step, Steps, DropdownMenu, DropdownItem } from 'vant';
+import { Field, cellGroup } from 'vant';
+import { Picker } from 'vant';
+import { Form } from 'vant';
+
+Vue.use(Form);
+Vue.use(Picker);
+Vue.use(Field);
+Vue.use(cellGroup);
+
+Vue.use(Search);
+Vue.use(Step);
+Vue.use(Steps);
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
 /*使用VueResource插件*/
 
 Vue.use(VueJsonp)
