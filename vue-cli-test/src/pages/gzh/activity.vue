@@ -160,7 +160,7 @@ export default {
       },
       
       scroll(data){
-        console.log('scrolldata',data)
+       alert('scrolldata',data)
       },
 
       order(){

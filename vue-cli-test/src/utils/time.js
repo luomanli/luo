@@ -1,13 +1,13 @@
 const { defaults } = require("autoprefixer");
 
-export default function countTime() {
+function countTime() {
     //获取当前时间  
     var date = new Date();
     var now = date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds();
     var now1 = date.getTime();
 
     //设置截止时间  
-    var str = "2020/8/11 15:00:00";
+    var str = "2020/8/13 22:00:00";
     var endDate = new Date(str);
     // var end = endDate.getTime();
     var end = 24 * 60 * 60 * 1000;
@@ -47,3 +47,8 @@ export default function countTime() {
 
 
 }
+
+
+setTimeout(() => {
+    console.log('1', countTime())
+}, 1000)
