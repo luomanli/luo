@@ -34,7 +34,7 @@
 import {home,custom} from  '../../../utils/imgUrl.js';
 
 export default {
-  name: 'post',
+  name: 'bottom',
   data(){
       return{
             name:'name',
@@ -80,6 +80,8 @@ color:rgba(255,255,255,1);
     height:24px;
 }
 .contain{
+    position: fixed;
+    bottom: 0px;
     width:100%
 }
 

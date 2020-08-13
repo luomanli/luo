@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page" @touchmove="scroll">
     <div class="head">
       <div class="search">       
          <van-search class="search_input" shape="round" v-model="value" placeholder="搜索活动" 
@@ -22,7 +22,7 @@
           <img   src="" alt="" class="card"/>
           <div class="">
               <span class="font15">活动主题:{{activityMsg.activityTitle}}</span>
-              <span class="font10">已结束{{activityMsg.activityStatus}}</span>
+              <span class="tip_status font10">已结束{{activityMsg.activityStatus}}</span>
               <div class="font10_grey">这是一个活动简介{{activityMsg.activitySubheading}}</div>
               <div class="font13 tip">
                 <span class="price font13">价格:¥10.00 {{activityMsg.activityPrice}}</span>
@@ -47,14 +47,14 @@
              
           </div>
       </div>
-      <div class="out_footer flex font15">
+      <div class="out_footer flex_center font15">
           <div class="out1 half">
-              <img src="" alt="" class="icon">
+              <img  class="icon" src="./../../assets/img/icon/outMoney.png" alt="" >
               <span >分销活动</span>
 
           </div>
           <div class="out2 half">
-              <img src="" alt="" class="icon">
+              <img  class="icon1" src="./../../assets/img/icon/busi.png" alt="" >
               <span >商家中心</span>
 
           </div>
@@ -84,10 +84,6 @@ export default {
               name:'dgsyh'
           },
             {
-              num:10,
-              name:'dgsyh'
-          },
-          {
               num:10,
               name:'dgsyh'
           }
@@ -159,8 +155,13 @@ export default {
       )
     },
 
-
-
+      move(data){
+        console.log('data',data)
+      },
+      
+      scroll(data){
+        console.log('scrolldata',data)
+      },
 
       order(){
             this.$router.push({name:'activityOrder'})
@@ -193,6 +194,25 @@ export default {
 </script>
 
 <style scoped>
+.tip_status{
+  width:46px;
+height:18px;
+background:rgba(246,246,246,1);
+border-radius:2px;
+color:rgba(160,162,166,1);
+margin-left:18px;
+}
+.icon{
+  width:27px;
+  height:21px;
+  vertical-align:middle;
+}
+.icon1{
+  width:25px;
+  height:25px;
+  vertical-align:middle;
+
+}
 /* input,el-input{
     outline: none;
     border: none;
@@ -286,9 +306,9 @@ margin-bottom:20px;
     text-align:center;
     width:100%;
    
-    bottom: 30px;
+    bottom: 0px;
     background:white;
-    height:30px;
+    height:49px;
    
 
 }

@@ -40,7 +40,7 @@
 
 <script>
 export default {
-  name: 'post',
+  name: 'bottomSet',
   data(){
       return{
             name:'name',

@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'post',
+  name: 'dia',
   data(){
       return{
             name:'name',

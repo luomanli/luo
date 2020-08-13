@@ -12,16 +12,17 @@
             </span> 
             <span class="write" v-else>
                 {{i.pre}}
+                kecankao   i.form.type=='select'
                 <img class="right" src='i.img'/>
             </span> -->
+        <!--<span>{{i.form.type}}</span>-->
 
-
-           <van-field  class="myvant" label-align="right" v-model="value" v-if="index==0" label-class="font15" label="生日" border=true :right-icon="bd" placeholder="请输入用户名" />
+           <van-field  class="myvant" label-align="right" v-model="value" v-if="true" label-class="font15" label="生日" border=true :right-icon="message=='获取证码'?bd:''" placeholder="请输入用户名" />
            <van-field v-model="value" class="myvant" label-align="right" v-if="index==2" label-class="font15" label="身份证" border=true :right-icon="card" placeholder="请输入用户名" 
             :rules="[{ required: true, message: '请填写密码' }]"
            />
 
-           <van-field v-model="value" class="myvant" label-align="right" v-if="index==1" label-class="font15" label="手机号码" border=true :right-icon="iconPhone" placeholder="请输入用户名" />
+           <van-field v-model="value" class="myvant" label-align="right" v-if="i.options" label-class="font15" label="手机号码" border=true :right-icon="iconPhone" placeholder="请输入用户名" />
                 <div class="flex_center">
                       <div v-if="index==3">123</div>
                      <div class="myborder flex-around">
@@ -48,16 +49,18 @@
             <img  class="phoneNum" :src="phone"/>
             <div class="title">手机号验证</div>
             <div class="sub_title">请绑定手机号、查询订单</div>
-            <div>
+            <div class="flex">
             <input type="text" class="phone_input" placeholder="请输入手机号"/>
             </div>
-            <div class="flex">
+            <div class="flex-between message">
                      <input type="text" class="phone_input2" placeholder="请输入手机号"/>
-            <el-button class="elBtn">获取验证码 </el-button>
+           
+            <el-button class="elBtn flex" :disabled="btnflag" :class='[btnflag==false?"btnactive":"nobtnactive"]' @click="getTime">{{message}}</el-button>
+
             </div>
            
 
-            <div class="phone_btn font15" >立即验证</div>
+            <div class="phone_btn font15" :class='[active?"active":"noactive"]'>立即验证</div>
         </div>
        </newdialog>
     </div>
@@ -74,6 +77,7 @@ name:'bindPhone',
 
 data(){
     return{
+        active:false,
         phone,
         bd:require('./../../assets/img/icon/bd.png')
         ,
@@ -124,7 +128,10 @@ data(){
             }
         ],
           columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
-        value:''
+        value:'',
+        message:'获取验证码',
+        btnflag:false,
+        forms:[],
     }
 },
 propos:{
@@ -135,6 +142,7 @@ propos:{
 },
  components: { newdialog},
   created() {
+    
     let param = {
       debug: true,
       url: 'http://localhost:8081/productgroups',
@@ -182,17 +190,82 @@ propos:{
 });
  
   },
+  mounted(){
+        this.getConfig();
+  },
   methods:{
+      getConfig(){
+           this.forms=this.$route.params.from1
+           console.log(this.forms, this.$route.params.from1)
+
+      },
       submit(){
 
-      }
+      },
+      getTime(){
+          var timer = null;
+        console.log('sdfeexd',this.message)
+            var count = 60;
+          
+
+            if ( this.message=="获取验证码") {
+                   
+            timer = setInterval(()=>{
+                    count--;
+
+                   this.message=count;
+                    console.log('sdfeexd',this.message)
+                    if (count <=0) {
+                            clearInterval(timer); 
+                             this.message='获取验证码' 
+                             this.btnflag=false;   
+                             
+                      }
+                    },1000);
+            }
+            this.btnflag=true;
+         }
+
+
+
+
   },
+ watch:{
+     message(val){
+         if(val>0){
+                this.active=true
+                  
+         }else{
+             this.active=false;         
+         }
+
+     }
+ }
 
 
 }
 </script>
 
 <style  scoped>
+.el-button.is-disabled, .el-button.is-disabled:focus, .el-button.is-disabled:hover {
+   color:white;
+  
+background:rgba(133,133,144,1);
+}
+.btnactive{
+background:rgba(253,82,79,1);
+}
+.nobtnactive{
+    background:rgba(133,133,144,1);
+}
+.active{
+background:rgba(253,82,79,1);
+color:rgba(255,255,255,1);
+}
+.noactive{
+color:rgba(255,255,255,1);
+background:rgba(216,216,218,1);
+}
 .myvant>>>.van-field__value {
         border-bottom: 1px #D1D1D1 solid;
 }
@@ -220,13 +293,14 @@ propos:{
     padding: 0px;
 width:80px;
 height:30px;
-background:rgba(253,82,79,1);
+
 border-radius:5px;
 font-size:14px;
 font-family:PingFangSC-Medium,PingFang SC;
 font-weight:500;
 color:rgba(255,255,255,1);
-line-height:20px;
+line-height:30px;
+text-align:center;
 }
 .btn2{
 
@@ -256,21 +330,25 @@ text-align:center;
     font-size:12px;
     color:rgba(160,162,166,1);
 }
+.message{
+    margin-bottom:19px;
+    padding:0px 13px;
+
+}
 .phone_input2{
            border: none;
 
-    width:222px;
-    height:31px;
+
     background:rgba(238,238,239,1);
     border-radius:7px;
-    margin:0 auto;
-     margin-bottom:22px;
+
+   
       line-height:31px;
       font-size:12px;
         color:rgba(160,162,166,1);
         text-align:left;
         padding-left:7px;
-    width:133px;
+    width:124px;
 height:30px;
 background:rgba(238,238,239,1);
 border-radius:7px;
@@ -278,7 +356,7 @@ border-radius:7px;
 .phone_input{
         border: none;
 
-    width:222px;
+    width:213px;
     height:31px;
     background:rgba(238,238,239,1);
     border-radius:7px;
@@ -291,19 +369,19 @@ border-radius:7px;
         padding-left:7px;
 }
 .phone_btn{
-    width:152px;
+    width:202px;
     height:33px;
-    background:rgba(253,82,79,1);
+   color:rgba(255,255,255,1);
     border-radius:3px;
     margin:0 auto;
     line-height:33px;
-    color:white;
+    
 
 }
    .content{
        text-align:center;
        width:249px;
-        height:310px;
+        height:344px;
         border-radius:6px;
         background-color:white;
    }

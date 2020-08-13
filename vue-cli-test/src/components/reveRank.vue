@@ -41,7 +41,11 @@
         <div class='more'>
            
                <span class='color' @click="getMore" >显示更多</span>
-                <img class='goIcon color' src='../assets/img/down.svg'/>
+                
+                <van-icon  class='goIcon color' name="arrow-down" color="#0D93F1" />
+                <van-icon name="checked" color="#E43435"  />
+               
+                
 
         </div>
   </div>
@@ -51,7 +55,7 @@
 import {top,top1,top2,top3} from  '../utils/imgUrl.js';
 
 export default {
-  name: 'App',
+  name: 'reveRank',
   data(){
       return{
           top,top1,top2,top3,

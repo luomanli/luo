@@ -16,7 +16,11 @@ import { Step, Steps, DropdownMenu, DropdownItem } from 'vant';
 import { Field, cellGroup } from 'vant';
 import { Picker } from 'vant';
 import { Form } from 'vant';
+import { NumberKeyboard } from 'vant';
+import { Icon } from 'vant';
 
+Vue.use(Icon);
+Vue.use(NumberKeyboard);
 Vue.use(Form);
 Vue.use(Picker);
 Vue.use(Field);

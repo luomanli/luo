@@ -4,6 +4,7 @@
           <div class="left">
                 <img  class="user" src="user" alt=""/>
                 <img  class="icon" src="" alt="" />
+                   <van-icon name="checked" color="#E43435"  />
                 <span class='font15'>name</span>
                
           </div>
@@ -34,7 +35,7 @@ export default {
 
 </script>
 
-<style scope>
+<style scoped>
 .color{
     color:rgba(228,52,53,1);
 }

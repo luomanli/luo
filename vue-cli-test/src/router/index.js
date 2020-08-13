@@ -17,6 +17,7 @@ import myOrder from '@/pages/gzh/myOrder'
 import moneyRank from '@/pages/moneyRank/index.vue'
 import recordPeo from '@/pages/moneyRank/recordPeo.vue'
 import cash from '@/pages/moneyRank/cash.vue'
+import bussiness from '@/pages/gzh/bussiness.vue'
 
 import activityUser from '@/pages/gzh/activityUser'
 
@@ -109,6 +110,12 @@ export default new Router({
             path: '/cash',
             name: 'cash',
             component: cash
+
+        },
+        {
+            path: '/bussiness',
+            name: 'bussiness',
+            component: bussiness
 
         }
 

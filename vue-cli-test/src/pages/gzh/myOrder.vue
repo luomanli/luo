@@ -2,10 +2,7 @@
   <div class="page">
     <div class="head">
       <div class="head_content flex">
-          <div  :class="[isActive?'active':'noactive']" class="flex" @click="off">
-
-              <div>线下核销 </div><div class="icon"></div>
-        </div>
+          <div  :class="[isActive?'active':'noactive']" @click="off"><span>线下核销 </span></div>
           <div :class="[isActive?'noactive':'active']"  @click="all">全部状态</div>
       </div>
     </div>
@@ -83,7 +80,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .active{
         color:rgba(253,82,79,1);
         font-size:15px;

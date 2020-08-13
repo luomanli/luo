@@ -32,7 +32,7 @@
                         </div>
                 </div>
                 <div></div>
-                <div class='btn_cash' >提现</div>
+                <div class='btn_cash' @click="openCash" >提现</div>
                     </div>
               
                
@@ -40,19 +40,26 @@
           <div class="center">
                    <div class="flex-between center_con">
                         <span class="font15" >邀请明细</span>
-                        <img class="icon" src="" alt="" >
+                        
+                          <van-icon  class="icon" name="arrow" color="background:rgba(58,59,60,1);" />
                    </div>
                    <div class="flex-between center_bot">
                        <div class="num flex-around">
                         <span class="font13">邀请人数
-                            <div class="font10 color" >您已邀请5个人</div>
+                            <div class="font10 color" >
+                                <span>您已邀请5个人</span>
+                                <van-icon name="arrow" color="rgba(210,34,24,1)" />                          
+                            </div>
+                             
                         </span>
 
                         <img class="icon2" :src="come" alt=""/>
                        </div>
                         <div class="num flex-around">
                         <span class="font13">分销订单
-                          <div class="font10 color">您已邀请5个人</div>
+                          <div class="font10 color">您已邀请5个人
+                           <van-icon name="arrow" color="rgba(210,34,24,1)" />
+                          </div>
                         </span>
                         <img class="icon3"  :src="order" alt=""/>
                        </div>
@@ -61,22 +68,31 @@
                <reve-rank></reve-rank>
                <bottomSet></bottomSet>
                <bottom></bottom>
-               <newdialog v-if="true">
+               <newdialog v-if="cashFlag">
                     <div class="con" >
                     <!-- <img  :src="outcash" class="outcash"/> -->
                         <div class="cash_center">
-                        <input type="text">
+                        <div class="title font20 white">提现金额</div>
+                        <input type="number" readonly @click="number" :value="value">
                         <div class="flex-between cash">
                             <span class="font13">可提现金额:<span >20.57元</span></span>
-                            <span class="color font12" >全部提现</span>
+                            <span class="font12 color">全部提现</span>
                        </div>
                        <div class="tip">*您输入的金额大于可提现的金额</div>
                         <div class="btn" @click="flag=false">提现</div>
+                    <van-icon @click="cancle" name="close" color="rgba(255,255,255,1)" />
                         </div>
                     </div>
                    
 
                </newdialog>
+               <van-number-keyboard
+                :show="show"
+                 theme="custom"
+                @blur="show = false"
+                @input="onInput"
+                @delete="onDelete"
+                />
                  <companytwo flag="true" ></companytwo>
 
         </div>
@@ -93,39 +109,67 @@ import bottom from  '../paySuccess/component/bottom.vue';
 import bottomSet from  '../paySuccess/component/bottomSet.vue';
 
 export default {
-  name: 'post',
-  data(){
-      return{
-            name:'name',
-             img:'../assets/logo1.jpg',
-             flag:true,
-      }
-  },
-  props:{
+  name: 'moneyRank',
+    props:{
       flag1:{
           type:Boolean,
           default:false
 
       }
   },
+ 
+
  components: { reveRank,bottomSet,bottom,newdialog,companytwo },
     data(){
         return{
             come,
             order,
             rank,
-            outcash
+            outcash,
+             show:true,
+            name:'name',
+             img:'../assets/logo1.jpg',
+             flag:true,
+             value:'123',
+             cashFlag:true
+             
         }
     },
   methods:{
       goHome(){
           
+      },
+      onInput(v){
+          this.value+=''+v;
+          console.log(v)
+      },
+      onDelete(){
+          this.value=this.value.substr(0,(this.value.length-1))
+      },
+      number(){
+          console.log('123')
+          this.show=true
+      },
+      cancle(){
+          this.cashFlag=false
+      },
+      openCash(){
+           this.cashFlag=true;
       }
   }
 }
 </script>
 
 <style scoped>
+.icon{
+    width:4px;
+height:8px;
+
+}
+.title{
+padding-top:30px;
+margin-bottom:51px;
+}
 .outcash{
     position:absolute;
     width:300px;
@@ -144,9 +188,10 @@ border-radius:5px;
 border:1px solid rgba(151,151,151,1);
 }
 .cash_center{
+    
     padding-left: 24px;
     padding-right:32px;
-    padding-top:98px;
+    
 }
 .center_bot{
     margin-right: 37px;
@@ -260,7 +305,7 @@ border-radius:5px;
 font-size:16px;
 margin: 0 auto;
 margin-top:10px;
-margin-bottom: 19px;
+margin-bottom: 30px;
 color:rgba(255,255,255,1);
 background:linear-gradient(90deg,rgba(247,70,62,1) 0%,rgba(252,134,78,1) 100%);
 }
@@ -282,11 +327,13 @@ vertical-align:middle;
 }
 
 .con{
-     width:291px;
+    position: absolute;
+    top: 120px;
+width:291px;
 height:260px;
 background:rgba(255,255,255,1);
 background: url('http://m.dian7.net/mobile-split/img/bg/outcash.png');
-background-size:291px,270px;
+background-size:cover;
 border-radius:16px;
 text-align: center;
 

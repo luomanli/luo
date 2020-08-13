@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'post',
+  name: 'buyKown',
   data(){
       return{
             name:'name',
