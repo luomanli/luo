@@ -6,39 +6,39 @@ axios.defaults.baseURL = '';
 
 
 //http request 拦截器
-axios.interceptors.request.use(
-    config => {
-        // const token = getCookie('名称');注意使用的时候需要引入cookie方法，推荐js-cookie
-        config.data = JSON.stringify(config.data);
-        config.headers = {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-            // if(token){
-            //   config.params = {'token':token}
-            // }
-        return config;
-    },
-    error => {
-        return Promise.reject(err);
-    }
-);
+// axios.interceptors.request.use(
+//     config => {
+//         // const token = getCookie('名称');注意使用的时候需要引入cookie方法，推荐js-cookie
+//         config.data = JSON.stringify(config.data);
+//         config.headers = {
+//                 'Content-Type': 'application/x-www-form-urlencoded'
+//             }
+//             // if(token){
+//             //   config.params = {'token':token}
+//             // }
+//         return config;
+//     },
+//     error => {
+//         return Promise.reject(err);
+//     }
+// );
 
 
-//http response 拦截器
-axios.interceptors.response.use(
-    response => {
-        if (response.data.errCode == 2) {
-            router.push({
-                path: "/login",
-                query: { redirect: router.currentRoute.fullPath } //从哪个页面跳转
-            })
-        }
-        return response;
-    },
-    error => {
-        return Promise.reject(error)
-    }
-)
+// //http response 拦截器
+// axios.interceptors.response.use(
+//     response => {
+//         if (response.data.errCode == 2) {
+//             router.push({
+//                 path: "/login",
+//                 query: { redirect: router.currentRoute.fullPath } //从哪个页面跳转
+//             })
+//         }
+//         return response;
+//     },
+//     error => {
+//         return Promise.reject(error)
+//     }
+// )
 
 
 /**
@@ -48,10 +48,12 @@ axios.interceptors.response.use(
  * @returns {Promise}
  */
 
-export function get(url, params = {}) {
+export function get(url, ) {
     return new Promise((resolve, reject) => {
-        axios.get(url, {
-                params: params
+        axios({
+                url: url,
+                method: 'get',
+
             })
             .then(response => {
                 resolve(response.data);
@@ -73,12 +75,21 @@ export function get(url, params = {}) {
 
 export function post(url, data = {}) {
     return new Promise((resolve, reject) => {
-        axios.post(url, data)
-            .then(response => {
-                resolve(response.data);
-            }, err => {
-                reject(err)
-            })
+
+        axios({
+            url: url,
+            method: 'post',
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+            }
+
+        }).then(response => {
+            alert(JSON.stringify(response.data))
+            resolve(response.data);
+        }, err => {
+            reject(err)
+        })
     })
 }
 

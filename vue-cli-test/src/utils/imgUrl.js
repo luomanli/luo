@@ -1,6 +1,5 @@
-let imgUrl = "http://m.dian7.net/mobile-split/img"
+export function randomPeo() {　　
 
-function random() {　　
     var arr = [];　　
     while (arr.length < 10) { //原数组长度为0，每次成功添加一个元素后长度加1，则当数组添加最后一个数字之前长度为9即可
         　　　　
@@ -21,6 +20,8 @@ function random() {　　
     }
     return arr
 }
+export let imgUrl = "http://m.dian7.net/mobile-split/img"
+export let imgVirUrl = "http://m.dian7.net/mobile-split/img/virtualUser/user"
 
 export let nopay = imgUrl + '/bg/nopay.png'
 export let custom = imgUrl + '/icon/custom.png'

@@ -1,5 +1,7 @@
 <template>
-  <div class="page" @touchmove="scroll">
+  <div class="page" >
+
+  <div  id="content">
     <div class="head">
       <div class="search">       
          <van-search class="search_input" shape="round" v-model="value" placeholder="搜索活动" 
@@ -16,8 +18,9 @@
           <div class="half font15" :class="[active?'active':'noactive']">线下核销<div></div></div>
           <div class="half font15" :class="[active?'noactive':'active']">全部状态</div>
       </div>-->
-    </div>
-      <div class="cards" v-for="i in data">
+    </div >
+    
+      <div class="cards" v-for="i in data" >
         <div class="intro flex-around">
           <img   src="" alt="" class="card"/>
           <div class="">
@@ -47,18 +50,19 @@
              
           </div>
       </div>
-      <div class="out_footer flex_center font15">
+      <div class="out_footer flex_center font15"  @click="goIndex">
           <div class="out1 half">
               <img  class="icon" src="./../../assets/img/icon/outMoney.png" alt="" >
               <span >分销活动</span>
 
           </div>
-          <div class="out2 half">
+          <div class="out2 half" @click="goBusi">
               <img  class="icon1" src="./../../assets/img/icon/busi.png" alt="" >
               <span >商家中心</span>
 
           </div>
       </div>
+    </div >
   </div>
 </template>
 
@@ -72,7 +76,7 @@ export default {
           active:true,
           btnActive:true,
           data:[
-              1,2,3,4
+              1,2,3,4,5
           ],
           num:[
               {
@@ -112,6 +116,7 @@ export default {
   },
   mounted(){
       this.getData();
+       window.addEventListener("scroll", this.scrollBottom, true);
   },
   methods:{
 
@@ -140,28 +145,44 @@ export default {
     },
 
     close(){
- 
-        
       console.log('123333')
-      this.$get('/Wechat/close').then(
-      
+      this.$get('/Wechat/close').then(    
         response => 
         {
-          console.log('123:',response)
-         
-          
+          console.log('123:',response)               
         }
-
       )
     },
+    scrollBottom(data) {
+        console.log( 'scrollBottom')
 
-      move(data){
-        console.log('data',data)
-      },
+    // 滚动到页面底部时
+        const el = document.getElementById("content");
+        const windowHeight = window.screen.height;
+        const scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+        const contentHeight = el.clientHeight;
+        const toBottom = contentHeight- windowHeight - scrollTop;
+        if (toBottom < 10 ) {
+        this.loading = true;
+         console.log( '加载数据')
+         this.data.push('1')
+        // 请求的数据未加载完成时
+        // this.getData();
+       
+        }
+         console.log( 'dom conent：',contentHeight,'底部：',toBottom,
+         
+         'window.screen.height屏幕：',windowHeight,'document.documentElement.scrollTop',scrollTop)
+    },
+
+      // move(data){
+      //   console.log('data',data)
+      // },
       
-      scroll(data){
-       alert('scrolldata',data)
-      },
+      // scroll(data){
+      //  alert('scrolldata',data)
+      // },
 
       order(){
             this.$router.push({name:'activityOrder'})
@@ -186,7 +207,15 @@ export default {
              }
             })
             this.title2=this.value2
-      }
+      },
+      goIndex(){
+            this.$router.push({name:'Index'})
+
+      },
+      goBusi(){
+            this.$router.push({name:'businessCenter'})
+
+      },
 
   }
 
@@ -194,6 +223,10 @@ export default {
 </script>
 
 <style scoped>
+#content{
+  background-color:rgba(247,247,247,1);
+
+}
 .tip_status{
   width:46px;
 height:18px;

@@ -43,7 +43,7 @@
                <span class='color' @click="getMore" >显示更多</span>
                 
                 <van-icon  class='goIcon color' name="arrow-down" color="#0D93F1" />
-                <van-icon name="checked" color="#E43435"  />
+             
                
                 
 
@@ -52,16 +52,14 @@
 </template>
 
 <script scoped>
-import {top,top1,top2,top3} from  '../utils/imgUrl.js';
-
+import {top,top1,top2,top3,} from  '../utils/imgUrl.js';
+// vpeo
 export default {
   name: 'reveRank',
   data(){
       return{
           top,top1,top2,top3,
-          c:[1
-          
-          
+          c:[1    
           ,2,3,4],
           data:[{
             'rank':'1',
@@ -80,7 +78,7 @@ export default {
       }
   },
   mounted(){
-      
+      console.log(this.vpeo)
   },
   methods:{
         getMore(){
@@ -89,7 +87,11 @@ export default {
             'user':'we',
             'money':'收益'
           })
-        }
+        },
+        
+
+
+
   }
 
 }

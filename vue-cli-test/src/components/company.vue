@@ -1,4 +1,5 @@
 <template>
+
   <div class="dialog__wrapper flex_center" v-if="false">
   <div class='content'>
     <div class='title'>
@@ -25,6 +26,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'post',
   data(){

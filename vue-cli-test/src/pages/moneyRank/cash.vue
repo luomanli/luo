@@ -40,7 +40,7 @@ export default {
 </script>
 
     
-<style scope>
+<style scoped>
 input{
     border:none;
 

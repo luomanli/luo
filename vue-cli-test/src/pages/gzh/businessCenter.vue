@@ -5,7 +5,7 @@
           <div class="left flex">
        
                     <img  class="user" src="./../../assets/logo1.jpg" alt=""/>
-                    <div class="flex-col-center">
+                    <div class="flex-col-center" style="align-items:baseline;margin-left:5px;">
                       
                                 <span class="font15 white">name</span>
                         <div class="phone font10">12344</div>

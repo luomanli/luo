@@ -7,7 +7,7 @@
         <div class="right">
           <div class="flex_column">
               <div style='font-size:10px;line-height:14px;height:14px'>距离活动结束</div>
-              <div class='time'>{{atime}}</div>
+              <div class='time'>{{backTime}}</div>
           </div>
         </div>
         <div class="old_price">原价:1788{{activityMsg.originalPrice}}</div>
@@ -52,10 +52,14 @@
       <div class="peoNum_right flex-between">
      <div class="more">
         <div class='one'></div>
-            <div class='one buyer'></div>
-            <div class='one buyer1'></div>    
+            <div class='one buyer'>
+              <img :src="imgVirUrl+vpeo[0]"/>
+            </div>
+            <div class='one buyer1'>
+              <img :src="imgVirUrl+vpeo[1]"/>
+            </div>    
             <div class='one buyer2 '>
-           
+              <img :src="imgVirUrl+vpeo[2]"/>
             </div>
 
       </div>
@@ -136,7 +140,7 @@
       </div>
         <div class='flex_center' >
             <img class='custom' :src="custom">
-            <div class='buy' @click="bug">立即购买</div>   
+            <div class='buy' @click="buy">立即购买</div>   
         </div>
     </div>
      <phone ></phone>
@@ -146,22 +150,25 @@
 </template>
 
 <script>
-// import countTime from  '../utils/time.js';
-import {custom,indexbg} from  '../utils/imgUrl.js';
+import time from  '../utils/time.js';
+import {custom,indexbg,imgVirUrl} from  '../utils/imgUrl.js';
 import phone from  './home/phone.vue';
-
 import reveRank from  '../components/reveRank.vue';
 import company from  '../components/company.vue';
 import nopay from  '../components/nopay.vue';
+import qs from'qs'
 // let atime=countTime();
 // setTimeout(countTime, 1000);
+console.log(time);
+
 export default {
   name: 'H3',
   data () {
 
    
     return {
-      // atime,
+      imgVirUrl,
+      backTime:'00:00:00',
       indexbg,
       custom,
       flag:false,
@@ -177,10 +184,13 @@ export default {
       form:{},
       ContentData: '<p><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAkACQAAD/4QB0RXhpZgAATU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAIdpAAQAAAABAAAATgAAAAAAAACQAAAAAQAAAJAAAAABAAKgAgAEAAAAAQAAANagAwAEAAAAAQAAANYAAAAA/+0AOFBob3Rvc2hvcCAzLjAAOEJJTQQEAAAAAAAAOEJJTQQlAAAAAAAQ1B2M2Y8AsgTpgAmY7PhCfv/iAiBJQ0NfUFJPRklMRQABAQAAAhBhcHBsBAAAAG1udHJSR0IgWFlaIAfkAAYAHgAIADoAHmFjc3BBUFBMAAAAAEFQUEwAAAAAAAAAAAAAAAAAAAAAAAD21gABAAAAANMtYXBwbNypxmSUwO/VhVWV1rKv7lMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmRlc2MAAAD8AAAAZGNwcnQAAAFgAAAAI3d0cHQAAAGEAAAAFHJYWVoAAAGYAAAAFGdYWVoAAAGsAAAAFGJYWVoAAAHAAAAAFHJUUkMAAAHUAAAAEGNoYWQAAAHkAAAALGJUUkMAAAHUAAAAEGdUUkMAAAHUAAAAEGRlc2MAAAAAAAAACkxHIEhEUiA0SwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAENvcHlyaWdodCBBcHBsZSBJbmMuLCAyMDIwAABYWVogAAAAAAAA8xYAAQAAAAEWylhZWiAAAAAAAAB51wAAOFEAAABcWFlaIAAAAAAAAFTZAAC6UAAAC5tYWVogAAAAAAAAKCYAAA1gAADHNXBhcmEAAAAAAAAAAAAB9gRzZjMyAAAAAAABDHIAAAX4///zHQAAB7oAAP1y///7nf///aQAAAPZAADAcf/AABEIANYA1gMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2wBDAAICAgICAgMCAgMFAwMDBQYFBQUFBggGBgYGBggKCAgICAgICgoKCgoKCgoMDAwMDAwODg4ODg8PDw8PDw8PDw//2wBDAQICAgQEBAcEBAcQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/3QAEAA7/2gAMAwEAAhEDEQA/APw/ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/0Pw/ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/0fw/ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/0vw/ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/0/w/ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/1Pw/ooooAKKKKACiiigAooooAKKKKACiiigAor2X4Z/CO+8eP9omm+yWQ6yEZ/SvaYf2dPBUjFJPFMaEdflH+NfOY/irBYeo6VSTut7Jv8j7TL/D/NMTh44mnTtCWzbSv6XZ8Y0V9xz/ALK+j3ujXd94X19L+6tV3eWqgZxye9fFWpQSW19NbyrtaJipH+6cV0ZRxDhcc5LDyu473TTXyZ5OdcNYvL+X6zG3NtZpp/NFGiiivbPBCiiigAooooAKKKKACiiigAooooA//9X8P6KKKACiiigAooooAKKKKACiiigAooooA+xPhPdvB8PLkIcHY3T8a+Tbu/vftcxFxIPnb+M+v1r6R+EWqadeeH5fD7TiO4dSMH3rHb4D3dxPI4v1AZieg7mvhsFi6GExeIeIduZ3V0f0FxDw1js2yfLZ5bHnUINSs1o9NHqd/wDso6jci+1oSzO4MR4Zif4T618q+KjnxBfH/pq//oRr7V+F3giD4X2up6vql+rJJGR29CK+INcuUu9Xu7iPlXkYj86OH6tOtmWKr0dYtRV/S58hxplNfA5TgsNi1y1E5tq+trqxk0UUV9yflgUUUUAFFFFABRRRQAUUUUAFFFFAH//W/D+iiigAooooAKKKKACiiigAooooAKKKKAL+n6ne6XcC6sZDHIvQiunHxD8WA5F635VxNFYVcLSm7zin8j0sJnOLw8eShVlFdk2jsL7x54o1G0ayu7xnhfqK48nJyaKKqjh4U1aEUvQwxePr4iXNXm5PzdwooorU5AooooAKKKKACiiigAooooAKKKKAP//X/D+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Q/D+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//R/D+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//S/D+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//T/D+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//U/D+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Z"/>频、超链接等，支持富文本编辑。实时手机版效果预览，请看PC编辑器右边。</p>',
       comp:false,
+      vpeo:this.$randomPeo(5)
     }
   },
   mounted(){
    this.getdata();
+  console.log("this.$randomPeo",this.$randomPeo(5))
+  let vpeo=this.$randomPeo(5);
 
   },
  components: { reveRank ,company,nopay,phone},
@@ -188,18 +198,24 @@ export default {
     getdata(){
       console.log('123333'+this.axios)
       this.$get('/activity/mobile/58').then(
-      
         response => 
         {
           console.log('123:',response)
           this.activityMsg=response.data.activityMsg
-          this.forms=response.data.forms
-
-          
+          this.getTime(this.activityMsg.startTime,this.activityMsg.endTime)
+          this.forms=response.data.forms    
         }
 
       )
     },
+
+    getTime(start,end){
+       let res= time(start,end)
+       if(res){
+         this.backTime=res
+       }
+    },
+
     goPost(){
         this.$router.push({name:'post'})
     },
@@ -218,11 +234,10 @@ export default {
 
     },
 
-      goFound(){
+    goFound(){
           this.$router.push({name:'activity'})
       },
-      bug(){
-        
+    bug1(){ 
         if(this.activityMsg.isPaidFill){
                this.$router.push({
                  name:'bindPhone',
@@ -240,15 +255,42 @@ export default {
                   from:JSON.stringfy(this.forms),
                   from1:this.forms
                 }
-             
-             
-             
-             
              })
         }
-                 
+    },
+    buy(){
+      const code = qs.parse(window.location.search.substr(1)).code;
+      let params={
+        // activityId:this.activityMsg.uid,
+       activityId:52,
+        code:'23',
+        orderStyle:'1'
 
       }
+      let body={
+        "fs":"dsf",
+        "dsff":'d',
+        "dsfafa":"dsfw"
+        }
+        
+      let url='/orderForm/new/byCode?activityId=52&code='+code+'&orderStyle=1'
+      // this.$get(url,params,(data)=>{
+
+      //     console.log(data)
+
+      // })
+        this.$post(url, body,(data)=>{
+
+          console.log(data)
+
+      })
+
+
+    },
+
+ 
+
+
 
   },
   watch:{

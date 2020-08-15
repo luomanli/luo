@@ -9,6 +9,7 @@ import './assets/style/common.css';
 import VueJsonp from 'vue-jsonp'
 import './assets/js/rem.js'
 import { Search } from 'vant';
+import { randomPeo } from './utils/randomPeo.js'
 
 
 
@@ -36,7 +37,8 @@ Vue.use(DropdownItem);
 Vue.use(VueJsonp)
     //定义全局变量
 
-
+Vue.prototype.$randomPeo = randomPeo;
+console.log('we', Vue.prototype.$randomPeo)
 Vue.prototype.$post = post;
 Vue.prototype.$get = get;
 Vue.prototype.$patch = patch;
@@ -45,7 +47,7 @@ Vue.prototype.$put = put;
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.prototype.$axios = axios
-axios.defaults.baseURL = 'http://10.10.10.22:9352'
+axios.defaults.baseURL = 'http://m.dian7.net:9351'
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 /* eslint-disable no-new */
