@@ -43,27 +43,29 @@
     <div class="peoNum" v-if="" > 
      <div class="peoNum_left flex-between">
      <div class="peoNum_item" v-for='i in n'>
-        <img class="icon_crown" src="../assets/logo1.jpg" alt="">
-        <img class="peo" src="../assets/logo1.jpg" alt="">
+        <img class="icon_crown" :src="kingUrl+i+'.png'" alt="">
+        <img class="peo" :src="imgVirUrl+vpeo[i]" alt="">
      </div>
       
     
      </div>
       <div class="peoNum_right flex-between">
      <div class="more">
-        <div class='one'></div>
-            <div class='one buyer'>
-              <img :src="imgVirUrl+vpeo[0]"/>
-            </div>
-            <div class='one buyer1'>
-              <img :src="imgVirUrl+vpeo[1]"/>
-            </div>    
+       
+             <img class="more_img one" :src="imgVirUrl+vpeo[4]"/>
+         
+          
+              <img  class="more_img one buyer" :src="imgVirUrl+vpeo[0]"/>
+           
+          
+              <img class="more_img one buyer1" :src="imgVirUrl+vpeo[1]"/>
+             
             <div class='one buyer2 '>
-              <img :src="imgVirUrl+vpeo[2]"/>
+              
             </div>
 
       </div>
-      <div class="back">
+      <div class="back" @click="goRankIndex">
        {{activityMsg.virtualQuantity}}12人已购买
        <van-icon name="arrow" color="#3A3B3C" />
        
@@ -150,8 +152,9 @@
 </template>
 
 <script>
+
 import time from  '../utils/time.js';
-import {custom,indexbg,imgVirUrl} from  '../utils/imgUrl.js';
+import {custom,indexbg,imgVirUrl,kingUrl} from  '../utils/imgUrl.js';
 import phone from  './home/phone.vue';
 import reveRank from  '../components/reveRank.vue';
 import company from  '../components/company.vue';
@@ -167,7 +170,9 @@ export default {
 
    
     return {
+      kingUrl,
       imgVirUrl,
+      king:'./../assets/img/icon/king',
       backTime:'00:00:00',
       indexbg,
       custom,
@@ -287,6 +292,13 @@ export default {
 
 
     },
+    goRankIndex(){
+         this.$router.push({
+               
+                name:'moneyRank',               
+              
+             })
+    }
 
  
 
@@ -301,6 +313,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.more_img {
+  width: 27px;
+  height: 27px;
+}
 .custom{
   width:26px;
   height:26px;
@@ -340,8 +356,9 @@ p{
     background:black  url('../assets/logo1.jpg')  ;
    width:27px;
    height:27px;
-   border:3px grey solid;
+   border:1px rgba(255,255,255,1) solid;
    background-size:27px 27px;
+       top: 2px;
    
 }
 .buyer{

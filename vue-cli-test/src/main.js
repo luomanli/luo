@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import http from 'vue-resource'
+
 import { post, get, patch, put } from './utils/axious.js'
 import './assets/style/common.css';
 import VueJsonp from 'vue-jsonp'
@@ -43,6 +45,9 @@ Vue.prototype.$post = post;
 Vue.prototype.$get = get;
 Vue.prototype.$patch = patch;
 Vue.prototype.$put = put;
+Vue.use(http)
+
+
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';

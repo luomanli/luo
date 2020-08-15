@@ -48,11 +48,12 @@ axios.defaults.baseURL = '';
  * @returns {Promise}
  */
 
-export function get(url, ) {
+export function get(url, params) {
     return new Promise((resolve, reject) => {
         axios({
                 url: url,
                 method: 'get',
+                data: params
 
             })
             .then(response => {
@@ -119,6 +120,54 @@ export function patch(url, data = {}) {
  */
 
 export function put(url, data = {}) {
+    return new Promise((resolve, reject) => {
+        axios.put(url, data)
+            .then(response => {
+                resolve(response.data);
+            }, err => {
+                reject(err)
+            })
+    })
+}
+
+
+/**
+ * 封装get body请求
+ * @param url
+ * @param data
+ * @returns {Promise}
+ */
+
+export function getBody(url, data = {}) {
+
+
+    var data = JSON.stringify(data);
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener("readystatechange", function() {
+        if (this.readyState === 4) {
+            console.log(this.responseText);
+        }
+    });
+
+    xhr.open("GET", "http://127.0.0.1:1323/intranet/test");
+
+    xhr.withCredentials = false;
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Accept", "*/*");
+    xhr.setRequestHeader("Cache-Control", "no-cache");
+    xhr.setRequestHeader("Postman-Token", "7c8c5c5f-effc-4cbb-a5c9-6e3f72c554a6,2bc402e6-9654-4f13-9e7e-33550bed91bc");
+    xhr.setRequestHeader("cache-control", "no-cache");
+
+    xhr.send(data);
+
+
+
+
+
+
     return new Promise((resolve, reject) => {
         axios.put(url, data)
             .then(response => {

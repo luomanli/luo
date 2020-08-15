@@ -22,6 +22,9 @@ export function randomPeo() {　　
 }
 export let imgUrl = "http://m.dian7.net/mobile-split/img"
 export let imgVirUrl = "http://m.dian7.net/mobile-split/img/virtualUser/user"
+export let kingUrl = "http://m.dian7.net/mobile-split/img/icon/king"
+
+
 
 export let nopay = imgUrl + '/bg/nopay.png'
 export let custom = imgUrl + '/icon/custom.png'
