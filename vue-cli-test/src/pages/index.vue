@@ -131,10 +131,10 @@
       </div>
 
   
-      <company v-if="comp" ></company>
+      <company v-if="true" ></company>
 
 
-   <nopay :flag="true"></nopay>
+   <nopay :flag="false"></nopay>
     <div class='bottom'>
       <div class='flex-col-center' style="align-items: baseline;">
             <span class="font12" style='text-decoration:line-through;color:rgba(255,127,128,1);'>原价:1788</span>

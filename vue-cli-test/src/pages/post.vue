@@ -64,6 +64,16 @@ export default {
       ]
     };
     let ticket='';
+     let data0={"url":"http://m.dian7.net/mobile-split"}
+        let url1="http://m.dian7.net:9351/sign/general"
+
+
+          this.$http.get(url1 ,{
+            params:data0,
+            body:data0
+          }).then((res)=>{
+              console.log('ressign',res)
+          })
     this.$get('/weChat/get/ticket').then((data)=>{
         ticket=data.ticket
         console.log('data.ticket',data.ticket)
@@ -71,10 +81,10 @@ export default {
     }).then(()=>{
 
         let data0={"url":"http://m.dian7.net/mobile-split"}
-        let url="http://m.dian7.net:9351/sign/general"
+        let url1="http://m.dian7.net:9351/sign/general"
 
 
-          this.$http.get(url ,{
+          this.$http.get(url1 ,{
          
             body:data0
           }).then((res)=>{

@@ -12,7 +12,7 @@ import VueJsonp from 'vue-jsonp'
 import './assets/js/rem.js'
 import { Search } from 'vant';
 import { randomPeo } from './utils/randomPeo.js'
-
+import clipboard from 'clipboard';
 
 
 import { Step, Steps, DropdownMenu, DropdownItem } from 'vant';
@@ -38,7 +38,7 @@ Vue.use(DropdownItem);
 
 Vue.use(VueJsonp)
     //定义全局变量
-
+    Vue.prototype.clipboard = clipboard;
 Vue.prototype.$randomPeo = randomPeo;
 console.log('we', Vue.prototype.$randomPeo)
 Vue.prototype.$post = post;

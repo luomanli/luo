@@ -1,26 +1,43 @@
 <template>
 
-  <div class="dialog__wrapper flex_center" v-if="false">
-  <div class='content'>
-    <div class='title'>
-        
+  <div class="dialog__wrapper flex_center" v-if="outFlag" @click.stop="close">
+    <div class='content' v-if="false">
+        <div class='title'>
         <div>
             <img  class="icon1" :src="img" />
             <span class='font15'>小懵科技</span>
         </div>
-        <div >
+            <div >
             <img  class="icon2" :src="img" />
             <span class='font12'>16525698746</span>
+            </div>
+        </div>
+        <div class='post' v-if='false'>
+        
+            <img class="QRcode" src="../assets/logo1.jpg" />
+        
+        </div>
+        <div class='footer' v-if='false'>
+        长按识别二维码联系我们 
         </div>
     </div>
-     <div class='post'>
-      
-         <img class="QRcode" src="../assets/logo1.jpg" />
-      
-    </div>
-    <div class='footer'>
-     长按识别二维码联系我们 
-    </div>
+  <div class='content'>
+        <div class='title'>
+        <div>
+            <img  class="icon1" :src="img" />
+            <span class='font15 cobyOrderSn' data-clipboard-action="copy" data-clipboard-text="16525698746">16525698746</span>
+        </div>
+            <div >
+            <span class='font12'>一键拨打</span>
+            <a href="tel:17791761219">我试试</a>
+            <a @click="copyLink">copylink</a>
+
+            </div>
+        </div>
+        
+        <div class='footer' >
+        请拨打电话联系我们 
+        </div>
     </div>
   </div>
 </template>
@@ -28,11 +45,12 @@
 <script>
 
 export default {
-  name: 'post',
+  name: 'company',
   data(){
       return{
             name:'name',
              img:'../assets/logo1.jpg',
+             outFlag:true
           
       }
   },
@@ -41,12 +59,30 @@ export default {
           type:Boolean,
           default:false
 
-      }
+      },
+   
   },
   methods:{
       goHome(){
           
-      }
+      },
+       copyLink() {
+        
+            let _this = this;
+            let clipboard = new this.clipboard(".cobyOrderSn");
+              alert("复制成功"+clipboard)
+            clipboard.on('success', function () {
+            alert("复制成功")
+            });
+            clipboard.on('error', function () {
+            alert("复制失败")
+     });
+    
+ },
+         close(){
+                this.outFlag=false
+            }
+
   }
 
 }

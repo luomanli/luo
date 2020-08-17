@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog__wrapper flex_center" v-if="false">
+  <div class="dialog__wrapper flex_center" v-if="true">
   <div class='content'>
     <div class='title'>
         
@@ -14,9 +14,9 @@
          <img class="QRcode" src="../assets/logo1.jpg" />
       
     </div>
-    <div class='footer'>
-     长按识别二维码联系我们 
-    </div>
+        <div class='footer'>
+        长按识别二维码联系我们 
+        </div>
     </div>
   </div>
 </template>
@@ -64,7 +64,7 @@ export default {
     
 }
 .icon1{
-    width:33px;
+width:33px;
 height:29px;
 vertical-align:middle;
 }
@@ -88,11 +88,11 @@ vertical-align:middle;
 
 }
 .content{
-     height:322px;
+    height:322px;
     width:310px;
     background-color:white;
-     margin:0 auto;
-     border-radius:7px;
+    margin:0 auto;
+    border-radius:7px;
 
 }
 .contain{
@@ -122,7 +122,7 @@ vertical-align:middle;
 
 .voice{
     vertical-align: middle;
-  width:50px;
+    width:50px;
     height:40px;
 }
 
