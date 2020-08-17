@@ -1,7 +1,7 @@
 <template>
   <div class='contain'>
   
-    <div class='title'>
+    <div class='title' v-if="subscribe">
         
         <div class="flex-between">
             <img  class="voice" src="../assets/img/icon/laba.svg" alt="">
@@ -49,115 +49,164 @@ export default {
 
             weixinCode:'',
             endUrl:'',
-            appId:'', 
+            appId:'o07hhuI8ChAu4pu5AkVyYuXuyPL4', 
+            address:'',
+
+            openId:'o07hhuI8ChAu4pu5AkVyYuXuyPL4',
+            subscribe:true,//订阅
 
       }
   },
-   created() {
-     console.log('http',this.$http)
-    let param = {
-      debug: true,
-      url: 'http://localhost:8081/productgroups',
-      jsApiList: [
-        'chooseWXPay',
-        'checkJsApi'
-      ]
-    };
-    let ticket='';
-     let data0={"url":"http://m.dian7.net/mobile-split"}
-        let url1="http://m.dian7.net:9351/sign/general"
-
-
-          this.$http.get(url1 ,{
-            params:data0,
-            body:data0
-          }).then((res)=>{
-              console.log('ressign',res)
-          })
-    this.$get('/weChat/get/ticket').then((data)=>{
-        ticket=data.ticket
-        console.log('data.ticket',data.ticket)
-
-    }).then(()=>{
-
-        let data0={"url":"http://m.dian7.net/mobile-split"}
-        let url1="http://m.dian7.net:9351/sign/general"
-
-
-          this.$http.get(url1 ,{
-         
-            body:data0
-          }).then((res)=>{
-              console.log('ressign',res)
-          })
-
-
-
-
-
-
-          // this.$get('/sign/general',{
-          //   "url":"http://m.dian7.net/mobile-split"
-          // }).then((data)=>{
-          //      console.log('sign'+data)
-          // })
-
-    })
-    param = {
-      debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-        appId: 'wx3aee30a8da24ba55', // 必填，公众号的唯一标识
-        timestamp:"1597212515", // 必填，生成签名的时间戳
-        nonceStr: "5rXnd1d76BFvDs9I", // 必填，生成签名的随机串
-        signature: 'bde63dcb34b1c9aedf3ed4b784198267930888a8',// 必填，签名，见附录1
-        jsApiList: [
-            'getLocation'
-        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-
-    };
-    // wx.config(param);
-  
-      wx.ready(() => {
-        console.log('wx.ready');
-      });
-
-      wx.error(function (res) {
-
-        console.log('wx err', res);
-
-        //可以更新签名
-      });
-      wx.getLocation({
-    type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-    success: function (res) {
-          alert("12" + JSON.stringify(res))
-        var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-        var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-        var speed = res.speed; // 速度，以米/每秒计
-        var accuracy = res.accuracy; // 位置精度
-        console.log("rews===",res,accuracy)
-        alert("rews==="+res+accuracy)
-
-    }
-});
+//    created() {
  
-  },
+//     let param = {
+//       debug: true,
+//       url: 'http://localhost:8081/productgroups',
+//       jsApiList: [
+//         'chooseWXPay',
+//         'checkJsApi'
+//       ]
+//     };
+//     let ticket='';
+//     let config={};
+//     this.$get('/weChat/get/ticket').then((data)=>{
+//         ticket=data.ticket
+//         console.log('data.ticket',data.ticket)
+
+//     }).then(()=>{
+        
+//         // let flag=false;
+//         // if(falg){
+//         //   return
+//         // }
+//         // setTimeout(() => {
+//         //   flag=true
+//         // },120000);
+        
+//       alert('location.href.split[0]'+location.href.split('#')[0])
+//         let data0={
+//           "url":"http://m.dian7.net/mobile-split/",
+//           // "url":"localhost:8080/",
+//           "jsapi_ticket":ticket,    
+//         }
+//         let url="http://m.dian7.net:9351/sign/general"
+//         this.$post(url,data0).then((res)=>{
+//               console.log('ressign',res)
+//               config=res
+//           }).then(
+//       ()=>{
+//        alert('config'+JSON.stringify(config))
+//           param = {
+//           debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+//           appId: 'wx3aee30a8da24ba55', // 必填，公众号的唯一标识
+//           timestamp:config.timestamp, // 必填，生成签名的时间戳
+//           nonceStr: config.noncestr, // 必填，生成签名的随机串
+//           signature: config.sign,// 必填，签名，见附录1
+//           jsApiList: [
+//               'openAddress'
+//           ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+
+//     };
+//     wx.config(param);
+  
+//       wx.ready(() => {
+//         console.log('wx.ready');
+//       });
+
+//       wx.error(function (res) {
+
+//         console.log('wx err', res);
+
+//         //可以更新签名
+//       });
+//       wx.checkJsApi({
+//           jsApiList: ['openAddress'], // 需要检测的JS接口列表，此处为分享到朋友圈接口示例
+//           success: function(res) {
+//           // 以键值对的形式返回，可用的api值true，不可用为false
+//           // 如：{"checkResult":{"onMenuShareTimeline":true},"errMsg":"checkJsApi:ok"}
+//                 alert(res);
+
+
+//           }
+//         });
+
+
+//          wx.openAddress({
+//         // 请求成功要做的事
+//         success: (res) => {
+//             // 这里我把获取到的用户信息存储到了vuex中的state中保存，以防后续路由跳转带来的组件销毁带来的数据没法保存
+//             // 根据自己需求拿自己需要的参数即可，参数名可对照上面的返回值说明表
+//             // _this.$store.state.address.userName = res.userName;
+//             // _this.$store.state.address.telNumber = res.telNumber;
+//             // _this.$store.state.address.nationalCode = res.nationalCode;
+//             // _this.$store.state.address.provinceName = res.provinceName;
+//             // _this.$store.state.address.cityName = res.cityName;
+//             // _this.$store.state.address.countryName = res.countryName;
+//             // _this.$store.state.address.detailInfo = res.detailInfo;
+//               alert('config'+JSON.stringify(config))
+
+//               this.address=res.provinceName+res.cityName+res.countryName+' '+res.detailInfo;
+//             // _this.$store.state.address.detailInfo = res.detailInfo;''
+
+
+//         },
+//         cancel: function () {
+//             // 用户取消要做的事儿
+//             // 这里我把请求时打开的一个loading动画给关闭了
+            
+//         },
+//     });
+     
+         
+//     )
+   
+// })            
+//     });
+ 
+//   },
   mounted(){
     
       this.getUser()
 
+      this.forms=this.$route.query
       //  this.getUserInfo();
     //   window['displayData'] = (data) => {
     //     this.displayData(data)
     //   }
 
       // this.getPay();
+      this.getSub();
   },
   methods:{
+
+      getSub(){
+             this.$get('weChat/get/userInfo?openId='+this.openId,{}).then((res)=>{
+               let sub=res.data.subscribe
+                      console.log('sub'+sub)
+
+               if(sub=='1'){
+                     this.subscribe=false;
+               }
+                      console.log('11111'+JSON.stringify(res))
+                  })
+
+      },
+
+      setRelationShip(){
+          this.get('/user/relationship/bindSharer?sharerAccount='+this.sharer+'&yourAccount='+this.openId+'&activityId='+this.activityId).then(
+           
+          )
+      },
+
+
+
          getUser(){
             const code = qs.parse(window.location.search.substr(1)).code;
               this.$post('weChat/record/userInfo?code='+code,{}).then((data)=>{
                     this.openId=data.data
                       console.log('11111'+data)
+
+                           this.getSub();
                   })
 
          },

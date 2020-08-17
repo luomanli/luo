@@ -152,7 +152,7 @@ export function getBody(url, data = {}) {
         }
     });
 
-    xhr.open("GET", "http://127.0.0.1:1323/intranet/test");
+    xhr.open("GET", url);
 
     xhr.withCredentials = false;
     xhr.setRequestHeader("Content-Type", "application/json");

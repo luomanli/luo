@@ -222,7 +222,19 @@ export default {
     },
 
     goPost(){
-        this.$router.push({name:'post'})
+      // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect
+      let host='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect'
+      window.open(host)
+        // this.$router.push(
+        //   {
+        //     name:'post',
+            
+        
+        
+        // }
+        
+        
+        // )
     },
     goComp(){
       this.comp=true

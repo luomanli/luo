@@ -29,10 +29,10 @@
     
     <th class='tr1'  v-if="index>2">{{index+1}}</th>
     <th class='tr2'>
-      <img class='user color' src='../assets/logo1.jpg'/>
-     {{i.user}}</th>
+      <img class='user color' :src='i.headImgUrl'/>
+     {{i.userName}}</th>
     <th></th>
-    <th class='tr3'>Savings {{i.money}}</th>
+    <th class='tr3'>{{i.cashBackOrdersAllCount}}</th>
   </tr>
   
 </table>
@@ -61,32 +61,34 @@ export default {
           top,top1,top2,top3,
           c:[1    
           ,2,3,4],
-          data:[{
-            'rank':'1',
-            'user':'we',
-            'money':'收益'
-          },{
-            'rank':'1',
-            'user':'we',
-            'money':'收益'
-          },{
-            'rank':'1',
-            'user':'we',
-            'money':'收益'
-          },
-          ]
+          data:[
+          ],
+          currentPage:1
       }
   },
   mounted(){
       console.log(this.vpeo)
+
+
+      this.getData()
   },
   methods:{
         getMore(){
-            this.data.push({
-            'rank':'1',
-            'user':'we',
-            'money':'收益'
-          })
+
+  
+            this.currentPage=this.currentPage+1;
+                      this.getData();
+        },
+        getData(){
+                this.$get('/query/orderForm/rank?activityId=52&currentPage='+this.currentPage+'&pageSize=10').then(
+
+                    res=>{
+                        console.log('res.data',res.data)
+                        if(res.data){
+                            this.data= this.data.concat(res.data);
+                        }
+                    }
+                )
         },
         
 

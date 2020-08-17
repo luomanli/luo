@@ -5,14 +5,22 @@
         <div class="head">
                 <div class="font13 head_conhead_con flex-between">
                
-                    <span>
-                         <img class="user" src="" />name
-                        <img class="icon marginl8" :src="rank" />
-                        <span class="bg font10">第五名</span>
+                    <span  class="flex_center">
+                    <div>
+                        <img class="user" src="" />name
+                    </div>
+                         
+                        
+                        <div class="bg0 flex-around font10">
+                        <img class="rank marginl8" :src="rank" />
+                        第五名
+                        </div>
                     </span>
                     <span>
-                        <img  src="" />
-                        <span class="bg font10">收益提醒</span>
+                        <span class="flex-between bg font10">   
+                                <img class="ling" src="../../assets/img/icon/ling.svg" />
+                                收益提醒
+                        </span>
 
                         
                     </span>
@@ -155,12 +163,52 @@ export default {
       },
       openCash(){
            this.cashFlag=true;
-      }
+      },
+      getData(){
+            this.$get('query/orderForm/rank?activityId=52&currentPage=1&pageSize=10').then(
+               
+                    (data)=>{
+                        console.log('123',data)
+                    }
+              
+            )
+      },
   }
 }
 </script>
 
 <style scoped>
+@font-face {font-family: "iconfont logo";
+  src: url('../../assets/font/lingDang/iconfont.eot?t=1597627689236'); /* IE9 */
+  src: url('../../assets/font/lingDang/iconfont.eot?t=1597627689236#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAALIAAsAAAAABqAAAAJ8AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCcAqBJIEmATYCJAMICwYABCAFhG0HNRvRBRHVkx1kXyTE0128aDIyVGO9J6PrSlFtVHwTPE92/547M/v+fIkVHVhdOlIdVAIsUya7OOd0b0yEGcorIAdohylvWeGUHnV+BY0fAD7P5fQm0IG0PlBOcyzbFGBgaaB7YNSLpIBCbhi7wCXchwA+JJCHNB46+2AxWMsEkClq/EhsLobBsKJF8NTsNcgaHKxaqh4Bq8Pvyy9KxILC0VhtPcY1jaH263y7TM9x5wzxCeIgoMMOoIE8wID0qc11QyOM0/jkDCmwr2aBr/Nd13cge7Ui7K+zGv0AiIOye5K7ilttVACYeLIIqB31BlBhcYP7bzp26EDYcGRONm48ePh45OvW3NlPn/aTuccuXahqv3j5uMizJ303Nq3bfvPTnbvdxnx9dszbd/xqvJc+9uzrmG7Fw8tnVOwZqq4+fZpSaGVCxSN08lGFytCZXdxwKrhr7rblE0ar5z/wN8x7eU0dWPnX+hoAXg3/nx3K+gXAnsYv8Ls6DOD+M5orLbsyqg4UUBSN8iiAEh7ExQqF8HasKfzePILNyRkUXsRDY0kjDZsHB1/K4MFSAx9yaTnsSyiz0IjxBnJYCCAEcRqKAG5DE8Rj0rBv4BDBH3gIEg0f+knomb5kCKfY1mMbcYDuD6qniTvOyKLmG4q3bX1WGfJe6INKQpkVxeIRJ/RzbAgfUcXIgXsa4QAeQ2sJZk8a+5jJGOdlnvO6F2U9jQlj67GNOED3B9XTxP3xkZU+f0Pxtq1v6auJv9AHNT2UWdGDPOqmXn338kz4iCpGDtzTCAcwC60lmOtnaexjJkdk5mVuj+J9ddn6hvEDStkQllmJvVWzGNX2Jm29p29IEg==') format('woff2'),
+  url('../../assets/font/lingDang/iconfont.woff?t=1597627689236') format('woff'),
+  url('../../assets/font/lingDang/iconfont.ttf?t=1597627689236') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('../../assets/font/lingDang/iconfont.svg?t=1597627689236#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont{
+font-family: "iconfont logo" !important;
+  font-size: 13px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.ling{
+   width:11px;
+height:12px;
+line-height:18px;
+
+
+}
+.rank{
+    width:12px;
+    height:16px;
+}
+.van-icon-arrow::before{
+     width:4px;
+height:8px;
+}
 .icon{
     width:4px;
 height:8px;
@@ -216,10 +264,18 @@ margin-right:10px;
 margin-bottom:10px;
 }
 .bg{
-  width:64px;
+    padding:0px 10px;
+  width:72px;
 height:18px;
 background:rgba(255,255,255,0.18);  
 border-radius:10px;
+}
+.bg0{
+    padding:0px 10px;
+    width:64px;
+    height:18px;
+    background:rgba(255,255,255,0.18);  
+    border-radius:10px;
 }
 .head_con{
 
@@ -321,8 +377,8 @@ background:linear-gradient(90deg,rgba(247,70,62,1) 0%,rgba(252,134,78,1) 100%);
 border-radius:12px;
 }
 .icon{
-   width:12px;
-height:16px;
+   width:4px;
+height:8px;
 vertical-align:middle;
 }
 

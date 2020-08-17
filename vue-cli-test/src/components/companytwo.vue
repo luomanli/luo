@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog__wrapper flex_center" v-if="true">
+  <div class="dialog__wrapper flex_center" v-if="false">
   <div class='content'>
     <div class='title'>
         

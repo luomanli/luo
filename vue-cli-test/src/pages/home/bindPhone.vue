@@ -17,7 +17,7 @@
             </span> -->
         <!--<span>{{i.form.type}}</span>-->
 
-           <van-field  class="myvant" label-align="right" v-model="value" v-if="true" label-class="font15" label="生日" border=true :right-icon="message=='获取证码'?bd:''" placeholder="请输入用户名" />
+           <van-field  class="myvant" label-align="right" v-model="value" v-if="index==1" label-class="font15" label="生日"  border=true :right-icon="message=='获取证码'?bd:''" placeholder="请输入用户名" />
            <van-field v-model="value" class="myvant" label-align="right" v-if="index==2" label-class="font15" label="身份证" border=true :right-icon="card" placeholder="请输入用户名" 
             :rules="[{ required: true, message: '请填写密码' }]"
            />
@@ -32,7 +32,7 @@
                         </el-select>
                     </div>
                 </div>
-           <van-field v-model="value" class="myvant" label-align="right" v-if="index==4" label-class="font15" label="微信地址" border=true :right-icon="bd" placeholder="请输入用户名" />
+           <van-field v-model="address" class="myvant" label-align="right" v-if="index==4" label-class="font15" label="微信地址" border=true :right-icon="bd" @click="getAddress" placeholder="请输入用户名" />
 
         </div>
 </van-form>
@@ -44,7 +44,7 @@
     
         <el-button class="btn" type='danger'  v-if="flag!=true" click="submit">完成提交</el-button>
        
-       <newdialog v-if="true">
+       <newdialog v-if="false">
         <div class="content" >
             <img  class="phoneNum" :src="phone"/>
             <div class="title">手机号验证</div>
@@ -132,6 +132,8 @@ data(){
         message:'获取验证码',
         btnflag:false,
         forms:[],
+        address:'',
+
     }
 },
 propos:{
@@ -142,52 +144,7 @@ propos:{
 },
  components: { newdialog},
   created() {
-    
-    let param = {
-      debug: true,
-      url: 'http://localhost:8081/productgroups',
-      jsApiList: [
-        'chooseWXPay',
-        'checkJsApi'
-      ]
-
-    };
-    param = {
-      debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-        appId: 'wx3aee30a8da24ba55', // 必填，公众号的唯一标识
-        timestamp:"1597212515", // 必填，生成签名的时间戳
-        nonceStr: "5rXnd1d76BFvDs9I", // 必填，生成签名的随机串
-        signature: 'bde63dcb34b1c9aedf3ed4b784198267930888a8',// 必填，签名，见附录1
-        jsApiList: [
-            'getLocation'
-        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-
-    };
-    wx.config(param);
-  
-      wx.ready(() => {
-        console.log('wx.ready');
-      });
-
-      wx.error(function (res) {
-
-        console.log('wx err', res);
-
-        //可以更新签名
-      });
-      wx.getLocation({
-    type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-    success: function (res) {
-          alert("12" + JSON.stringify(res))
-        var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-        var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-        var speed = res.speed; // 速度，以米/每秒计
-        var accuracy = res.accuracy; // 位置精度
-        console.log("rews===",res,accuracy)
-        alert("rews==="+res+accuracy)
-
-    }
-});
+    this.getJsSdk();
  
   },
   mounted(){
@@ -199,6 +156,82 @@ propos:{
            console.log(this.forms, this.$route.params.from1)
 
       },
+    
+     getJsSdk(){
+        let ticket='';
+        let config={};
+        this.$get('/weChat/get/ticket').then((data)=>{
+            ticket=data.ticket
+            console.log('data.ticket',data.ticket)
+
+        }).then(
+            ()=>{
+                alert('location.href.split[0]'+location.href.split('#')[0])
+                    let data0={
+                    "url":"http://m.dian7.net/mobile-split/",
+                    "jsapi_ticket":ticket,    
+                    }
+                let url="http://m.dian7.net:9351/sign/general"
+                this.$post(url,data0).then((res)=>{
+                    console.log('ressign',res)
+                    config=res
+                }).then(
+                        ()=>{
+                            alert('config'+JSON.stringify(config))
+                            let param={};
+                            param = {
+                                debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                                appId: 'wx3aee30a8da24ba55', // 必填，公众号的唯一标识
+                                timestamp:config.timestamp, // 必填，生成签名的时间戳
+                                nonceStr: config.noncestr, // 必填，生成签名的随机串
+                                signature: config.sign,// 必填，签名，见附录1
+                                jsApiList: [
+                                    'openAddress'
+                                ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                            };
+                            wx.config(param); 
+                            wx.ready(() => {
+                                console.log('wx.ready');
+                            });
+                            wx.error(function (res) {
+                                console.log('wx err', res);
+                                //可以更新签名
+                            });
+                        })
+                }
+            )
+        },
+
+
+        getAddress(){
+             wx.openAddress({
+        // 请求成功要做的事
+        success: (res) => {
+                            alert('openAddress-res'+JSON.stringify(res))
+
+            // 这里我把获取到的用户信息存储到了vuex中的state中保存，以防后续路由跳转带来的组件销毁带来的数据没法保存
+            // 根据自己需求拿自己需要的参数即可，参数名可对照上面的返回值说明表
+            // _this.$store.state.address.userName = res.userName;
+            // _this.$store.state.address.telNumber = res.telNumber;
+            // _this.$store.state.address.nationalCode = res.nationalCode;
+            // _this.$store.state.address.provinceName = res.provinceName;
+            // _this.$store.state.address.cityName = res.cityName;
+            // _this.$store.state.address.countryName = res.countryName;
+            // _this.$store.state.address.detailInfo = res.detailInfo;
+
+              this.address=res.provinceName+res.cityName+res.countryName+' '+res.detailInfo;
+            // _this.$store.state.address.detailInfo = res.detailInfo;''
+
+
+        },
+        cancel: function () {
+                    // 用户取消要做的事儿
+                    // 这里我把请求时打开的一个loading动画给关闭了
+                    
+            },
+        });
+        },
+
       submit(){
 
       },
