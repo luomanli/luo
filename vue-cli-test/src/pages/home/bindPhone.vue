@@ -19,20 +19,21 @@
 
            <van-field  class="myvant" label-align="right" v-model="value" v-if="index==1" label-class="font15" label="生日"  border=true :right-icon="message=='获取证码'?bd:''" placeholder="请输入用户名" />
            <van-field v-model="value" class="myvant" label-align="right" v-if="index==2" label-class="font15" label="身份证" border=true :right-icon="card" placeholder="请输入用户名" 
-            :rules="[{ required: true, message: '请填写密码' }]"
+            :rules="[{ required: true, message: '请填写密码'}]"
            />
 
            <van-field v-model="value" class="myvant" label-align="right" v-if="i.options" label-class="font15" label="手机号码" border=true :right-icon="iconPhone" placeholder="请输入用户名" />
-                <div class="flex_center">
-                      <div v-if="index==3">123</div>
-                     <div class="myborder flex-around">
+                <div class="flex_center myAddress" v-if="index==3">
+                      <div style="width:100%"><span>12</span></div>
+                     <div class="myborder flex_center">
                         <el-select class="my" v-model="value" placeholder="123" v-if="index==3" size="small">d
                 
                         <el-option :label="item.label"  v-for="item in option" :key="item.value" :value="item.value"></el-option>
                         </el-select>
                     </div>
-                </div>
-           <van-field v-model="address" class="myvant" label-align="right" v-if="index==4" label-class="font15" label="微信地址" border=true :right-icon="bd" @click="getAddress" placeholder="请输入用户名" />
+                </div> 
+           <van-field v-model="address" class="myvant" label-align="right" v-if="index==4" label-class="font15" label="微信地址" border=true 
+           right-icon="arrow" @click="getAddress" placeholder="请输入用户名" />
 
         </div>
 </van-form>
@@ -53,7 +54,7 @@
             <input type="text" class="phone_input" placeholder="请输入手机号"/>
             </div>
             <div class="flex-between message">
-                     <input type="text" class="phone_input2" placeholder="请输入手机号"/>
+            <input type="text" class="phone_input2" placeholder="请输入手机号"/>
            
             <el-button class="elBtn flex" :disabled="btnflag" :class='[btnflag==false?"btnactive":"nobtnactive"]' @click="getTime">{{message}}</el-button>
 
@@ -149,6 +150,7 @@ propos:{
   },
   mounted(){
         this.getConfig();
+      
   },
   methods:{
       getConfig(){
@@ -304,12 +306,21 @@ background:rgba(216,216,218,1);
 }
 .myborder{
     height:41px;
- margin-left: 20px;
+    margin-left: 32px;
    
     border-bottom:1px red solid;
 
 
 }
+.myAddress{
+    width: 100%;
+    padding-right:54px ;
+    padding-left:13px ;
+    text-align: right;
+
+
+}
+
 .my>>>input{
         width: 190px;
     height: 24px;

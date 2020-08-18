@@ -8,15 +8,17 @@
            
             <div class="sub_title">请绑定手机号、查询订单</div>
             <div class="flex">
-            <input type="text" class="phone_input" placeholder="请输入手机号"/>
-             <span v-if="no">手机号错误 </span>
+                <input type="text" class="phone_input" placeholder="请输入手机号"/>
+            
             </div>
+             <div v-if="no0" class="font10 no" >手机号错误 </div>
             <div class="flex-between message">
                      <input type="text" class="phone_input2" placeholder="请输入手机号"/>
-            <span v-if="no">验证码错误 </span>
+           
             <el-button class="elBtn flex" :disabled="btnflag" :class='[btnflag==false?"btnactive":"nobtnactive"]' @click="getTime">{{message}}</el-button>
 
             </div>
+             <div v-if="no1" class="font10 no" >验证码错误 </div>
            
 
             <div class="phone_btn font15" :class='[active?"active":"noactive"]'>立即验证</div>
@@ -41,7 +43,11 @@ export default {
             name:'name',
             img:'../../assets/logo1.jpg',
             btnflag:false,
-              cashFlag:true
+              cashFlag:true,
+              message:'获取验证码',
+              no0:true,
+              no1:true,
+
 
 
       }
@@ -102,6 +108,12 @@ components: { newdialog,phone},
 </script>
 
 <style scoped>
+.no{
+    padding-left: 30px;
+    height: 16px;
+    text-align: left;
+    line-height: 16px;;
+}
 .elBtn{
 padding: 0px;
 width:80px;
@@ -149,7 +161,7 @@ background:rgba(216,216,218,1);
     color:rgba(160,162,166,1);
 }
 .message{
-    margin-bottom:19px;
+    margin-bottom:5px;
     padding:0px 13px;
 
 }
@@ -205,7 +217,7 @@ border-radius:7px;
    }
 .phoneNum{
     margin-top:37px;
-    margin-bottom:35px;
+    margin-bottom:20px;
     width:50px;
     height:60px;
 }

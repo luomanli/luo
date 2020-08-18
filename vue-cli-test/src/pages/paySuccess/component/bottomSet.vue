@@ -1,11 +1,11 @@
 <template>
 
-     <div  class="flex-around contain" >
+     <div  class="contain" >
            
            
-        <div class="footer" v-if="false">
-              <span class='color' @click='goNotic'>交易须知</span>
-              <span  class='color'>投诉建议</span>
+        <div class="footer" v-if="true">
+              <span class='color font12' @click='goNotic'>交易须知</span>
+              <span  class='color font12'>投诉建议</span>
                <div class="top13">
                   <span class='grey'>此页面的产品或服务由</span>
                   <span class='color'  @click='goComp'>XXXX有限公司</span>
@@ -63,6 +63,10 @@ export default {
 </script>
 
 <style scoped>
+.top13{
+  margin-top:13px;
+  font-size:10px;
+}
 .contain{
     width:100%
 }
@@ -100,6 +104,7 @@ font-size: 12px;
   height:114px;
   padding-top:19px;
   padding-bottom:35px;
+  text-align: center;
   background-color:#F7F7F7;
 }
 

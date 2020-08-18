@@ -51,6 +51,7 @@
 
             <bindPhone>
             </bindPhone>
+        <bottomSet></bottomSet>
     
         <bottom></bottom>
         </div>
@@ -67,6 +68,7 @@
 import bottom from  './component/bottom.vue';
 import bindPhone from  '../home/bindPhone.vue';
 import {cir1,cir2} from  '../../utils/imgUrl.js';
+import bottomSet from  './component/bottomSet.vue';
 
 
 export default {
@@ -80,7 +82,7 @@ export default {
             
       }
   },
- components: { bottom,bindPhone},
+ components: { bottom,bindPhone,bottomSet},
 
   methods:{
       goHome(){

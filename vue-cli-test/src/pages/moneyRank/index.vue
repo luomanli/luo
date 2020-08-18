@@ -211,9 +211,9 @@ height:8px;
 }
 .icon{
     width:4px;
-height:8px;
-
-}
+    height:8px;
+    font-size:14px;
+ }
 .title{
 padding-top:30px;
 margin-bottom:51px;

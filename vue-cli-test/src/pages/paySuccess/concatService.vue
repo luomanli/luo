@@ -2,7 +2,8 @@
   <div class="dialog__wrapper flex_center" v-if="true">
   <div class='content'>
     <div class='title'>
-        
+          <div class="count" v-if="true">目前活动库存为0,详情请联系客服</div>
+
         <div class='flex'>
             <img  class="icon1" :src="img" />
             <span class='font15'>客服小宝</span>
@@ -51,6 +52,14 @@ export default {
 </script>
 
 <style scoped>
+.count{
+    width:245px;
+height:37px;
+background:rgba(242,242,245,1);
+border-radius:7px;
+font-size:15px;
+line-height: 37px;;
+}
 .dialog__wrapper{
     position:fixed;
     top:0px;

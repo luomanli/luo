@@ -73,7 +73,7 @@ export default {
   },
 
    created() {
- 
+     
 //     let param = {
 //       debug: true,
 //       url: 'http://localhost:8081/productgroups',
@@ -179,6 +179,7 @@ export default {
  
   },
   mounted(){
+     this.open();
       this.getUser()
       // this.getPay();
       // this.getQrcode();
@@ -189,6 +190,14 @@ export default {
  components: { company},
 
   methods:{
+    open(){
+      if(window.location.href.indexOf('code')<0){
+          let host='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=1&connect_redirect=1#wechat_redirect'
+         window.location.href=host
+
+      }
+        
+    },
       //马上关注
       follow(){
         this.flag=true

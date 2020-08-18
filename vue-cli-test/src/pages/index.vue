@@ -146,7 +146,7 @@
             <div class='buy' @click="buy">立即购买</div>   
         </div>
     </div>
-     <phone v-if="false" ></phone>
+     <phone v-if="true" ></phone>
   </div>
   
   
@@ -242,7 +242,12 @@ export default {
     goPost(){
 // http://m.dian7.net:9351/user/relationship/bindSharer?sharerAccount=o07hhuI8ChAu4pu5AkVyYuXuyPL4&yourAccount=o07hhuBfmAUz2D6UXx7OKVfoTxTc&activityId=52
          
-         
+         this.$router.push(
+           {
+             name:'post'
+           }
+         )
+         return
          this.openId=1;
          this.activityMsg={}
          this.activityMsg.uid=51
