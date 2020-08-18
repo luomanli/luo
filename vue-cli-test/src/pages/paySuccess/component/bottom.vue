@@ -18,6 +18,12 @@
                   点我赚更多奖金
                 </div>   
         </div>  
+        <div class="right flex-around font15" v-if="flag2">        
+                    
+                <div  class="btn_more">
+                        查看购买凭证
+                </div>   
+        </div>  
         <div class="right flex-around font15" v-if="flag">        
                 <div  class="btn_color ">
                     收益排行榜

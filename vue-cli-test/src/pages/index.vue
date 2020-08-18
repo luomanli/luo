@@ -123,6 +123,7 @@
         <div class="goFound" @click="goFound">
                   马上创建
         </div>
+        <a :href="gopost">gopost</a>
     </div>  
     </div>
      <div class='moneyReward' @click="goPost">
@@ -131,7 +132,7 @@
       </div>
 
   
-      <company v-if="true" ></company>
+      <company v-if="false" ></company>
 
 
    <nopay :flag="false"></nopay>
@@ -145,7 +146,7 @@
             <div class='buy' @click="buy">立即购买</div>   
         </div>
     </div>
-     <phone ></phone>
+     <phone v-if="false" ></phone>
   </div>
   
   
@@ -162,7 +163,7 @@ import nopay from  '../components/nopay.vue';
 import qs from'qs'
 // let atime=countTime();
 // setTimeout(countTime, 1000);
-console.log(time);
+
 
 export default {
   name: 'H3',
@@ -189,7 +190,11 @@ export default {
       form:{},
       ContentData: '<p><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAkACQAAD/4QB0RXhpZgAATU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAIdpAAQAAAABAAAATgAAAAAAAACQAAAAAQAAAJAAAAABAAKgAgAEAAAAAQAAANagAwAEAAAAAQAAANYAAAAA/+0AOFBob3Rvc2hvcCAzLjAAOEJJTQQEAAAAAAAAOEJJTQQlAAAAAAAQ1B2M2Y8AsgTpgAmY7PhCfv/iAiBJQ0NfUFJPRklMRQABAQAAAhBhcHBsBAAAAG1udHJSR0IgWFlaIAfkAAYAHgAIADoAHmFjc3BBUFBMAAAAAEFQUEwAAAAAAAAAAAAAAAAAAAAAAAD21gABAAAAANMtYXBwbNypxmSUwO/VhVWV1rKv7lMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmRlc2MAAAD8AAAAZGNwcnQAAAFgAAAAI3d0cHQAAAGEAAAAFHJYWVoAAAGYAAAAFGdYWVoAAAGsAAAAFGJYWVoAAAHAAAAAFHJUUkMAAAHUAAAAEGNoYWQAAAHkAAAALGJUUkMAAAHUAAAAEGdUUkMAAAHUAAAAEGRlc2MAAAAAAAAACkxHIEhEUiA0SwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAENvcHlyaWdodCBBcHBsZSBJbmMuLCAyMDIwAABYWVogAAAAAAAA8xYAAQAAAAEWylhZWiAAAAAAAAB51wAAOFEAAABcWFlaIAAAAAAAAFTZAAC6UAAAC5tYWVogAAAAAAAAKCYAAA1gAADHNXBhcmEAAAAAAAAAAAAB9gRzZjMyAAAAAAABDHIAAAX4///zHQAAB7oAAP1y///7nf///aQAAAPZAADAcf/AABEIANYA1gMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2wBDAAICAgICAgMCAgMFAwMDBQYFBQUFBggGBgYGBggKCAgICAgICgoKCgoKCgoMDAwMDAwODg4ODg8PDw8PDw8PDw//2wBDAQICAgQEBAcEBAcQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/3QAEAA7/2gAMAwEAAhEDEQA/APw/ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/0Pw/ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/0fw/ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/0vw/ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/0/w/ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/1Pw/ooooAKKKKACiiigAooooAKKKKACiiigAor2X4Z/CO+8eP9omm+yWQ6yEZ/SvaYf2dPBUjFJPFMaEdflH+NfOY/irBYeo6VSTut7Jv8j7TL/D/NMTh44mnTtCWzbSv6XZ8Y0V9xz/ALK+j3ujXd94X19L+6tV3eWqgZxye9fFWpQSW19NbyrtaJipH+6cV0ZRxDhcc5LDyu473TTXyZ5OdcNYvL+X6zG3NtZpp/NFGiiivbPBCiiigAooooAKKKKACiiigAooooA//9X8P6KKKACiiigAooooAKKKKACiiigAooooA+xPhPdvB8PLkIcHY3T8a+Tbu/vftcxFxIPnb+M+v1r6R+EWqadeeH5fD7TiO4dSMH3rHb4D3dxPI4v1AZieg7mvhsFi6GExeIeIduZ3V0f0FxDw1js2yfLZ5bHnUINSs1o9NHqd/wDso6jci+1oSzO4MR4Zif4T618q+KjnxBfH/pq//oRr7V+F3giD4X2up6vql+rJJGR29CK+INcuUu9Xu7iPlXkYj86OH6tOtmWKr0dYtRV/S58hxplNfA5TgsNi1y1E5tq+trqxk0UUV9yflgUUUUAFFFFABRRRQAUUUUAFFFFAH//W/D+iiigAooooAKKKKACiiigAooooAKKKKAL+n6ne6XcC6sZDHIvQiunHxD8WA5F635VxNFYVcLSm7zin8j0sJnOLw8eShVlFdk2jsL7x54o1G0ayu7xnhfqK48nJyaKKqjh4U1aEUvQwxePr4iXNXm5PzdwooorU5AooooAKKKKACiiigAooooAKKKKAP//X/D+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Q/D+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//R/D+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//S/D+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//T/D+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//U/D+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//Z"/>频、超链接等，支持富文本编辑。实时手机版效果预览，请看PC编辑器右边。</p>',
       comp:false,
-      vpeo:this.$randomPeo(5)
+      vpeo:this.$randomPeo(5),
+      gopost:'',
+
+      openId:'o07hhuFlqxqWVDSGZTDuYZl50wNQ',
+      orderId:'',
     }
   },
   mounted(){
@@ -236,24 +241,41 @@ export default {
 
     goPost(){
 // http://m.dian7.net:9351/user/relationship/bindSharer?sharerAccount=o07hhuI8ChAu4pu5AkVyYuXuyPL4&yourAccount=o07hhuBfmAUz2D6UXx7OKVfoTxTc&activityId=52
-          let params="{\"sharerAccount\":this.openId,\"activityId\":"+this.activityMsg.uid +"}"; 
+         
+         
+         this.openId=1;
+         this.activityMsg={}
+         this.activityMsg.uid=51
+      
+
+
+
+         let params={
+           sharerAccount:this.openId,
+           activityId:this.activityMsg.uid
+          //  postId:this.activityMsg.uid
+           
+           
+           
+           }; 
+         params=JSON.stringify(params)
+
+          this.$store.commit('setValue', this.openId);    
+          
+    alert("getValue"+this.$store.getters.getValue )
+          sessionStorage.setItem("allJson",params);
+          localStorage.setItem("allJson",params);
 
       // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect
-      let host='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect'
+      let host='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect'
+    alert("params"+encodeURIComponent(params))
+    host =host.replace( "STATE", encodeURIComponent(params) )
     
-    host =host.replace( "STATE", URLEncoder.encode( param, "UTF-8" ) )
-    
-    window.open(host)
-        // this.$router.push(
-        //   {
-        //     name:'post',
-            
-        
-        
-        // }
-        
-        
-        // )
+this.gopost=host
+     alert("host"+host)
+    console.log("host",host)
+    // host="http://baidu.com"
+    window.location.href=host
     },
     goComp(){
       this.comp=true
@@ -319,16 +341,42 @@ export default {
           console.log(data)
 
       })
-
-
     },
     goRankIndex(){
-         this.$router.push({
-               
-                name:'moneyRank',               
-              
+         this.$router.push({              
+                name:'moneyRank',                   
              })
+    },
+    //轮询订单状态接口                    
+    queryRes(){
+        var timer = setInterval(
+          ()=>{
+             this.$get(url).then(
+                (res)=>{
+                     console.log(res)
+                  if (res.data.orderFormBasic.payStatus == true) { //订单状态为1表示支付成功
+                            //此处可以进行相应业务代码的编写，例如支付成功提示，或者直接进行页面跳转.
+                            clearInterval(timer);
+                            //window.location.href = orderUrl; //页面跳转
+                        }
+              })
+          }
+          ,3000);
+    },
+    //查看购买凭证
+    checkBuy(){
+      let url=`/query/detailOrderForm?orderId=${orderId}`
+      this.$get(url).then(
+        (res)=>{
+
+            console.log(res)
+              this.orderStyle=res.data.orderFormStyle
+
+
+        }
+      )
     }
+
 
  
 
@@ -713,7 +761,7 @@ color:#E40000;
 }
 .price{
   position:relative;
-  width: 100%;
+  width: 375px;
   height: 65px;
   
 background-size:375px 65px;

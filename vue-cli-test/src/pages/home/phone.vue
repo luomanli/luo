@@ -9,11 +9,11 @@
             <div class="sub_title">请绑定手机号、查询订单</div>
             <div class="flex">
             <input type="text" class="phone_input" placeholder="请输入手机号"/>
-             <span v-if="no">手机号错误 <span>
+             <span v-if="no">手机号错误 </span>
             </div>
             <div class="flex-between message">
                      <input type="text" class="phone_input2" placeholder="请输入手机号"/>
-            <span v-if="no">验证码错误 <span>
+            <span v-if="no">验证码错误 </span>
             <el-button class="elBtn flex" :disabled="btnflag" :class='[btnflag==false?"btnactive":"nobtnactive"]' @click="getTime">{{message}}</el-button>
 
             </div>
@@ -58,7 +58,7 @@ components: { newdialog,phone},
       goHome(){
           
       },
-    getTime(){
+        getTime(){
           var timer = null;
         console.log('sdfeexd',this.message)
             var count = 60;
@@ -80,7 +80,23 @@ components: { newdialog,phone},
                     },1000);
             }
             this.btnflag=true;
+         },
+         getPhone(){
+             let url='/WeChat/sendCaptcha'
+
+                this.$get(url,{
+                    phone:'12',
+                    aid:'',
+                    nickname:''
+                }).then(
+                    res=>{
+                        
+                    }
+
+                )
+
          }
+
   }
 }
 </script>

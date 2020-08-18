@@ -21,8 +21,9 @@ import { Picker } from 'vant';
 import { Form } from 'vant';
 import { NumberKeyboard } from 'vant';
 import { Icon } from 'vant';
-
-import store from './store/index'
+import params from './utils/params'
+import store from './store/index.js'
+console.log(store)
 Vue.use(Icon);
 Vue.use(NumberKeyboard);
 Vue.use(Form);
@@ -39,9 +40,10 @@ Vue.use(DropdownItem);
 
 Vue.use(VueJsonp)
     //定义全局变量
-    Vue.prototype.clipboard = clipboard;
+Vue.prototype.clipboard = clipboard;
+Vue.prototype.params = params;
 Vue.prototype.$randomPeo = randomPeo;
-console.log('we', Vue.prototype.$randomPeo)
+
 Vue.prototype.$post = post;
 Vue.prototype.$get = get;
 Vue.prototype.$patch = patch;
@@ -57,10 +59,12 @@ axios.defaults.baseURL = 'http://m.dian7.net:9351'
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 /* eslint-disable no-new */
-new Vue({
+const vm = new Vue({
     el: '#app',
     router,
     store,
     components: { App },
     template: '<App/>'
 })
+window.params = vm.$params　
+window.params = '3'

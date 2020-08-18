@@ -24,17 +24,19 @@
   <div class='content'>
         <div class='title'>
         <div>
-            <img  class="icon1" :src="img" />
+            <img  class="icon1" :src="img" alt=""/>
             <span class='font15 cobyOrderSn' data-clipboard-action="copy" data-clipboard-text="16525698746">16525698746</span>
         </div>
             <div >
-            <span class='font12'>一键拨打</span>
-            <a href="tel:17791761219">我试试</a>
-            <a @click="copyLink">copylink</a>
-
+            <a  href="tel:17791761219" class='font12'>一键拨打</a>
+            <!-- <a @click="copyLink">copylink</a> -->
             </div>
         </div>
+         <div class='post' >
         
+            <img class="QRcode" :src="qrcode" alt="" />
+        
+        </div>
         <div class='footer' >
         请拨打电话联系我们 
         </div>
@@ -54,10 +56,15 @@ export default {
           
       }
   },
-    propos:{
+    props:{
       flag:{
           type:Boolean,
           default:false
+
+      },
+        qrcode:{
+          type:String,
+          default:''
 
       },
    

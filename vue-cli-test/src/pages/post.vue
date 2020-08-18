@@ -5,17 +5,23 @@
         
         <div class="flex-between">
             <img  class="voice" src="../assets/img/icon/laba.svg" alt="">
+            
             <div class='font'>关注公号 即是接受奖励到账通知</div>
         </div>
         <div class='follow' @click="buy0">
-            马上关注 
+            goumai
+         </div>
+          <div class='follow' @click="follow">
+            关注
          </div>
     </div>
     <div class="con">
-        <img class='post' src="../assets/img/bg/post.png"/>
-        <div class="user">
-            <img   src="../assets/img/bg/post.png" alt=""/>
-            <span style='color:white'>{{name}}</span>
+        <img class='post' :src="postImg"/>
+        <div class="user flex_center">
+          <div class="img_con flex_center">
+            <img  class="user_img"  :src="img" alt=""/>
+          </div>
+            <span class="font10" style='color:white'>{{name}}</span>
         </div>
         <img class="QRcode" src="../assets/img/bg1.png" alt=""/>
         <div class="home flex-col-center" @click='goHome'>
@@ -34,31 +40,39 @@
           </div>
     </div>
     
-    
+    <company v-if="flag" :flag="flag" :qrcode="qrcode"></company>
   </div>
 </template>
 
 <script>
 import wx from 'weixin-js-sdk'
 import qs from'qs'
+import company from  '../components/company.vue';
+
 export default {
   name: 'post',
   data(){
       return{
             name:'name',
             img:'',
-
             weixinCode:'',
             endUrl:'',
             appId:'o07hhuI8ChAu4pu5AkVyYuXuyPL4', 
             address:'',
-
             openId:'o07hhuI8ChAu4pu5AkVyYuXuyPL4',
             subscribe:true,//订阅
-
+            flag:false,
+            qrcode:'',
+            postImg:'../assets/img/bg/post.png',
       }
   },
-//    created() {
+  watch:{
+       qrcode(val) {
+        this.qrcode =val;
+      }
+  },
+
+   created() {
  
 //     let param = {
 //       debug: true,
@@ -163,53 +177,93 @@ export default {
 // })            
 //     });
  
-//   },
-  mounted(){
-    
-      this.getUser()
-
-      this.forms=this.$route.query
-      //  this.getUserInfo();
-    //   window['displayData'] = (data) => {
-    //     this.displayData(data)
-    //   }
-
-      // this.getPay();
-      this.getSub();
   },
-  methods:{
+  mounted(){
+      this.getUser()
+      // this.getPay();
+      // this.getQrcode();
+      // this.getPost();
 
+ 
+  },
+ components: { company},
+
+  methods:{
+      //马上关注
+      follow(){
+        this.flag=true
+      },
+      //是否订阅
       getSub(){
              this.$get('weChat/get/userInfo?openId='+this.openId,{}).then((res)=>{
                let sub=res.data.subscribe
-                      console.log('sub'+sub)
-
+               console.log('sub'+sub)
                if(sub=='1'){
                      this.subscribe=false;
                }
-                      console.log('11111'+JSON.stringify(res))
-                  })
+                    console.log('11111'+JSON.stringify(res))
+               })
 
       },
-
+      //分销关系绑定
       setRelationShip(){
-          this.get('/user/relationship/bindSharer?sharerAccount='+this.sharer+'&yourAccount='+this.openId+'&activityId='+this.activityId).then(
-           
+          
+            let param=qs.parse(window.location.search.substr(1)).state;
+            let obj = sessionStorage.getItem("allJson");  
+            if(obj){
+                  this.sharer=JSON.parse(obj).sharerAccount
+                  this.activityId=JSON.parse(obj).activityId
+            }   
+          
+               alert('sessionStorage-----'+obj+ this.sharer+this.activityId);
+
+          this.$post('/user/relationship/bindSharer?sharerAccount='+this.sharer+'&yourAccount='
+          +this.openId+'&activityId='+this.activityId).then(
+           (res)=>{
+             alert('res'+res)
+           }
           )
       },
 
+      //海报查询接口
+      getPost(){
+        let url= `/poster/get?activityId=52&openId=${this.openId}&posterId=1`
 
+         this.$get(url).then(
+           (res)=>{
+             console.log('res',res)
+              this.name=res.data.sharerNickName
+              this.img=res.data.SharerHeadImgUrl
+              this.postImg=res.data.postUrl
+           }
+          )
+      },
+      //二维码查询接口
+      getQrcode(){
+         console.log('getQrcode')
 
+        this.$get("/WeChat/getQrcode2").then(
+           (res)=>{
+             alert('res'+res)
+             this.qrcode=res
+           }
+          )
+         
+      },
+      //个人信息查询
          getUser(){
-            const code = qs.parse(window.location.search.substr(1)).code;
+              const code = qs.parse(window.location.search.substr(1)).code;
+              this.setRelationShip();
+              this.getQrcode();
               this.$post('weChat/record/userInfo?code='+code,{}).then((data)=>{
                     this.openId=data.data
                       console.log('11111'+data)
-
                            this.getSub();
+                           this.getPost();
                   })
 
          },
+      //支付接口测试
       onBridgeReady(obj) {
         WeixinJSBridge.invoke(
             'getBrandWCPayRequest', obj,
@@ -222,9 +276,9 @@ export default {
                 }
             })
       },
+       //购买接口测试
        buy0(){
           console.log('11111'+this.openId)
-
           const code = qs.parse(window.location.search.substr(1)).code;
           // let params={
           //   // activityId:this.activityMsg.uid,
@@ -256,11 +310,6 @@ export default {
                   })
                   
         },
-
-
-    buy(){
-      
-    },
       getPay(){
         console.log("data")
           this.$get('https://api.mch.weixin.qq.com/pay/orderquery').then(
@@ -271,74 +320,39 @@ export default {
 
       },
 
-
-   displayData(data) {
-      alert( JSON.stringify(data));
-    },
-      getCallBack(data){
-          console.log("211",data)
-           alert("q12getCallBack"+data)
+      displayData(data) {
+        alert( JSON.stringify(data));
       },
       goHome(){
           this.$router.push({name:'index'})
       },
+      //测试网页授权接口
       getUserInfo(){
-       
-
         const AppId = 'wx3aee30a8da24ba55'; // 测试公众号平台的APPID，第1步那个链接里 
         const secret = '3899943d6dd3a90518756462efd972b7'; // 测试公众号平台的APPID，第1步那个链接里 
-
          // 获取当前页面地址中的code参数的值 
           const local = 'http://m.dian7.net/mobile-split'; // 对当前地址用encodeURIComponent进行编码 // 如果code是''，说明还没有授权，访问下面连接，用户同意授权，获取code 
-         
-          
-           
-         
             const code = qs.parse(window.location.search.substr(1)).code;
              alert('qs111='+JSON.stringify(qs.parse(window.location.search.substr(1)))); 
-
           if (code === '') { 
                alert('获取微信code：为空'); 
                let herf0=`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${AppId}&redirect_uri=${local}&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect`; 
              alert('herf=='+herf0); 
               window.location.href = herf0
-                
-          
           } else { 
-              this.weixinCode = code; // 能拿到code，说明用户已同意授权，拿到coed 
-               
+              this.weixinCode = code; // 能拿到code，说明用户已同意授权，拿到coed        
                 alert('获取微信code：'+this.weixinCode); 
               }
-
-             
              let url= `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${AppId}&secret=${secret}&code=${code}&grant_type=authorization_code`; 
                alert('二级url'+url); 
                 //  window.location.href = url;
-                
-
                 url=`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${AppId}&secret=${secret}`
-
-
-
-
                     this.$get(url).then(res=>{
                          console.log('成功2',res); 
-                         
-
                 }).catch(err=>{
                      alert('get=err'+err); 
-                });
-            
-                this.$jsonp(url,{jsonp: 'callBackParam',callbackName: "getCallBack"}).then(res=>{
-                    console.log('成功1',res); 
-                     console.log('成功1',res); 
-                      console.log('成功1',res); 
-                       console.log('成功1',res); 
-                                  alert('成功'+res); 
-
-                }).catch(err=>{
-                     alert('err'+err); 
-                });
+                });         
+          
              
 
               
@@ -350,6 +364,11 @@ export default {
 </script>
 
 <style scoped>
+.user_img{
+  width:35px;
+  height:35px;
+  border-radius:50%;
+}
 .con{
   position:relative;
   background:rgba(47,47,50,1);
@@ -371,26 +390,28 @@ color:rgba(255,255,255,1);
 }
 .user{
     position:absolute;
-   top:29px;
+    top:40px;
     left:59px;
     text-align:left;
-}
-.user>img{
   
-    padding:10px;
-    width:30px;
     height:30px;
+
+}
+.img_con{
+  width:40px;
+  height:40px;
     background-color:white;
     vertical-align: middle;
+    margin-right:10px;
 }
 .footer{
-     padding: 7px 0px;
+  padding: 7px 0px;
   bottom:50px;
   height:;
   width:100%;
-    text-align:center;
-    color:rgba(255,255,255,1);
-        background: rgba(47,47,50,1);
+  text-align:center;
+  color:rgba(255,255,255,1);
+  background: rgba(47,47,50,1);
     
 }
 .home{
@@ -458,8 +479,8 @@ border-radius:2px;
     width:301px;
     height:585px;
     border-radius:2.5%;
-    background-image:url('../assets/img/bg/post.png');
-    background-size:330px 641px;
+    /*<!-- background-image:url('../assets/img/bg/post.png');*/ /*-->
+    <!-- background-size:330px 641px;*/
     background-color:black;
 }
 </style>
