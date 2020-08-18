@@ -27,7 +27,8 @@
         </div>
         <div class='footer font13'>
           <div>
-            <span >恭喜您获得分销资格，请长按保存图片 18115175096</span> 
+            <span >恭喜您获得分销资格，请长按保存图片18115175096</span> 
+            <a  href="tel:18115175096">拨打电话18115175096</a>
             <div >每推广一位好友下单，您立即获得<span style='color:red'>0.3</span>  元收益</div> 
         
           </div>
@@ -77,7 +78,6 @@ export default {
         
 //         // let flag=false;
 //         // if(falg){
-//         //   return
 //         // }
 //         // setTimeout(() => {
 //         //   flag=true

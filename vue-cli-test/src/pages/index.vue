@@ -221,10 +221,29 @@ export default {
        }
     },
 
+    getPhoneNumber(){
+        this.$get('http://10.10.10.22:9352/WeChat/sendCaptcha?phone='+this.phone+'&aid='+this.aid+'&nickname=').then(
+            ()=>{
+                  
+            }
+
+        )
+    },
+
+
+
+
+
     goPost(){
-      // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect
+// http://m.dian7.net:9351/user/relationship/bindSharer?sharerAccount=o07hhuI8ChAu4pu5AkVyYuXuyPL4&yourAccount=o07hhuBfmAUz2D6UXx7OKVfoTxTc&activityId=52
+          let params="{\"sharerAccount\":this.openId,\"activityId\":"+this.activityMsg.uid +"}"; 
+
+      // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect
       let host='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect'
-      window.open(host)
+    
+    host =host.replace( "STATE", URLEncoder.encode( param, "UTF-8" ) )
+    
+    window.open(host)
         // this.$router.push(
         //   {
         //     name:'post',
@@ -280,7 +299,6 @@ export default {
       let params={
         // activityId:this.activityMsg.uid,
        activityId:52,
-        code:'23',
         orderStyle:'1'
 
       }
@@ -370,7 +388,7 @@ p{
    height:27px;
    border:1px rgba(255,255,255,1) solid;
    background-size:27px 27px;
-       top: 2px;
+   
    
 }
 .buyer{
@@ -387,6 +405,14 @@ p{
   position:absolute;
 
   -webkit-transform: translate(-10%);
+  background:white  url('../assets/img/more.svg')  ;
+  background-size:27px 27px;
+ 
+}
+.buyer3{
+  position:absolute;
+
+  -webkit-transform: translate(0%);
   background:white  url('../assets/img/more.svg')  ;
   background-size:27px 27px;
  
@@ -691,7 +717,7 @@ color:#E40000;
   height: 65px;
   
 background-size:375px 65px;
-  background:url("http://m.dian7.net/mobile-split/img/bg/indexbg.png");
+  background-image:url("http://m.dian7.net/mobile-split/img/bg/indexbg.png");
 
 }
 

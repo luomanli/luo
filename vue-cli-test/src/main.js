@@ -22,6 +22,7 @@ import { Form } from 'vant';
 import { NumberKeyboard } from 'vant';
 import { Icon } from 'vant';
 
+import store from './store/index'
 Vue.use(Icon);
 Vue.use(NumberKeyboard);
 Vue.use(Form);
@@ -59,6 +60,7 @@ Vue.use(ElementUI);
 new Vue({
     el: '#app',
     router,
+    store,
     components: { App },
     template: '<App/>'
 })

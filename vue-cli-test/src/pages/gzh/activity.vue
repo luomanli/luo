@@ -129,7 +129,7 @@ export default {
 
         }
       console.log('123333'+this.axios)
-      this.$post('/WeChat/searchByCategory',
+      this.$get('/WeChat/searchByCategory',
       data
       
       ).then(
