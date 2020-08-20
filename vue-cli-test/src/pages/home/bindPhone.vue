@@ -2,7 +2,7 @@
     <div class="page">
         <div class="font17 order_title" v-if="flag">订单信息</div>
         <van-form @submit="onSubmit">
-        <div class="birthday" v-for='(i,index) in data'>
+        <div class="birthday" v-for='(i,index) in forms'>
             <!-- <span class='title'> {{i.key}}</span> 
              <span class="write" v-if="index===3" >
                 <span class="write1">
@@ -17,33 +17,34 @@
             </span> -->
         <!--<span>{{i.form.type}}</span>-->
 
-           <van-field  class="myvant" label-align="right" v-model="value" v-if="index==1" label-class="font15" label="生日"  border=true :right-icon="message=='获取证码'?bd:''" placeholder="请输入用户名" />
-           <van-field v-model="value" class="myvant" label-align="right" v-if="index==2" label-class="font15" label="身份证" border=true :right-icon="card" placeholder="请输入用户名" 
+           <van-field  class="myvant" label-align="right" v-model="i.form.value" v-if="i.form.type=='text'&&i.form.title.indexOf('地址')<0" label-class="font15" :label="i.form.title"  
+           border=true :right-icon="message=='获取证码'?bd:''" :placeholder="i.form.placeholder" />
+           <!-- <van-field v-model="value" class="myvant" label-align="right" v-if="index==2" label-class="font15" :label="身份证" border=true :right-icon="card" placeholder="请输入用户名" 
             :rules="[{ required: true, message: '请填写密码'}]"
-           />
+           /> -->
 
-           <van-field v-model="value" class="myvant" label-align="right" v-if="i.options" label-class="font15" label="手机号码" border=true :right-icon="iconPhone" placeholder="请输入用户名" />
-                <div class="flex_center myAddress" v-if="index==3">
-                      <div style="width:100%"><span>12</span></div>
+           <!-- <van-field v-model="value" class="myvant" label-align="right" v-if="i.form.type=='select'" label-class="font15" :label="i.form.title" border=true :right-icon="iconPhone" /> -->
+                <div class="flex_center myAddress" v-if="i.form.type=='select'" >
+                    <div style="width:100%"><span>{{i.form.title}}</span></div>
                      <div class="myborder flex_center">
-                        <el-select class="my" v-model="value" placeholder="123" v-if="index==3" size="small">d
+                        <el-select class="my" v-model="i.form.value"  placeholder=""  >
                 
-                        <el-option :label="item.label"  v-for="item in option" :key="item.value" :value="item.value"></el-option>
+                        <el-option :label="item.content"  v-for="item in i.options" :key="item.value" :value="item.content"></el-option>
                         </el-select>
                     </div>
                 </div> 
-           <van-field v-model="address" class="myvant" label-align="right" v-if="index==4" label-class="font15" label="微信地址" border=true 
-           right-icon="arrow" @click="getAddress" placeholder="请输入用户名" />
+           <van-field v-model="address" class="myvant" label-align="right" v-if="i.form.title.indexOf('地址')>=0" label-class="font15" :label="i.form.title" border=true 
+           right-icon="arrow" @click="getAddress" placeholder="请输入地址" />
 
         </div>
 </van-form>
 
 
-        <div class="flex_center">
-        <el-button class="btn2 flex_center" type='danger' v-if="flag">重新提交</el-button>
+        <div class="flex_center startOver">
+            <el-button class="btn2 flex_center" type='danger' v-if="flag">重新提交</el-button>
         </div>
     
-        <el-button class="btn" type='danger'  v-if="flag!=true" click="submit">完成提交</el-button>
+        <el-button class="btn" type='danger'  v-if="flag!=true" @click="submit">完成提交</el-button>
        
        <newdialog v-if="false">
         <div class="content" >
@@ -84,7 +85,7 @@ data(){
         ,
         iconPhone:require('./../../assets/img/icon/phone.png'),
         card:require('./../../assets/img/icon/card.png'),
-        flag:'true',
+        flag:false,
         data:[
            { 
                key:"生日",
@@ -132,12 +133,45 @@ data(){
         value:'',
         message:'获取验证码',
         btnflag:false,
-        forms:[],
+        forms:[
+                { 
+                    "form": {
+                        "type": "select",
+                        "title": "7.17test1",
+                        "placeholder": "",
+                        "isMust": "true",
+                            value:''
+                        },
+                        "options": [
+                            {
+                                "content": "123",
+                                "fid": ""
+                            }
+                        ]
+                    },
+                    { 
+                    "form": {
+                        "type": "text",
+                        "title": "姓名",
+                        "placeholder": "请输入姓名",
+                        "isMust": "true",
+                               value:''
+                        }
+                    },{ 
+                    "form": {
+                        "type": "text",
+                        "title": "地址我",
+                        "placeholder": "请输入地址",
+                        "isMust": "true",
+                               value:''
+                        }
+                    }
+                ],
         address:'',
 
     }
 },
-propos:{
+props:{
     flag:{
         type:Boolean,
          default:false
@@ -154,7 +188,7 @@ propos:{
   },
   methods:{
       getConfig(){
-           this.forms=this.$route.params.from1
+        //    this.forms=this.$route.params.from1
            console.log(this.forms, this.$route.params.from1)
 
       },
@@ -235,14 +269,32 @@ propos:{
         },
 
       submit(){
+          //todo
+
+          let params={}
+            this.forms[0].form.value
+                this.forms.map(
+                    
+                    item=>{
+
+                       
+                      if(item.form.isMust && !item.form.value ){
+                            this.$message({
+                                message:item.form.title+'该参数必填'
+                            })
+                            return
+                      }
+                    params[item.form.title] =item.form.value;
+                    
+
+                })
+
 
       },
       getTime(){
           var timer = null;
         console.log('sdfeexd',this.message)
             var count = 60;
-          
-
             if ( this.message=="获取验证码") {
                    
             timer = setInterval(()=>{
@@ -282,6 +334,11 @@ propos:{
 </script>
 
 <style  scoped>
+.startOver{
+    padding-top:36px;
+    background-color:white;
+    padding-bottom:9px;
+}
 .el-button.is-disabled, .el-button.is-disabled:focus, .el-button.is-disabled:hover {
    color:white;
   

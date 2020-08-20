@@ -84,8 +84,13 @@ export default {
 
                     res=>{
                         console.log('res.data',res.data)
-                        if(res.data){
+                        if(res.statusCode==200){
                             this.data= this.data.concat(res.data);
+                        }else{
+                            this.$message({
+
+                                message:'没有更多了'
+                            })
                         }
                     }
                 )
@@ -100,6 +105,10 @@ export default {
 </script>
 
 <style scoped> 
+*{
+    text-align:center;
+}
+
 .tr2{
     font-size:12px;
     color:#A0A2A6;
@@ -109,7 +118,7 @@ thead{
     color:rgba(58,59,60,1);
 }
 .thead{
-    text-align:center;
+    text-align:left;
     font-size:14px;
 }
 .th2{
@@ -130,9 +139,7 @@ thead{
 .table{
     width:100%;
 }
-*{
-    text-align:center;
-}
+
 .center{
      text-align:center;
 }
@@ -197,5 +204,8 @@ align-items:center;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+table tr td:nth-child(1) {
+   text-align:left;
 }
 </style>

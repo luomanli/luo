@@ -3,12 +3,12 @@
      <div  class="flex-around contain" >
            
            
-        <div  class="home font10">
+        <div  class="home font10" @click="goHome">
              <img class="icon" :src="home" />
          
             <div >首页 </div>   
         </div>     
-        <div  class="service font10">
+        <div  class="service font10" @click="goService">
              <img class="icon" :src="custom" />
             <div >客服 </div>   
         </div> 
@@ -25,13 +25,14 @@
                 </div>   
         </div>  
         <div class="right flex-around font15" v-if="flag">        
-                <div  class="btn_color ">
+                <div  class="btn_color" @click="goRank">
                     收益排行榜
                 </div>      
-                <div  class="btn">
+                <div  class="btn"  @click="goPost">
                     点我赚佣金
                 </div>   
         </div>  
+
     </div>
 
 </template>
@@ -46,10 +47,11 @@ export default {
             name:'name',
             home,
             custom,
+            service:false,
             
       }
   },
-  propos:{
+  props:{
       flag:{
           type:Boolean,
           default:true
@@ -58,7 +60,22 @@ export default {
   },
   methods:{
       goHome(){
-          
+           this.$emit('home')
+      },
+      goRank(){
+          this.$router.push({
+              name:'moneyRank'
+          })
+      },
+      goPost(){
+          this.$router.push({
+              name:'post'
+          })
+      }
+      ,
+      goService(){
+          this.$emit('service')
+        
       }
   }
 }
@@ -86,9 +103,11 @@ color:rgba(255,255,255,1);
     height:24px;
 }
 .contain{
+    background-color:rgba(255,255,255,1);
     position: fixed;
     bottom: 0px;
-    width:100%
+    width:375px;
+    height:49px;
 }
 
 .right{
@@ -121,6 +140,7 @@ flex:2
     border-radius:2px;
     text-align:center;
     margin-right:4px;
+   color:rgba(247,67,61,1);
   
     border-image:linear-gradient(270deg, rgba(253,145,82,1), rgba(247,67,61,1)) 1 1;
 }

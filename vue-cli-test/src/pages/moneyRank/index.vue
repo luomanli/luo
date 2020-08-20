@@ -52,7 +52,7 @@
                           <van-icon  class="icon" name="arrow" color="background:rgba(58,59,60,1);" />
                    </div>
                    <div class="flex-between center_bot">
-                       <div class="num flex-around">
+                       <div class="num flex-around" @click="goPeo">
                         <span class="font13">邀请人数
                             <div class="font10 color" >
                                 <span>您已邀请5个人</span>
@@ -63,7 +63,7 @@
 
                         <img class="icon2" :src="come" alt=""/>
                        </div>
-                        <div class="num flex-around">
+                        <div class="num flex-around"  @click="goOrder">
                         <span class="font13">分销订单
                           <div class="font10 color">您已邀请5个人
                            <van-icon name="arrow" color="rgba(210,34,24,1)" />
@@ -74,8 +74,9 @@
                    </div>
                </div>
                <reve-rank></reve-rank>
-               <bottomSet></bottomSet>
-               <bottom></bottom>
+               <bottomSet style='height:20px;' > </bottomSet>
+               <bottom :flag="false"></bottom>
+                <companytwo  ></companytwo>
                <newdialog v-if="cashFlag">
                     <div class="con" >
                     <!-- <img  :src="outcash" class="outcash"/> -->
@@ -83,16 +84,19 @@
                         <div class="title font20 white">提现金额</div>
                         <input type="number" readonly @click="number" :value="value">
                         <div class="flex-between cash">
-                            <span class="font13">可提现金额:<span >20.57元</span></span>
+                            <span class="font13">可提现金额:<span >{{money}}元</span></span>
                             <span class="font12 color">全部提现</span>
                        </div>
-                       <div class="tip">*您输入的金额大于可提现的金额</div>
+                       <div class="tip">
+                            <div  v-show="tip">*您输入的金额大于可提现的金额</div>
+                       </div>
                         <div class="btn" @click="flag=false">提现</div>
-                    <van-icon @click="cancle" name="close" color="rgba(255,255,255,1)" />
+                   
                         </div>
+                         
                     </div>
                    
-
+                        <van-icon @click="cancle" name="close" color="rgba(255,255,255,1)" />
                </newdialog>
                <van-number-keyboard
                 :show="show"
@@ -101,7 +105,7 @@
                 @input="onInput"
                 @delete="onDelete"
                 />
-                 <companytwo flag="true" ></companytwo>
+                
 
         </div>
 </template>
@@ -138,17 +142,32 @@ export default {
             name:'name',
              img:'../assets/logo1.jpg',
              flag:true,
-             value:'123',
-             cashFlag:true
+             value:'',
+             cashFlag:true,
+             money:34,
+             moneyCopy:34,
+             tip:false
+
              
         }
     },
   methods:{
+      goPeo(){
+            this.$router.push({
+                name:"recordPeo"
+            })
+      },
+      goOrder(){
+
+      },
       goHome(){
           
       },
       onInput(v){
-          this.value+=''+v;
+          if(this.money<0){
+                return
+          }
+          this.value+=v;
           console.log(v)
       },
       onDelete(){
@@ -173,6 +192,18 @@ export default {
               
             )
       },
+  },
+  watch:{
+
+      value(val){
+          this.money=this.moneyCopy-this.value
+          if(this.money<0){
+              this.tip=true
+          }else{
+              this.tip=false
+          }
+
+      }
   }
 }
 </script>
@@ -334,6 +365,7 @@ border-radius:11px 11px 0px 0px;
 .tip{
     margin-top: 8px;
     text-align: left;
+    height:15px;
     font-size:10px;
     color:rgba(228,52,53,1);
 }

@@ -8,20 +8,25 @@
            
             <div class="sub_title">请绑定手机号、查询订单</div>
             <div class="flex">
-                <input type="text" class="phone_input" placeholder="请输入手机号"/>
+                <input type="text" v-model="phone" class="phone_input" placeholder="请输入手机号"/>
             
             </div>
-             <div v-if="no0" class="font10 no" >手机号错误 </div>
+             <div class="no" >
+             <span  v-if="no0">手机号错误 </span>
+             </div>
             <div class="flex-between message">
-                     <input type="text" class="phone_input2" placeholder="请输入手机号"/>
+                     <input type="text" v-model="code"  class="phone_input2" placeholder="请输入验证码"/>
            
             <el-button class="elBtn flex" :disabled="btnflag" :class='[btnflag==false?"btnactive":"nobtnactive"]' @click="getTime">{{message}}</el-button>
 
             </div>
-             <div v-if="no1" class="font10 no" >验证码错误 </div>
+             <div  class="no" >      
+               <span  v-if="no1">验证码错误 </span>
+ 
+             </div>
            
 
-            <div class="phone_btn font15" :class='[active?"active":"noactive"]'>立即验证</div>
+            <div class="phone_btn font15" :class='[active?"active":"noactive"]' @click="checkPhoneAndCode">立即验证</div>
              
              <van-icon name="close" @click="cancle" color="rgba(255,255,255,1)" />
         
@@ -45,8 +50,10 @@ export default {
             btnflag:false,
               cashFlag:true,
               message:'获取验证码',
-              no0:true,
-              no1:true,
+              no0:false,
+              no1:false,
+              phone:'',
+              code:'',
 
 
 
@@ -65,7 +72,14 @@ components: { newdialog,phone},
           
       },
         getTime(){
-          var timer = null;
+            if(!this.phone){
+                this.no0=true
+                return;
+            }
+
+
+        this.getPhone()
+        var timer = null;
         console.log('sdfeexd',this.message)
             var count = 60;
           
@@ -91,12 +105,27 @@ components: { newdialog,phone},
              let url='/WeChat/sendCaptcha'
 
                 this.$get(url,{
-                    phone:'12',
-                    aid:'',
-                    nickname:''
+                    phone:this.phone,
+                    aid:52,
+                    nickname:'lit'
                 }).then(
                     res=>{
-                        
+                        console.log('231')
+                    }
+
+                )
+
+         },
+         checkPhoneAndCode(){
+                 let url='/WeChat/sendCaptcha'
+
+                this.$get(url,{
+                    phone:this.phone,
+                    aid:52,
+                    nickname:'lit'
+                }).then(
+                    res=>{
+                        console.log('231')
                     }
 
                 )
@@ -109,16 +138,18 @@ components: { newdialog,phone},
 
 <style scoped>
 .no{
+  color:red;
     padding-left: 30px;
-    height: 16px;
+    height: 12px;
     text-align: left;
-    line-height: 16px;;
+    line-height: 12px;;
+    font-size:8px;
+    padding-bottom:1px;
 }
 .elBtn{
 padding: 0px;
 width:80px;
 height:30px;
-
 border-radius:5px;
 font-size:14px;
 font-family:PingFangSC-Medium,PingFang SC;
@@ -126,6 +157,7 @@ font-weight:500;
 color:rgba(255,255,255,1);
 line-height:30px;
 text-align:center;
+
 }
 .title{
     font-size:17px;
@@ -179,7 +211,7 @@ background:rgba(216,216,218,1);
         text-align:left;
         padding-left:7px;
     width:124px;
-height:30px;
+height:28px;
 background:rgba(238,238,239,1);
 border-radius:7px;
 }
@@ -187,7 +219,7 @@ border-radius:7px;
         border: none;
 
     width:213px;
-    height:31px;
+    height:28px;
     background:rgba(238,238,239,1);
     border-radius:7px;
     margin:0 auto;
@@ -205,7 +237,9 @@ border-radius:7px;
     border-radius:3px;
     margin:0 auto;
     line-height:33px;
-    margin-bottom:23px;
+    margin-bottom:25px;
+
+    margin-top:13px;
 
 }
    .content{

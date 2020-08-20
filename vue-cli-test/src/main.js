@@ -23,7 +23,12 @@ import { NumberKeyboard } from 'vant';
 import { Icon } from 'vant';
 import params from './utils/params'
 import store from './store/index.js'
-console.log(store)
+import VueClipboard from 'vue-clipboard2'
+import { CountDown } from 'vant';
+
+Vue.use(CountDown);
+Vue.use(VueClipboard)
+
 Vue.use(Icon);
 Vue.use(NumberKeyboard);
 Vue.use(Form);

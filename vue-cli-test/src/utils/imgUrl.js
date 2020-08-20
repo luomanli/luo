@@ -20,6 +20,7 @@ export function randomPeo() {　　
     }
     return arr
 }
+
 export let imgUrl = "http://m.dian7.net/mobile-split/img"
 export let imgVirUrl = "http://m.dian7.net/mobile-split/img/virtualUser/user"
 export let kingUrl = "http://m.dian7.net/mobile-split/img/icon/king"

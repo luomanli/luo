@@ -1,7 +1,7 @@
 <template>
   <div class="page" >
 
-  <div  id="content">
+  <div ref="viewBox" id="content">
     <div class="head">
       <div class="search">       
          <van-search class="search_input" shape="round" v-model="value" placeholder="搜索活动" 
@@ -24,7 +24,7 @@
         <div class="intro flex-around">
           <img   src="" alt="" class="card"/>
           <div class="">
-              <span class="font15">活动主题:{{activityMsg.activityTitle}}</span>
+              <span class="font15" @click="back">活动主题:{{activityMsg.activityTitle}}</span>
               <span class="tip_status font10">已结束{{activityMsg.activityStatus}}</span>
               <div class="font10_grey">这是一个活动简介{{activityMsg.activitySubheading}}</div>
               <div class="font13 tip">
@@ -110,16 +110,31 @@ export default {
           ],
           value2:'2',
           activityMsg:{},
+          box:''
 
       }
 
   },
   mounted(){
       this.getData();
-       window.addEventListener("scroll", this.scrollBottom, true);
-  },
-  methods:{
+      this.box = this.$refs.viewBox;
 
+        this.box.addEventListener("scroll", this.scrollBottom, true);
+
+        this.onBridgeReady()
+       
+  },
+  deactivated() { 
+this.box.removeEventListener('scroll', this.box);
+},
+  methods:{
+    back(){
+        this.$router.back(-1);
+    },
+      onBridgeReady(){
+      WeixinJSBridge.call('hideOptionMenu');
+
+    },
     getData(){
         let data={
             pageSize:3,

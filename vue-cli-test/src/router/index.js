@@ -10,18 +10,14 @@ import businessCenter from '@/pages/gzh/businessCenter'
 import verifiCode from '@/pages/paySuccess/verifiCode'
 import jump from '@/pages/paySuccess/jump'
 import custom from '@/pages/paySuccess/custom'
-import concatService from '@/pages/paySuccess/concatService'
-
+import concatService from '@/pages/home/concatService'
 import myOrder from '@/pages/gzh/myOrder'
-
 import moneyRank from '@/pages/moneyRank/index.vue'
 import recordPeo from '@/pages/moneyRank/recordPeo.vue'
 import cash from '@/pages/moneyRank/cash.vue'
 import bussiness from '@/pages/gzh/bussiness.vue'
-
 import activityUser from '@/pages/gzh/activityUser'
-
-
+import user from '@/pages/user'
 
 Vue.use(Router)
 
@@ -35,6 +31,7 @@ export default new Router({
         {
             path: '/',
             name: 'post',
+            // redirect: 'user',
             component: post
         },
         {
@@ -116,6 +113,12 @@ export default new Router({
             path: '/bussiness',
             name: 'bussiness',
             component: bussiness
+
+        },
+        {
+            path: '/user',
+            name: 'user',
+            component: user
 
         }
 

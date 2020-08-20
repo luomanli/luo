@@ -1,6 +1,6 @@
 <template>
 
-  <div class="dialog__wrapper flex_center" v-if="outFlag" @click.stop="close">
+  <div class="dialog__wrapper flex_center" v-if="outFlag" @click.stop="">
     <div class='content' v-if="false">
         <div class='title'>
         <div>
@@ -21,24 +21,30 @@
         长按识别二维码联系我们 
         </div>
     </div>
-  <div class='content'>
+    <div class='content'>
         <div class='title'>
-        <div>
-            <img  class="icon1" :src="img" alt=""/>
-            <span class='font15 cobyOrderSn' data-clipboard-action="copy" data-clipboard-text="16525698746">16525698746</span>
-        </div>
-            <div >
-            <a  href="tel:17791761219" class='font12'>一键拨打</a>
-            <!-- <a @click="copyLink">copylink</a> -->
+            <div class='flex_center'>
+                <img  class="icon1" src="../assets/img/icon/service.png" />
+                <span class='font15'>客服小宝</span>
+            </div>
+            <div class='flex'>
+                <img  class="icon2" src="../assets/img/icon/phoneNum.png" />
+         
+                <button class='btn font12'
+                        type="button"
+                        v-clipboard:copy="message"
+                        v-clipboard:success="onCopy"
+                        v-clipboard:error="onError"
+                        >16525698746</button>
             </div>
         </div>
-         <div class='post' >
+        <div class='post'>
         
-            <img class="QRcode" :src="qrcode" alt="" />
+            <img class="QRcode" src="../assets/logo1.jpg" />
         
         </div>
-        <div class='footer' >
-        请拨打电话联系我们 
+        <div class='footer'>
+        长按识别二维码联系我们 
         </div>
     </div>
   </div>
@@ -52,7 +58,9 @@ export default {
       return{
             name:'name',
              img:'../assets/logo1.jpg',
-             outFlag:true
+             outFlag:true,
+             text:'1234',
+              message: 'Copy These Text'
           
       }
   },
@@ -70,14 +78,21 @@ export default {
    
   },
   methods:{
+        onCopy: function (e) {
+      alert('You just copied: ' + e.text)
+    },
+    onError: function (e) {
+      alert('Failed to copy texts')
+    },
       goHome(){
           
       },
        copyLink() {
         
             let _this = this;
-            let clipboard = new this.clipboard(".cobyOrderSn");
-              alert("复制成功"+clipboard)
+            let copybtn = document.getElementById('cobyOrderSn');
+            let clipboard = new this.clipboard(copybtn);
+           
             clipboard.on('success', function () {
             alert("复制成功")
             });
@@ -96,6 +111,10 @@ export default {
 </script>
 
 <style scoped>
+.btn{
+    border:none;
+    background-color:white;
+}
 .dialog__wrapper{
     position:fixed;
     top:0px;
@@ -112,14 +131,15 @@ export default {
     
 }
 .icon1{
-    width:33px;
+    width:29px;
 height:29px;
 vertical-align:middle;
+margin-right:8px;
 }
 .icon2{
-    width:16px;
+width:16px;
 height:16px;
-background:rgba(91,178,242,1);
+
 vertical-align:middle;
 }
 .footer{
@@ -130,14 +150,14 @@ vertical-align:middle;
 }
 
 .QRcode{
-    width:180px;
-    height:181px;
-    
+ width:223px;
+height:224px;
 
 }
 .content{
-     height:316px;
-    width:344px;
+    padding-top:20px;
+     height:334px;
+    width:316px;
     background-color:white;
      margin:0 auto;
 }
@@ -158,6 +178,7 @@ vertical-align:middle;
 }
 .title{
     margin:10px 30px;
+    margin-top:0px;
     display:flex;
     flex-direction:row;
     justify-content:space-between;
@@ -173,9 +194,7 @@ vertical-align:middle;
 
 .post{
     margin:0 auto;
-    width:223px;
-    height:181px;
-    margin-bottom:22px;
+    margin-bottom:12px;
     text-align:center;
 }
 

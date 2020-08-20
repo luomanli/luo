@@ -15,10 +15,10 @@
                     </div>
                 
 
-                    <div class="font12 date">
-                        <span class="half">全部</span>
-                        <span class="half">今日</span>
-                        <span class="half">七日</span>
+                    <div class="font12 date" >
+                        <span class="half" @click="getOrder(0)" >全部</span>
+                        <span class="half" @click="getOrder(1)">今日</span>
+                        <span class="half" @click="getOrder(2)">七日</span>
                     </div>
 
             </div>
@@ -41,31 +41,30 @@
          
           <div class="cards_top flex-between">
             <div class="left flex-around">
-                      <img  class="user" src="./../../assets/logo1.jpg" alt=""/>
+                      <img  class="user" :src="i.orderFormBasic.userAvatarPath" alt=""/>
                     
                         <div class="flex-col-center" style="align-items: baseline;">
                             
-                            <span class="font15">大熊今天很酷</span>
-                                <div class="time font10">2020.06.23</div>
-                                
-                                
+                            <span class="font15">{{i.orderFormBasic.userName}}</span>
+                                <div class="time font10">{{i.orderFormBasic.createTime}}</div> 
                             </div>
                   
             </div>
             <div class="right flex-col-center">
-                <span  class="margin4 font15">¥1元</span>
-                <div  class="font13">未支付</div>
+                <span  class="margin4 font15">¥{{i.orderFormBasic.orderPrice}}元</span>
+                <div  class="font13" v-if="i.orderFormBasic.payStatus">已支付</div>
+                <div  class="font13" v-else>未支付</div>
             </div>
           </div>
           <div class="bottom flex-around">
               <div class="flex-col-center">
                   <span  class="margin3 font13">直接上级</span>
-                  <div  class="font10" style="color:rgba(160,162,166,1);">2</div>
+                  <div  class="font10" style="color:rgba(160,162,166,1);">{{i.orderFormBasic.primaryIncome?i.orderFormBasic.primaryIncome:'-'}}</div>
               </div>
               <span style="width:1px;height:37px;background-color:#CBCCCF"></span>
                 <div class="flex-col-center">
                  <span  class="margin3 font13">直接上级</span>
-                  <div  class="font10" style="color:rgba(160,162,166,1);">2</div>
+                  <div  class="font10" style="color:rgba(160,162,166,1);">{{i.orderFormBasic.secondIncome?i.orderFormBasic.secondIncome:'-'}}</div>
               </div>
           </div>
           
@@ -95,12 +94,50 @@ export default {
               name:'dgsyh'
           },
           ],
+          currentPage:1,
       }
+  },
+  mounted(){
+    this.getOrder();
   },
   methods:{
       back(){
             this.$router.push({name:'activity'})
       },
+
+      getOrder(val){
+            let beginDate="";
+            let endDate="";
+            let time=""
+            if(val==1){
+                time=new Date().toLocaleDateString();
+                beginDate=time +" 00:00:00"
+                endDate=time +" 23:59:59"
+            }else if(val==2){
+                    time=new Date((new Date().getTime()-6*24*60*60*1000)).toLocaleDateString();
+                beginDate=time +" 00:00:00"
+                endDate=new Date().toLocaleDateString() +" 23:59:59"
+            }
+            console.log(beginDate,endDate)
+
+        //   let url='http://m.dian7.net:9351/query/orderFormList?activityId=52&beginDate=2019-07-01 00:00:00&endDate=2020-08-22 00:00:00&currentPage=1&pageSize=5'
+          let url='/query/orderFormList'
+          this.$get(url,
+          {
+                activityId:52,
+                beginDate:beginDate,
+                endDate : endDate,
+                currentPage:this.currentPage,
+                pageSize:5
+          }
+          ).then(
+              res=>{
+                  console.log('res',res)
+                  this.data=res.data
+                    
+              }          
+          )
+      }
   }
 }
 </script>

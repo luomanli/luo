@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog__wrapper flex_center" v-if="false">
+  <div class="dialog__wrapper flex_center" v-if="flag">
   <div class='content'>
     <div class='title'>
         
@@ -31,7 +31,7 @@ export default {
           
       }
   },
-    propos:{
+    props:{
       flag:{
           type:Boolean,
           default:false
@@ -75,7 +75,7 @@ background:rgba(91,178,242,1);
 vertical-align:middle;
 }
 .footer{
-    font-size:14px;
+    font-size:10px;
     text-align:center;
    color:rgba(160,162,166,1);
     margin:0 40px;

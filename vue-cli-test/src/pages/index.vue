@@ -1,13 +1,18 @@
   <template>
   <div class="body">
     <div class="img">
-    <img class="img" src='../assets/logo1.jpg'/>
+    <img class="img" src='../assets/bg.png'/>
     </div>
     <div class="price">
         <div class="right">
           <div class="flex_column">
               <div style='font-size:10px;line-height:14px;height:14px'>距离活动结束</div>
-              <div class='time'>{{backTime}}</div>
+
+               <van-count-down ref="countDown" millisecond
+                    :time="backTime" :auto-start="false" format="HH:mm:ss:SS"
+                    @finish="finish"/>
+
+              <!-- <div class='time'>{{backTime}}</div> -->
           </div>
         </div>
         <div class="old_price">原价:1788{{activityMsg.originalPrice}}</div>
@@ -98,7 +103,7 @@
       <reveRank class='rank'></reveRank>
         <div class="footer">
               <span class='color font12' @click='goNotic'>交易须知</span>
-              <span  class='color font12'>投诉建议</span>
+              <span  class='color font12' @click='advice' >投诉建议</span>
                <div class="top13">
                   <span class='grey'>此页面的产品或服务由</span>
                   <span class='color'  @click='goComp'>XXXX有限公司</span>
@@ -123,7 +128,6 @@
         <div class="goFound" @click="goFound">
                   马上创建
         </div>
-        <a :href="gopost">gopost</a>
     </div>  
     </div>
      <div class='moneyReward' @click="goPost">
@@ -133,20 +137,20 @@
 
   
       <company v-if="false" ></company>
-
-
-   <nopay :flag="false"></nopay>
+   <nopay :flag="cancle"></nopay>
     <div class='bottom'>
       <div class='flex-col-center' style="align-items: baseline;">
             <span class="font12" style='text-decoration:line-through;color:rgba(255,127,128,1);'>原价:1788</span>
             <div class="font15" style="color:rgba(228,51,52,1);">限时特价  ￥12.88</div>
       </div>
-        <div class='flex_center' >
-            <img class='custom' :src="custom">
-            <div class='buy' @click="buy">立即购买</div>   
+      <div class='flex_center' >
+            <img class='custom' :src="custom" @click="goCustom">
+            <div class='buy' @click="buy1">{{buyMessage}}</div>   
         </div>
     </div>
      <phone v-if="true" ></phone>
+     <concatService v-if="service"  :flag="false"></concatService>
+
   </div>
   
   
@@ -157,6 +161,7 @@
 import time from  '../utils/time.js';
 import {custom,indexbg,imgVirUrl,kingUrl} from  '../utils/imgUrl.js';
 import phone from  './home/phone.vue';
+import concatService from  './home/concatService.vue';
 import reveRank from  '../components/reveRank.vue';
 import company from  '../components/company.vue';
 import nopay from  '../components/nopay.vue';
@@ -192,22 +197,27 @@ export default {
       comp:false,
       vpeo:this.$randomPeo(5),
       gopost:'',
-
+      service:false,
       openId:'o07hhuFlqxqWVDSGZTDuYZl50wNQ',
       orderId:'',
+      cancle:false,
+      buyMessage:"立即购买",//购买状态  "活动结束"
     }
   },
   mounted(){
-   this.getdata();
-  console.log("this.$randomPeo",this.$randomPeo(5))
-  let vpeo=this.$randomPeo(5);
+    this.getdata();
+    console.log("this.$randomPeo",this.$randomPeo(5))
+    let vpeo=this.$randomPeo(5);
+     var str0 = "2020/8/15 22:00:00";
+        var str1 = "2020/8/25 10:00:00";
+        this.countTime(str0,str1)
 
   },
- components: { reveRank ,company,nopay,phone},
+ components: { reveRank ,company,nopay,phone,concatService},
   methods:{
     getdata(){
       console.log('123333'+this.axios)
-      this.$get('/activity/mobile/58').then(
+      this.$get('/activity/mobile/').then(
         response => 
         {
           console.log('123:',response)
@@ -241,7 +251,6 @@ export default {
 
     goPost(){
 // http://m.dian7.net:9351/user/relationship/bindSharer?sharerAccount=o07hhuI8ChAu4pu5AkVyYuXuyPL4&yourAccount=o07hhuBfmAUz2D6UXx7OKVfoTxTc&activityId=52
-         
          this.$router.push(
            {
              name:'post'
@@ -251,22 +260,13 @@ export default {
          this.openId=1;
          this.activityMsg={}
          this.activityMsg.uid=51
-      
-
-
-
          let params={
            sharerAccount:this.openId,
            activityId:this.activityMsg.uid
           //  postId:this.activityMsg.uid
-           
-           
-           
            }; 
          params=JSON.stringify(params)
-
           this.$store.commit('setValue', this.openId);    
-          
     alert("getValue"+this.$store.getters.getValue )
           sessionStorage.setItem("allJson",params);
           localStorage.setItem("allJson",params);
@@ -300,7 +300,14 @@ this.gopost=host
     goFound(){
           this.$router.push({name:'activity'})
       },
-    bug1(){ 
+    buy1(){ 
+        if(this.activityMsg.activityStock==0){
+            this.service=true;
+            return;
+        }
+
+
+
         if(this.activityMsg.isPaidFill){
                this.$router.push({
                  name:'bindPhone',
@@ -312,40 +319,79 @@ this.gopost=host
                })
         }else{
              this.$router.push({
-               
                 name:'bindPhone',               
                 params:{
-                  from:JSON.stringfy(this.forms),
+                  from:JSON.stringify(this.forms),
                   from1:this.forms
                 }
              })
         }
     },
-    buy(){
+    //
+       buy(){
+          console.log('11111'+this.openId)
+          const code = qs.parse(window.location.search.substr(1)).code;
+          // let params={
+          //   // activityId:this.activityMsg.uid,
+          //     activityId:52,
+          //   code:'23',
+          //   orderStyle:'1'
+          //   }
+            let body={
+              "fs":"dsf",
+              "dsff":'d',
+              "dsfafa":"dsfw"
+              }
+            
+        let url='/orderForm/new/byCode?activityId=52&openId='+this.openId+'&orderStyle=1&tradeType=JSAPI'
+        this.$post(url, body).then((data)=>{          
+                      console.log(data)
+                      let obj=data.data;
+                      let config={
+                              "appId": obj.appid, //公众号名称，由商户传入
+                              "timeStamp": obj.timeStamp, //时间戳，自1970年以来的秒数
+                              "nonceStr": obj.nonceStr, //随机串
+                              "package": obj.package,
+                              "signType": "HMAC-SHA256", // HMAC-SHA256
+                              "paySign": obj.paySign //微信签名
+                      }
+                      alert('config'+JSON.stringify(config))
+                      this.onBridgeReady(config);
+                  })
+                  
+        },
+           //支付接口测试
+      onBridgeReady(obj) {
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', obj,
+            function(res) {
+              alert('1234'+JSON.stringify(res))
+                if (res.err_msg == "get_brand_wcpay_request:ok") {
+                       alert('1114'+JSON.stringify(res))
+                    // 使用以上方式判断前端返回,微信团队郑重提示：
+                    //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+                }
+               if (res.err_msg == "get_brand_wcpay_request:cancle") {                
+                  this.cancle=true;
+                }
+            })
+      },
+    buy0(){
       const code = qs.parse(window.location.search.substr(1)).code;
       let params={
         // activityId:this.activityMsg.uid,
        activityId:52,
         orderStyle:'1'
-
       }
       let body={
         "fs":"dsf",
         "dsff":'d',
         "dsfafa":"dsfw"
         }
-        
-      let url='/orderForm/new/byCode?activityId=52&code='+code+'&orderStyle=1'
-      // this.$get(url,params,(data)=>{
-
-      //     console.log(data)
-
-      // })
+       let url='/orderForm/new/byCode?activityId=52&code='+code+'&orderStyle=1'
         this.$post(url, body,(data)=>{
-
           console.log(data)
-
-      })
+        })
     },
     goRankIndex(){
          this.$router.push({              
@@ -380,9 +426,47 @@ this.gopost=host
 
         }
       )
-    }
+    },
+        countTime(startStr, endStr) {
+            //获取当前时间  
+            var date = new Date();
+            var now = date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds();
+            //设置截止时间  
+            //    endStr = "2020/8/13 22:00:00";
+            var endDate = new Date(endStr);
+            //设置开始时间
+            //开始时间小于现在时间，返回false
+            // startStr = '2020/8/14 09:10:90'
+            var startDate = new Date(startStr);
+            // console.log("startDate - now", startDate - date > 0)
+            if (startDate - date > 0) {
+                return 
+            }
+            //判断时间差  
+            // var end = endDate.getTime();
+            var end = 24 * 60 * 60 * 1000;
+            var leftTime = end - now * 1000;
+            if (date.getMonth() == endDate.getMonth() && date.getDate() == endDate.getDate()) {
+                end = endDate.getTime();
+                leftTime = end - date.getTime();
+                console.log("12", end, leftTime)
+                }
+                this.backTime=leftTime
+                // this.start()
+            },
+            start() {
+                this.$refs.countDown.start();
+              },
 
-
+            //客服
+            goCustom(){
+              this.service=true;
+            },
+            //建议
+            advice(){
+                let url="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5MzQxMjA1MQ==&scene=110#wechat_redirect"
+        window.location.herf=url
+            }
  
 
 
@@ -555,6 +639,7 @@ background:rgba(253,135,79,1);
 border-radius:3px;
 }
 .footer{
+  font-size:12px;
   width:100%;
   height:114px;
   padding-top:19px;
@@ -712,8 +797,9 @@ background-color:white;
  
 height:109px;
 }
-.time{
-  font-size:29px;
+.van-count-down {
+  padding-left:30px;
+  font-size:25px;
   color:rgba(255,255,255,1);
   text-shadow:1px 1px 1px rgba(65,0,153,1);
   height:30px;

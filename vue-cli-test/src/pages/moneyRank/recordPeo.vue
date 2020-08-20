@@ -4,7 +4,7 @@
           <div class="left">
                 <img  class="user" src="user" alt=""/>
                 <img  class="icon" src="" alt="" />
-                   <van-icon name="checked" color="#E43435"  />
+                   <van-icon  class="font10" name="checked" color="#E43435"  />
                 <span class='font15'>name</span>
                
           </div>
@@ -36,6 +36,11 @@ export default {
 </script>
 
 <style scoped>
+.left{
+    height:100%;
+    line-height:100%;
+}
+
 .color{
     color:rgba(228,52,53,1);
 }
@@ -55,6 +60,7 @@ height:34px;
     margin:5px 0px ;
     padding:0px 18px;
    background:rgba(255,255,255,1);
+   height:52px;
 }
 .bot{
     position:fixed;

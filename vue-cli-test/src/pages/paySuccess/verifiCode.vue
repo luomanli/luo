@@ -41,7 +41,7 @@
                <div class="font12 grey tip" > 
                到店向工作人员出示“二维码”,此码一次有
             </div>
-             <div class="btn white">
+             <div class="btn white" @click="goOrder">
               
                查看订单
             </div>
@@ -49,7 +49,7 @@
 
         </div>
 
-            <bindPhone>
+            <bindPhone :flag="true">
             </bindPhone>
         <bottomSet></bottomSet>
     
@@ -87,7 +87,10 @@ export default {
   methods:{
       goHome(){
           
-      }
+      },
+      goOrder(){
+         this.$router.push({name:'activityOrder'})
+      },
   }
 }
 </script>

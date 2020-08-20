@@ -47,12 +47,15 @@
 <script>
 import wx from 'weixin-js-sdk'
 import qs from'qs'
+import {indexbg} from  '../utils/imgUrl.js';
+
 import company from  '../components/company.vue';
 
 export default {
   name: 'post',
   data(){
       return{
+        indexbg:'',
             name:'name',
             img:'',
             weixinCode:'',
@@ -74,112 +77,12 @@ export default {
 
    created() {
      
-//     let param = {
-//       debug: true,
-//       url: 'http://localhost:8081/productgroups',
-//       jsApiList: [
-//         'chooseWXPay',
-//         'checkJsApi'
-//       ]
-//     };
-//     let ticket='';
-//     let config={};
-//     this.$get('/weChat/get/ticket').then((data)=>{
-//         ticket=data.ticket
-//         console.log('data.ticket',data.ticket)
-
-//     }).then(()=>{
-        
-//         // let flag=false;
-//         // if(falg){
-//         // }
-//         // setTimeout(() => {
-//         //   flag=true
-//         // },120000);
-        
-//       alert('location.href.split[0]'+location.href.split('#')[0])
-//         let data0={
-//           "url":"http://m.dian7.net/mobile-split/",
-//           // "url":"localhost:8080/",
-//           "jsapi_ticket":ticket,    
-//         }
-//         let url="http://m.dian7.net:9351/sign/general"
-//         this.$post(url,data0).then((res)=>{
-//               console.log('ressign',res)
-//               config=res
-//           }).then(
-//       ()=>{
-//        alert('config'+JSON.stringify(config))
-//           param = {
-//           debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-//           appId: 'wx3aee30a8da24ba55', // 必填，公众号的唯一标识
-//           timestamp:config.timestamp, // 必填，生成签名的时间戳
-//           nonceStr: config.noncestr, // 必填，生成签名的随机串
-//           signature: config.sign,// 必填，签名，见附录1
-//           jsApiList: [
-//               'openAddress'
-//           ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-
-//     };
-//     wx.config(param);
-  
-//       wx.ready(() => {
-//         console.log('wx.ready');
-//       });
-
-//       wx.error(function (res) {
-
-//         console.log('wx err', res);
-
-//         //可以更新签名
-//       });
-//       wx.checkJsApi({
-//           jsApiList: ['openAddress'], // 需要检测的JS接口列表，此处为分享到朋友圈接口示例
-//           success: function(res) {
-//           // 以键值对的形式返回，可用的api值true，不可用为false
-//           // 如：{"checkResult":{"onMenuShareTimeline":true},"errMsg":"checkJsApi:ok"}
-//                 alert(res);
-
-
-//           }
-//         });
-
-
-//          wx.openAddress({
-//         // 请求成功要做的事
-//         success: (res) => {
-//             // 这里我把获取到的用户信息存储到了vuex中的state中保存，以防后续路由跳转带来的组件销毁带来的数据没法保存
-//             // 根据自己需求拿自己需要的参数即可，参数名可对照上面的返回值说明表
-//             // _this.$store.state.address.userName = res.userName;
-//             // _this.$store.state.address.telNumber = res.telNumber;
-//             // _this.$store.state.address.nationalCode = res.nationalCode;
-//             // _this.$store.state.address.provinceName = res.provinceName;
-//             // _this.$store.state.address.cityName = res.cityName;
-//             // _this.$store.state.address.countryName = res.countryName;
-//             // _this.$store.state.address.detailInfo = res.detailInfo;
-//               alert('config'+JSON.stringify(config))
-
-//               this.address=res.provinceName+res.cityName+res.countryName+' '+res.detailInfo;
-//             // _this.$store.state.address.detailInfo = res.detailInfo;''
-
-
-//         },
-//         cancel: function () {
-//             // 用户取消要做的事儿
-//             // 这里我把请求时打开的一个loading动画给关闭了
-            
-//         },
-//     });
-     
-         
-//     )
+    this.open();
    
-// })            
-//     });
- 
+              
   },
   mounted(){
-     this.open();
+   
       this.getUser()
       // this.getPay();
       // this.getQrcode();
@@ -193,7 +96,9 @@ export default {
     open(){
       if(window.location.href.indexOf('code')<0){
           let host='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=1&connect_redirect=1#wechat_redirect'
-         window.location.href=host
+            window.location.href=host
+
+      }else{
 
       }
         
@@ -237,7 +142,6 @@ export default {
       //海报查询接口
       getPost(){
         let url= `/poster/get?activityId=52&openId=${this.openId}&posterId=1`
-
          this.$get(url).then(
            (res)=>{
              console.log('res',res)
@@ -259,15 +163,19 @@ export default {
           )
          
       },
-      //个人信息查询
+        //个人信息查询
          getUser(){
               const code = qs.parse(window.location.search.substr(1)).code;
               this.setRelationShip();
               this.getQrcode();
               this.$post('weChat/record/userInfo?code='+code,{}).then((data)=>{
                     this.openId=data.data
+                    this.push({
+                      name:"post"
+                    })
+                      // window.location.href= window.location.protocol + window.location.host
                       console.log('11111'+data)
-                           this.getSub();
+                          //  this.getSub();
                            this.getPost();
                   })
 
@@ -294,7 +202,6 @@ export default {
           //     activityId:52,
           //   code:'23',
           //   orderStyle:'1'
-
           //   }
             let body={
               "fs":"dsf",
@@ -319,7 +226,12 @@ export default {
                   })
                   
         },
-      getPay(){
+     
+     
+     
+     
+     
+     getPay(){
         console.log("data")
           this.$get('https://api.mch.weixin.qq.com/pay/orderquery').then(
             (data)=>{
@@ -365,6 +277,81 @@ export default {
              
 
               
+      },
+      getConfig(){
+        let ticket='';
+        let config={};
+    this.$get('/weChat/get/ticket').then((data)=>{
+        ticket=data.ticket
+        console.log('data.ticket',data.ticket)
+
+    }).then(()=>{    
+            alert('location.href.split[0]'+location.href.split('#')[0])
+              let data0={
+                "url":location.href.split('#')[0],
+                // "url":"localhost:8080/",
+                "jsapi_ticket":ticket,    
+              }
+              let url="http://m.dian7.net:9351/sign/general"
+              this.$post(url,data0).then((res)=>{
+                    console.log('ressign',res)
+                    config=res
+                }).then(
+            ()=>{
+            alert('config'+JSON.stringify(config))
+             
+             let  param = {
+                debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: 'wx3aee30a8da24ba55', // 必填，公众号的唯一标识
+                timestamp:config.timestamp, // 必填，生成签名的时间戳
+                nonceStr: config.noncestr, // 必填，生成签名的随机串
+                signature: config.sign,// 必填，签名，见附录1
+                jsApiList: [
+                    'onMenuShareAppMessage'
+                ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+
+              };
+              wx.config(param);
+              wx.ready(() => {
+                console.log('wx.ready');
+              });
+
+              wx.error(function (res) {
+
+                console.log('wx err', res);
+
+                //可以更新签名
+              });
+              wx.checkJsApi({
+                  jsApiList: ['onMenuShareAppMessage'], // 需要检测的JS接口列表，此处为分享到朋友圈接口示例
+                  success: function(res) {
+                  // 以键值对的形式返回，可用的api值true，不可用为false
+                  // 如：{"checkResult":{"onMenuShareTimeline":true},"errMsg":"checkJsApi:ok"}
+                        alert(res);
+                  }
+                });
+                //分享链接
+                wx.onMenuShareAppMessage({
+                    //请求成功要做的事
+                    title: '12分享标题', // 分享标题
+                    desc: '123分享副标题',
+                    link: 'http://m.dian7.net/mobile-split',
+                    imgUrl: indexbg,
+                    trigger: function (res) {
+                      //alert('用户点击发送给朋友');
+                    },
+                    success: function (res) {
+                      alert('成功');
+                    },
+                    cancel: function (res) {
+                      alert('已取消');
+                    },
+                    fail: function (res) {
+                      alert(res.errMsg);
+                    }
+                });
+            })    
+      })  
       }
 
 

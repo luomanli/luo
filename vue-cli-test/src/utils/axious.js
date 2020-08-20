@@ -50,11 +50,8 @@ axios.defaults.baseURL = '';
 
 export function get(url, params) {
     return new Promise((resolve, reject) => {
-        axios({
-                url: url,
-                method: 'get',
-                data: params
-
+        axios.get(url, {
+                params: params
             })
             .then(response => {
                 resolve(response.data);

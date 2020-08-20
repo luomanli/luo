@@ -1,15 +1,21 @@
 <template>
   <div class="dialog__wrapper flex_center" v-if="true">
   <div class='content'>
-    <div class='title'>
-          <div class="count" v-if="true">目前活动库存为0,详情请联系客服</div>
+        <div class="count"  >
+                <sapn>
+                目前活动库存为0,详情请联系客服
+                </sapn>
+        
+        </div>
 
-        <div class='flex'>
-            <img  class="icon1" :src="img" />
+    <div class='title'>
+
+        <div class='flex_center'>
+            <img  class="icon1" src="../../assets/img/icon/service.png" />
             <span class='font15'>客服小宝</span>
         </div>
         <div class='flex'>
-            <img  class="icon2" :src="img" />
+            <img  class="icon2" src="../../assets/img/icon/phoneNum.png" />
             <span class='font12'>16525698746</span>
         </div>
     </div>
@@ -26,6 +32,8 @@
 </template>
 
 <script>
+
+
 export default {
   name: 'post',
   data(){
@@ -53,12 +61,15 @@ export default {
 
 <style scoped>
 .count{
+    margin-top:30px;
+    text-align:center;
     width:245px;
-height:37px;
-background:rgba(242,242,245,1);
-border-radius:7px;
-font-size:15px;
-line-height: 37px;;
+    height:37px;
+    background:rgba(242,242,245,1);
+    border-radius:7px;
+    font-size:15px;
+    line-height: 37px;
+    margin:17px auto;
 }
 .dialog__wrapper{
     position:fixed;
@@ -77,17 +88,18 @@ line-height: 37px;;
 }
 .icon1{
     width:29px;
-height:26px;
+height:29px;
 vertical-align:middle;
+margin-right:8px;
 }
 .icon2{
 width:16px;
 height:16px;
-background:rgba(91,178,242,1);
+
 vertical-align:middle;
 }
 .footer{
-    font-size:14px;
+    font-size:10px;
     text-align:center;
     color:rgba(160,162,166,1);
     margin:0 40px;
@@ -95,16 +107,18 @@ vertical-align:middle;
 }
 
 .QRcode{
-    width:223px;
-    height:224px;
+    width:171px;
+    height:171px;
     
 
 }
 .content{
-     height:344px;
+     height:326px;
     width:316px;
+    padding-top:0px;
     background-color:white;
      margin:0 auto;
+     border-radius:7px;
 }
 .contain{
     height:100%;
@@ -123,11 +137,12 @@ vertical-align:middle;
 }
 .title{
     margin:10px 30px;
+    margin-top:0px;
     display:flex;
     flex-direction:row;
     justify-content:space-between;
     align-items:center;
-    height:50px;
+    height:29px;
 }
 
 .voice{
@@ -138,8 +153,8 @@ vertical-align:middle;
 
 .post{
     margin:0 auto;
-    width:223px;
-    height:224px;
+    width:171px;
+    height:171px;
     margin-bottom:12px;
     text-align:center;
 }
