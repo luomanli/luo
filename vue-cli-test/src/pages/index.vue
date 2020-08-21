@@ -9,7 +9,7 @@
               <div style='font-size:10px;line-height:14px;height:14px'>距离活动结束</div>
 
                <van-count-down ref="countDown" millisecond
-                    :time="backTime" :auto-start="false" format="HH:mm:ss:SS"
+                    :time="backTime" :auto-start="true" format="HH:mm:ss:SS"
                     @finish="finish"/>
 
               <!-- <div class='time'>{{backTime}}</div> -->
@@ -856,7 +856,8 @@ color:#E40000;
   height: 65px;
   
 background-size:375px 65px;
-  background-image:url("http://m.dian7.net/mobile-split/img/bg/indexbg.png");
+  /* background-image:url("http://m.dian7.net/mobile-split/img/bg/indexbg.png"); */
+  background-image:url("../assets/img/bg/indexbg.png");
 
 }
 

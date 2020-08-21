@@ -77,8 +77,8 @@ export default {
 
    created() {
      
-    this.open();
-   
+    // this.open();
+   console.log("cdsguhcjnmpldsckpss")
               
   },
   mounted(){
@@ -93,8 +93,10 @@ export default {
  components: { company},
 
   methods:{
+    // 打开code
     open(){
-      if(window.location.href.indexOf('code')<0){
+       const code = qs.parse(window.location.search.substr(1)).code;
+      if(window.location.href.indexOf('code')<0 && !code){
           let host='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=1&connect_redirect=1#wechat_redirect'
             window.location.href=host
 
@@ -166,8 +168,11 @@ export default {
         //个人信息查询
          getUser(){
               const code = qs.parse(window.location.search.substr(1)).code;
-              this.setRelationShip();
-              this.getQrcode();
+              // this.setRelationShip();
+              // this.getQrcode();
+
+
+              window.location.href=window.location.href.split('?')[0]
               this.$post('weChat/record/userInfo?code='+code,{}).then((data)=>{
                     this.openId=data.data
                     this.push({

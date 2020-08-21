@@ -21,48 +21,77 @@ import user from '@/pages/user'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     mode: 'hash',
     routes: [{
             path: '/index',
             name: 'index',
+            meta:{
+                title:"活动首页"
+            },
             component: index
         },
         {
             path: '/',
             name: 'post',
+            meta:{
+                title:"海报"
+            },
             // redirect: 'user',
             component: post
         },
         {
             path: '/transNotic',
             name: 'transNotic',
+            meta:{
+                title:"海报"
+            },
+
             component: transNotic
         },
 
         {
             path: '/bindPhone',
             name: 'bindPhone',
+            meta:{
+                title:"海报"
+            },
+
             component: bindPhone
         },
         {
             path: '/activityOrder',
+            meta:{
+                title:"海报"
+            },
             name: 'activityOrder',
             component: activityOrder
         },
         {
             path: '/activity',
             name: 'activity',
+            meta:{
+                title:"海报"
+            },
+
             component: activity
         },
         {
             path: '/businessCenter',
             name: 'businessCenter',
+            meta:{
+                title:"海报"
+            },
+
             component: businessCenter
         },
         {
             path: '/verifiCode',
             name: 'verifiCode',
+            meta:{
+                title:"海报"
+            },
+
             component: verifiCode
         },
         {
@@ -122,5 +151,14 @@ export default new Router({
 
         }
 
-    ]
+    ],
+    
 })
+router.beforeEach((to, from, next) => {
+    if (to.meta.title) {//如果设置标题，拦截后设置标题
+      document.title = to.meta.title
+    }
+    next()
+  })
+
+  export default router;
