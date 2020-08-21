@@ -14,47 +14,58 @@
 </template>
 
 <script>
+import qs from'qs'
 export default {
   name: 'buyKown',
   data(){
       return{
             name:'name',
             ContentData:"",
-            time:'2647823492'
+            time:'2647823492',
+            openId:""
       }
   },
   mounted(){
-    //   this.open(),
-        // this.getUser();
-        var str0 = "2020/8/15 22:00:00";
-        var str1 = "2020/8/14 10:00:00";
-        this.countTime(str0,str1)
+      this.open();
+    // this.getUser();
+        // var str0 = "2020/8/15 22:00:00";
+        // var str1 = "2020/8/14 10:00:00";
+        // this.countTime(str0,str1)
   },
   methods:{
              open(){
                 if(window.location.href.indexOf('code')<0){
-                    let host='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=1&connect_redirect=1#wechat_redirect'
+
+                    let url="http://m.dian7.net/mobile-split/#/user"
+                    url=encodeURIComponent(url);
+                    let host='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri='+url+'&response_type=code&scope=snsapi_userinfo&state=1&connect_redirect=1#wechat_redirect'
                         window.location.href=host
+                      
+                    }else{
+                var _url = window.location.protocol + '//' + window.location.host + '/#/user?id=123';
+                    window.history.pushState({},0, _url)
+             }
+          },
 
-                            }else{
-
-                            }
-             },
-
-          getUser(){
-              const code = qs.parse(window.location.search.substr(1)).code; 
+          getUser(){     
+             let code = qs.parse(window.location.search.substr(1).split("#")[0]).code; 
               this.$post('weChat/record/userInfo?code='+code,{}).then((data)=>{
                     this.openId=data.data
-                    this.toOri();
-                      console.log('11111'+data)                 
-                  })
-
+                    alert("openId"+this.openId)
+                     this.$router.push({
+                      name:"post1",
+                      query:{
+                          id: this.openId,                      
+                      }
+                    })             
+                  })     
          },
          toOri(){
                      this.push({
                       name:"post"
                     })
          },
+         finish(){},
         //时间
       countTime(startStr, endStr) {
             //获取当前时间  

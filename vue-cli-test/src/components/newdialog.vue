@@ -19,7 +19,7 @@ export default {
             
       }
   },
-  propos:{
+  props:{
       flag:{
           type:Boolean,
           default:false

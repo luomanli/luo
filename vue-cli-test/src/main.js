@@ -25,10 +25,11 @@ import params from './utils/params'
 import store from './store/index.js'
 import VueClipboard from 'vue-clipboard2'
 import { CountDown } from 'vant';
+import { Overlay } from 'vant';
 
+Vue.use(Overlay);
 Vue.use(CountDown);
 Vue.use(VueClipboard)
-
 Vue.use(Icon);
 Vue.use(NumberKeyboard);
 Vue.use(Form);

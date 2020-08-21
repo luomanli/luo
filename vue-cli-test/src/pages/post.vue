@@ -8,9 +8,6 @@
             
             <div class='font'>关注公号 即是接受奖励到账通知</div>
         </div>
-        <div class='follow' @click="buy0">
-            goumai
-         </div>
           <div class='follow' @click="follow">
             关注
          </div>
@@ -67,6 +64,7 @@ export default {
             flag:false,
             qrcode:'',
             postImg:'../assets/img/bg/post.png',
+            sharer:""
       }
   },
   watch:{
@@ -76,9 +74,17 @@ export default {
   },
 
    created() {
-     
-    // this.open();
-   console.log("cdsguhcjnmpldsckpss")
+      //上级id绑定关系
+      
+        let id=qs.parse(location.href.split('#')[1].substr(2)).id;
+        this.sharer=id;
+           alert('res_id'+id+"--window==="+window.location.href)
+            alert('sharer=='+this.sharer)
+          this.open();
+    //
+ 
+    
+
               
   },
   mounted(){
@@ -87,7 +93,7 @@ export default {
       // this.getPay();
       // this.getQrcode();
       // this.getPost();
-
+      this.getConfig()
  
   },
  components: { company},
@@ -95,14 +101,27 @@ export default {
   methods:{
     // 打开code
     open(){
-       const code = qs.parse(window.location.search.substr(1)).code;
-      if(window.location.href.indexOf('code')<0 && !code){
+      //  const code = this.$route.query.code;
+      //  code="sdfs"
+      //  console.log("code==",code)
+      //  const c = qs.parse(window.location.search.substr(1)).c;
+      //   alert("code"+code)
+      // if(!code){
+      //    this.$router.push({
+      //     name:"user"
+      //   })
+         
+   
+      if(window.location.href.indexOf('code')<0 ){
           let host='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=1&connect_redirect=1#wechat_redirect'
             window.location.href=host
 
       }else{
 
       }
+    
+       
+      
         
     },
       //马上关注
@@ -124,15 +143,9 @@ export default {
       //分销关系绑定
       setRelationShip(){
           
-            let param=qs.parse(window.location.search.substr(1)).state;
-            let obj = sessionStorage.getItem("allJson");  
-            if(obj){
-                  this.sharer=JSON.parse(obj).sharerAccount
-                  this.activityId=JSON.parse(obj).activityId
-            }   
           
-               alert('sessionStorage-----'+obj+ this.sharer+this.activityId);
-
+          let id=qs.parse(window.location.search.substr(1)).id;
+           alert('sharer=='+sharer)
           this.$post('/user/relationship/bindSharer?sharerAccount='+this.sharer+'&yourAccount='
           +this.openId+'&activityId='+this.activityId).then(
            (res)=>{
@@ -168,21 +181,21 @@ export default {
         //个人信息查询
          getUser(){
               const code = qs.parse(window.location.search.substr(1)).code;
-              // this.setRelationShip();
-              // this.getQrcode();
-
-
-              window.location.href=window.location.href.split('?')[0]
+            
+              // this.getQrcode();                
               this.$post('weChat/record/userInfo?code='+code,{}).then((data)=>{
                     this.openId=data.data
-                    this.push({
-                      name:"post"
-                    })
+                    
+                  //改变url
+                    var _url = window.location.protocol + '//' + window.location.host + '/mobile-split/#/user?id='+this.openId;
+                    window.history.pushState({},0, _url)
+
                       // window.location.href= window.location.protocol + window.location.host
                       console.log('11111'+data)
                           //  this.getSub();
-                           this.getPost();
-                  })
+                      this.setRelationShip();
+                      this.getPost();
+              })
 
          },
       //支付接口测试
@@ -286,13 +299,13 @@ export default {
       getConfig(){
         let ticket='';
         let config={};
-    this.$get('/weChat/get/ticket').then((data)=>{
-        ticket=data.ticket
-        console.log('data.ticket',data.ticket)
+        this.$get('/weChat/get/ticket').then((data)=>{
+                  ticket=data.ticket
+                  console.log('data.ticket',data.ticket)
 
-    }).then(()=>{    
-            alert('location.href.split[0]'+location.href.split('#')[0])
-              let data0={
+              }).then(()=>{    
+                alert('location.href.split[0]'+location.href.split('#')[0])
+                let data0={
                 "url":location.href.split('#')[0],
                 // "url":"localhost:8080/",
                 "jsapi_ticket":ticket,    
@@ -340,7 +353,7 @@ export default {
                     //请求成功要做的事
                     title: '12分享标题', // 分享标题
                     desc: '123分享副标题',
-                    link: 'http://m.dian7.net/mobile-split',
+                    link: 'http://m.dian7.net/mobile-split/#/?&id='+this.openId,
                     imgUrl: indexbg,
                     trigger: function (res) {
                       //alert('用户点击发送给朋友');

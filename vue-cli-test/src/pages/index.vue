@@ -9,10 +9,10 @@
               <div style='font-size:10px;line-height:14px;height:14px'>距离活动结束</div>
 
                <van-count-down ref="countDown" millisecond
-                    :time="backTime" :auto-start="true" format="HH:mm:ss:SS"
+                    :time="backTime" :auto-start="false" format="HH:mm:ss:SS"
                     @finish="finish"/>
 
-              <!-- <div class='time'>{{backTime}}</div> -->
+               <div class='time'>{{backTime}}</div> 
           </div>
         </div>
         <div class="old_price">原价:1788{{activityMsg.originalPrice}}</div>
@@ -47,7 +47,7 @@
 
     <div class="peoNum" v-if="" > 
      <div class="peoNum_left flex-between">
-     <div class="peoNum_item" v-for='i in n'>
+     <div class="peoNum_item flex_center" v-for='i in n'>
         <img class="icon_crown" :src="kingUrl+i+'.png'" alt="">
         <img class="peo" :src="imgVirUrl+vpeo[i]" alt="">
      </div>
@@ -55,7 +55,7 @@
     
      </div>
       <div class="peoNum_right flex-between">
-     <div class="more">
+     <div class="more flex_center">
        
              <img class="more_img one" :src="imgVirUrl+vpeo[4]"/>
          
@@ -132,7 +132,7 @@
     </div>
      <div class='moneyReward' @click="goPost">
             <img  class="money_img" src="../assets/img/money.png" alt="">
-              <!-- <div style='text-align:center'>￥1.5</div> -->
+           
       </div>
 
   
@@ -145,12 +145,13 @@
       </div>
       <div class='flex_center' >
             <img class='custom' :src="custom" @click="goCustom">
-            <div class='buy' @click="buy1">{{buyMessage}}</div>   
+            <div class='buy' @click="buy">{{buyMessage}}</div>   
         </div>
     </div>
      <phone v-if="true" ></phone>
-     <concatService v-if="service"  :flag="false"></concatService>
-
+        <van-overlay :show="serviceCus" class="flex_center" @click="close($event)" >
+            <concatService ref="msk"></concatService>
+        </van-overlay>
   </div>
   
   
@@ -201,20 +202,57 @@ export default {
       openId:'o07hhuFlqxqWVDSGZTDuYZl50wNQ',
       orderId:'',
       cancle:false,
-      buyMessage:"立即购买",//购买状态  "活动结束"
+      buyMessage:"立即购买",//购买状态  "活动结束",
+      serviceCus:false,
+      orderStyle:'1',
+      tradeType:"JSAPI"
+
+      
+
     }
   },
   mounted(){
+    this.open()
+    this.getUser()
     this.getdata();
     console.log("this.$randomPeo",this.$randomPeo(5))
     let vpeo=this.$randomPeo(5);
-     var str0 = "2020/8/15 22:00:00";
-        var str1 = "2020/8/25 10:00:00";
-        this.countTime(str0,str1)
+    var str0 = "2020/8/15 22:00:00";
+    var str1 = "2020/8/25 10:00:00";
+    this.countTime(str0,str1)
 
   },
  components: { reveRank ,company,nopay,phone,concatService},
   methods:{
+    finish(){
+
+    },
+    open(){
+        if(window.location.href.indexOf('code')<0 ){
+                   let url="http://m.dian7.net/mobile-split/#/index"
+                    url=encodeURIComponent(url);
+                    let host='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri='+url+'&response_type=code&scope=snsapi_userinfo&state=1&connect_redirect=1#wechat_redirect'
+                    window.location.href=host
+      }else{
+
+      }
+    },
+
+        //个人信息查询
+         getUser(){
+              const code = qs.parse(window.location.search.substr(1)).code;
+              // this.setRelationShip();
+              // this.getQrcode()
+              window.location.href=window.location.href.split('?')[0]+"?c=123"
+              this.$post('weChat/record/userInfo?code='+code,{}).then((data)=>{
+                    this.openId=data.data                 
+                      // window.location.href= window.location.protocol + window.location.host
+                      console.log('11111'+data)
+                 
+                  })
+
+         },
+
     getdata(){
       console.log('123333'+this.axios)
       this.$get('/activity/mobile/').then(
@@ -256,7 +294,7 @@ export default {
              name:'post'
            }
          )
-         return
+       
          this.openId=1;
          this.activityMsg={}
          this.activityMsg.uid=51
@@ -265,22 +303,20 @@ export default {
            activityId:this.activityMsg.uid
           //  postId:this.activityMsg.uid
            }; 
-         params=JSON.stringify(params)
+          params=JSON.stringify(params)
           this.$store.commit('setValue', this.openId);    
-    alert("getValue"+this.$store.getters.getValue )
+           alert("getValue"+this.$store.getters.getValue )
           sessionStorage.setItem("allJson",params);
           localStorage.setItem("allJson",params);
-
+        return
       // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect
       let host='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3aee30a8da24ba55&redirect_uri=http://m.dian7.net/mobile-split&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect'
-    alert("params"+encodeURIComponent(params))
-    host =host.replace( "STATE", encodeURIComponent(params) )
-    
-this.gopost=host
-     alert("host"+host)
-    console.log("host",host)
-    // host="http://baidu.com"
-    window.location.href=host
+       alert("params"+encodeURIComponent(params))
+      host =host.replace( "STATE", encodeURIComponent(params) )
+      alert("host"+host)
+      console.log("host",host)
+        // host="http://baidu.com"
+        window.location.href=host
     },
     goComp(){
       this.comp=true
@@ -305,9 +341,6 @@ this.gopost=host
             this.service=true;
             return;
         }
-
-
-
         if(this.activityMsg.isPaidFill){
                this.$router.push({
                  name:'bindPhone',
@@ -328,7 +361,7 @@ this.gopost=host
         }
     },
     //
-       buy(){
+    buy(){
           console.log('11111'+this.openId)
           const code = qs.parse(window.location.search.substr(1)).code;
           // let params={
@@ -342,8 +375,8 @@ this.gopost=host
               "dsff":'d',
               "dsfafa":"dsfw"
               }
-            
-        let url='/orderForm/new/byCode?activityId=52&openId='+this.openId+'&orderStyle=1&tradeType=JSAPI'
+              //参数类型待定
+        let url=`/orderForm/new/byOpenId?activityId=52&openId=${this.openId}&orderStyle=${this.orderStyle}&tradeType=${this.tradeType}`
         this.$post(url, body).then((data)=>{          
                       console.log(data)
                       let obj=data.data;
@@ -362,6 +395,7 @@ this.gopost=host
         },
            //支付接口测试
       onBridgeReady(obj) {
+         
         WeixinJSBridge.invoke(
             'getBrandWCPayRequest', obj,
             function(res) {
@@ -372,7 +406,7 @@ this.gopost=host
                     //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
                 }
                if (res.err_msg == "get_brand_wcpay_request:cancle") {                
-                  this.cancle=true;
+                        this.cancle=true;
                 }
             })
       },
@@ -460,12 +494,17 @@ this.gopost=host
 
             //客服
             goCustom(){
-              this.service=true;
+              this.serviceCus=true;
             },
             //建议
             advice(){
                 let url="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5MzQxMjA1MQ==&scene=110#wechat_redirect"
-        window.location.herf=url
+                window.location.herf=url
+            },
+            close(ev){
+              if (!this.$refs.msk.$el.contains(ev.target)) {
+        　　　　　　this.serviceCus = false;
+        　　　　}
             }
  
 
@@ -495,6 +534,7 @@ p{
 }
 .peoNum_item{
   position:relative;
+  
 }
 .icon_crown{
   position:absolute;

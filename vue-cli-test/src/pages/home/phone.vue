@@ -1,27 +1,37 @@
 <template>
 
+     <div  class="dialog__wrapper " v-if="cashFlag" >
+           
+           
+             
+               
+        
+
+
   
-    <newdialog v-if="cashFlag" @click="()=>{}">
+
         <div class="content" >
             <img  class="phoneNum" :src="phone"/>
             <div class="title">手机号验证</div>
            
             <div class="sub_title">请绑定手机号、查询订单</div>
-            <div class="flex">
-                <input type="text" v-model="phone" class="phone_input" placeholder="请输入手机号"/>
-            
+            <div class="flex" @click="showkeyboard">
+                <input type="text" disabled v-model="phoneNum"  class="phone_input" placeholder="请输入手机号"/>
             </div>
              <div class="no" >
-             <span  v-if="no0">手机号错误 </span>
+                <span  v-if="no0">{{tips}}</span>
              </div>
-            <div class="flex-between message">
-                     <input type="text" v-model="code"  class="phone_input2" placeholder="请输入验证码"/>
+            <div class="flex-between message" >
+            <div  @click="showkeyboard1">
+
+                     <input type="text" v-model="code" disabled  class="phone_input2" placeholder="请输入验证码"/>
+            </div>
            
-            <el-button class="elBtn flex" :disabled="btnflag" :class='[btnflag==false?"btnactive":"nobtnactive"]' @click="getTime">{{message}}</el-button>
+                    <el-button class="elBtn flex" :disabled="btnflag" :class='[btnflag==false?"btnactive":"nobtnactive"]' @click="getTime">{{message}}</el-button>
 
             </div>
              <div  class="no" >      
-               <span  v-if="no1">验证码错误 </span>
+               <span  v-if="no1">{{tips2}}</span>
  
              </div>
            
@@ -32,7 +42,21 @@
         
         
         </div>
-    </newdialog>
+         <van-number-keyboard class="keyboard"
+                :show="show"
+                theme="custom"
+                @blur="show = false"
+                @input="onInput"
+                @delete="onDelete"
+                />
+          <van-number-keyboard class="keyboard"
+                :show="show1"
+                theme="custom"
+                @blur="show1 = false"
+                @input="onInput1"
+                @delete="onDelete1"
+                />
+           </div>
 
 </template>
 
@@ -44,6 +68,7 @@ export default {
   name: 'phone',
   data(){
       return{
+         
           phone,
             name:'name',
             img:'../../assets/logo1.jpg',
@@ -54,6 +79,13 @@ export default {
               no1:false,
               phone:'',
               code:'',
+            active:false,
+              phoneNum:'',
+              show:true,
+              show1:true,
+
+              tips:"",
+              tips2:"验证码错误"
 
 
 
@@ -62,7 +94,25 @@ export default {
 components: { newdialog,phone},
 
   methods:{
-        cancle(){
+        onInput(v){
+          this.phoneNum+=v;
+          console.log(v)
+        },
+        
+      onDelete(){
+          this.phoneNum=this.phoneNum.substr(0,(this.phoneNum.length-1))
+      },
+    onInput1(v){
+          this.code+=v;
+          console.log(v)
+        },
+        
+      onDelete1(){
+          this.code=this.code.substr(0,(this.code.length-1))
+      },
+
+
+    cancle(){
           this.cashFlag=false
       },
       openCash(){
@@ -71,21 +121,29 @@ components: { newdialog,phone},
       goHome(){
           
       },
+       showkeyboard1(){
+            this.show1=true
+      },
+      showkeyboard(){
+            this.show=true
+      },
         getTime(){
-            if(!this.phone){
+            if(!this.phoneNum){
                 this.no0=true
+                      this.tips="手机号码不能为空"
                 return;
-            }
-
+            
+          }else if(!(/^1[3456789]\d{9}$/.test(this.phoneNum))){
+              this.no0=true
+              this.tips="手机号码格式不正确"
+               return;
+          }
 
         this.getPhone()
         var timer = null;
         console.log('sdfeexd',this.message)
             var count = 60;
-          
-
             if ( this.message=="获取验证码") {
-                   
             timer = setInterval(()=>{
                     count--;
 
@@ -94,15 +152,17 @@ components: { newdialog,phone},
                     if (count <=0) {
                             clearInterval(timer); 
                              this.message='获取验证码' 
-                             this.btnflag=false;   
-                             
+                             this.btnflag=false;                          
                       }
                     },1000);
             }
             this.btnflag=true;
          },
+         phoneInput(){  
+                console.log("dsdfdgdg")
+         },
          getPhone(){
-             let url='/WeChat/sendCaptcha'
+             let url='/weChat/sendCaptcha'
 
                 this.$get(url,{
                     phone:this.phone,
@@ -117,22 +177,26 @@ components: { newdialog,phone},
 
          },
          checkPhoneAndCode(){
-                 let url='/WeChat/sendCaptcha'
+                 let url='/weChat/checkCaptcha'
 
                 this.$get(url,{
-                    phone:this.phone,
-                    aid:52,
-                    nickname:'lit'
+                    phoneNum:this.phoneNum,
+                    captcha:this.code,                 
                 }).then(
                     res=>{
-                        console.log('231')
+                        if(res.message="验证码错误"){
+                              this.tips2=res.message
+                              this.no2=true
+                        }                    
+                        console.log(res)
                     }
 
                 )
 
          }
 
-  }
+  },
+
 }
 </script>
 
@@ -242,7 +306,14 @@ border-radius:7px;
     margin-top:13px;
 
 }
+.keyboard{
+    font-size:10px;
+    height:200px;
+}
    .content{
+       position:relative;
+       top:75px;
+       margin:0 auto;
        text-align:center;
        width:249px;
         height:344px;
@@ -255,5 +326,14 @@ border-radius:7px;
     width:50px;
     height:60px;
 }
+.dialog__wrapper{
+    position:fixed;
+    top:0px;
+    left:0px;
+    bottom:0px;
+    right:0px;
+    background-color:rgba(0,0,0,.3);
 
+    
+}
 </style>

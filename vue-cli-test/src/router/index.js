@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import index from '@/pages/index'
 import post from '@/pages/post'
+import post1 from '@/pages/post1'
+
 import transNotic from '@/pages/home/transNotic'
 import bindPhone from '@/pages/home/bindPhone'
 import activity from '@/pages/gzh/activity'
@@ -20,31 +22,34 @@ import activityUser from '@/pages/gzh/activityUser'
 import user from '@/pages/user'
 
 Vue.use(Router)
-
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
 const router = new Router({
     mode: 'hash',
     routes: [{
             path: '/index',
             name: 'index',
-            meta:{
-                title:"活动首页"
+            meta: {
+                title: "活动首页"
             },
             component: index
         },
         {
             path: '/',
             name: 'post',
-            meta:{
-                title:"海报"
+            meta: {
+                title: "海报"
             },
-            // redirect: 'user',
+
             component: post
         },
         {
             path: '/transNotic',
             name: 'transNotic',
-            meta:{
-                title:"海报"
+            meta: {
+                title: "海报"
             },
 
             component: transNotic
@@ -53,16 +58,16 @@ const router = new Router({
         {
             path: '/bindPhone',
             name: 'bindPhone',
-            meta:{
-                title:"海报"
+            meta: {
+                title: "海报"
             },
 
             component: bindPhone
         },
         {
             path: '/activityOrder',
-            meta:{
-                title:"海报"
+            meta: {
+                title: "海报"
             },
             name: 'activityOrder',
             component: activityOrder
@@ -70,8 +75,8 @@ const router = new Router({
         {
             path: '/activity',
             name: 'activity',
-            meta:{
-                title:"海报"
+            meta: {
+                title: "海报"
             },
 
             component: activity
@@ -79,8 +84,8 @@ const router = new Router({
         {
             path: '/businessCenter',
             name: 'businessCenter',
-            meta:{
-                title:"海报"
+            meta: {
+                title: "海报"
             },
 
             component: businessCenter
@@ -88,8 +93,8 @@ const router = new Router({
         {
             path: '/verifiCode',
             name: 'verifiCode',
-            meta:{
-                title:"海报"
+            meta: {
+                title: "海报"
             },
 
             component: verifiCode
@@ -149,16 +154,22 @@ const router = new Router({
             name: 'user',
             component: user
 
+        },
+        {
+            path: '/post1',
+            name: 'post1',
+            component: post1
+
         }
 
     ],
-    
+
 })
 router.beforeEach((to, from, next) => {
-    if (to.meta.title) {//如果设置标题，拦截后设置标题
-      document.title = to.meta.title
+    if (to.meta.title) { //如果设置标题，拦截后设置标题
+        document.title = to.meta.title
     }
     next()
-  })
+})
 
-  export default router;
+export default router;

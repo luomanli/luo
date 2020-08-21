@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog__wrapper flex_center" v-if="true">
+ 
   <div class='content'>
         <div class="count"  >
                 <sapn>
@@ -28,7 +28,7 @@
      长按识别二维码联系我们 
     </div>
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -39,12 +39,13 @@ export default {
   data(){
       return{
             name:'name',
-             img:'../assets/logo1.jpg',
+            img:'../assets/logo1.jpg',
+         
           
       }
   },
-    propos:{
-      flag:{
+    props:{
+      show:{
           type:Boolean,
           default:false
 
